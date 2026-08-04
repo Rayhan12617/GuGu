@@ -2,7 +2,7 @@
 <html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GuGu the Bumblebee ($GuGu) | The Internet's Favorite Bumblebee on Solana</title>
     
     <!-- Tailwind CSS CDN -->
@@ -17,7 +17,7 @@
                         honey: '#FFC107',
                         darkBg: '#111111',
                         surface: '#1c1c1e',
-                        surfaceGlass: 'rgba(28, 28, 30, 0.75)',
+                        surfaceGlass: 'rgba(28, 28, 30, 0.85)',
                         amberGlow: 'rgba(255, 193, 7, 0.35)',
                     },
                     fontFamily: {
@@ -34,11 +34,11 @@
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-20px) rotate(5deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
                         },
                         pulseGlow: {
                             '0%, 100%': { boxShadow: '0 0 20px rgba(255, 212, 0, 0.4)' },
-                            '50%': { boxShadow: '0 0 40px rgba(255, 212, 0, 0.8)' },
+                            '50%': { boxShadow: '0 0 35px rgba(255, 212, 0, 0.7)' },
                         },
                         wiggle: {
                             '0%, 100%': { transform: 'rotate(-3deg)' },
@@ -47,7 +47,7 @@
                         drip: {
                             '0%': { transform: 'translateY(-10px)', opacity: '0' },
                             '50%': { opacity: '1' },
-                            '100%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(35px)', opacity: '0' },
                         }
                     }
                 }
@@ -71,45 +71,46 @@
             background-color: #111111;
             color: #ffffff;
             overflow-x: hidden;
-            cursor: default;
+            -webkit-tap-highlight-color: transparent;
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
         }
-        /* Custom Cursor */
-        .custom-cursor {
-            pointer-events: none;
-            position: fixed;
-            width: 32px;
-            height: 32px;
-            border: 2px solid #FFD400;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-            z-index: 9999;
-            box-shadow: 0 0 15px rgba(255, 212, 0, 0.5);
+        /* Custom Cursor - Hidden on Touch Devices */
+        @media (pointer: fine) {
+            .custom-cursor {
+                pointer-events: none;
+                position: fixed;
+                width: 32px;
+                height: 32px;
+                border: 2px solid #FFD400;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+                z-index: 9999;
+                box-shadow: 0 0 15px rgba(255, 212, 0, 0.5);
+            }
+            .cursor-dot {
+                pointer-events: none;
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background-color: #FFD400;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10000;
+            }
         }
-        .cursor-dot {
-            pointer-events: none;
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background-color: #FFD400;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10000;
-        }
-        /* Glassmorphism */
+        /* Glassmorphism optimized for mobile battery & performance */
         .glass-panel {
-            background: rgba(28, 28, 30, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(28, 28, 30, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 212, 0, 0.15);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        .glass-panel:hover {
+        .glass-panel:active {
             border-color: rgba(255, 212, 0, 0.4);
-            box-shadow: 0 12px 40px 0 rgba(255, 212, 0, 0.15);
         }
         /* Honeycomb Pattern Background */
         .honeycomb-bg {
@@ -119,112 +120,113 @@
         }
         /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #111111;
         }
         ::-webkit-scrollbar-thumb {
             background: #FFC107;
-            border-radius: 5px;
+            border-radius: 3px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #FFD400;
+        /* Mobile menu smooth slide transition */
+        #mobile-menu {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
 <body class="bg-darkBg text-white honeycomb-bg relative selection:bg-primary selection:text-black">
 
-    <!-- Custom Cursor Elements -->
+    <!-- Custom Cursor Elements (Desktop only) -->
     <div class="custom-cursor hidden md:block" id="cursor"></div>
     <div class="cursor-dot hidden md:block" id="cursor-dot"></div>
 
     <!-- PRELOADER -->
-    <div id="preloader" class="fixed inset-0 z-[10000] bg-[#111] flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="relative flex flex-col items-center">
-            <div class="w-32 h-32 rounded-full border-4 border-primary/20 border-t-primary animate-spin flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,212,0,0.4)]">
-                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu Logo" class="w-24 h-24 rounded-full object-cover animate-pulse">
+    <div id="preloader" class="fixed inset-0 z-[10000] bg-[#111] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative flex flex-col items-center px-6 text-center">
+            <div class="w-28 h-28 rounded-full border-4 border-primary/20 border-t-primary animate-spin flex items-center justify-center mb-5 shadow-[0_0_25px_rgba(255,212,0,0.4)]">
+                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu Logo" class="w-20 h-20 rounded-full object-cover animate-pulse">
             </div>
-            <h2 class="text-2xl font-bold font-heading text-primary tracking-wider mb-2">GUGU THE BUMBLEBEE</h2>
-            <p class="text-sm text-gray-400 mb-6 animate-pulse">Buzzing into the Solana Kingdom...</p>
-            <div class="w-64 h-2 bg-gray-800 rounded-full overflow-hidden border border-primary/30">
+            <h2 class="text-xl sm:text-2xl font-bold font-heading text-primary tracking-wider mb-2">GUGU THE BUMBLEBEE</h2>
+            <p class="text-xs sm:text-sm text-gray-400 mb-6 animate-pulse">Buzzing into the Solana Kingdom...</p>
+            <div class="w-56 sm:w-64 h-2 bg-gray-800 rounded-full overflow-hidden border border-primary/30">
                 <div id="loading-bar" class="h-full bg-gradient-to-r from-honey to-primary w-0 transition-all duration-300"></div>
             </div>
-            <span id="loading-percentage" class="text-xs font-mono text-primary mt-2">0%</span>
+            <span id="loading-percentage" class="text-xs font-mono text-primary mt-2 font-semibold">0%</span>
         </div>
     </div>
 
     <!-- BACKGROUND EFFECTS -->
     <!-- Honey Drips from top -->
-    <div class="absolute top-0 left-0 right-0 h-16 pointer-events-none overflow-hidden z-20 opacity-85 flex justify-around">
-        <div class="w-4 h-12 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip"></div>
-        <div class="w-6 h-20 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 1.2s;"></div>
-        <div class="w-3 h-10 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 0.5s;"></div>
-        <div class="w-5 h-16 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 2.1s;"></div>
-        <div class="w-4 h-14 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 0.9s;"></div>
+    <div class="absolute top-0 left-0 right-0 h-12 pointer-events-none overflow-hidden z-20 opacity-75 flex justify-around">
+        <div class="w-3 h-10 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip"></div>
+        <div class="w-5 h-16 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 1.2s;"></div>
+        <div class="w-3 h-8 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 0.5s;"></div>
+        <div class="w-4 h-12 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 2.1s;"></div>
     </div>
 
-    <!-- Floating Pollen / Dust Particles Container -->
+    <!-- Floating Pollen Particles Container -->
     <div id="particles-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden"></div>
 
     <!-- NAVBAR -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-8 py-4">
-        <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-3 flex items-center justify-between transition-all duration-300" id="nav-container">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 sm:px-8 py-3">
+        <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between transition-all duration-300 shadow-xl" id="nav-container">
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(255,212,0,0.5)]">
+            <a href="#" class="flex items-center space-x-2.5 group">
+                <div class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-primary shadow-[0_0_12px_rgba(255,212,0,0.5)]">
                     <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-full h-full object-cover">
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-heading font-extrabold text-lg tracking-wide text-white group-hover:text-primary transition-colors">GuGu</span>
-                    <span class="text-[10px] font-mono text-primary font-semibold tracking-widest uppercase">$GuGu</span>
+                    <span class="font-heading font-extrabold text-base sm:text-lg tracking-wide text-white">GuGu</span>
+                    <span class="text-[9px] sm:text-[10px] font-mono text-primary font-bold tracking-widest uppercase">$GuGu</span>
                 </div>
             </a>
 
             <!-- Desktop Nav Links -->
             <div class="hidden lg:flex items-center space-x-8 text-sm font-medium">
                 <a href="#home" class="text-gray-300 hover:text-primary transition-colors">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-primary transition-colors">About</a>
                 <a href="#market" class="text-gray-300 hover:text-primary transition-colors">Live Market</a>
+                <a href="#about" class="text-gray-300 hover:text-primary transition-colors">About</a>
                 <a href="#tokenomics" class="text-gray-300 hover:text-primary transition-colors">Tokenomics</a>
                 <a href="#roadmap" class="text-gray-300 hover:text-primary transition-colors">Roadmap</a>
                 <a href="#community" class="text-gray-300 hover:text-primary transition-colors">Community</a>
                 <a href="#faq" class="text-gray-300 hover:text-primary transition-colors">FAQ</a>
             </div>
 
-            <!-- Right-side CTAs -->
+            <!-- Right-side Desktop CTAs -->
             <div class="hidden sm:flex items-center space-x-3">
-                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-4 py-2 rounded-xl bg-surface border border-primary/20 text-white hover:border-primary text-xs font-semibold flex items-center space-x-2 transition-all hover:scale-105">
+                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-3.5 py-2 rounded-xl bg-surface border border-primary/20 text-white hover:border-primary text-xs font-semibold flex items-center space-x-2 transition-all">
                     <i class="fab fa-telegram-plane text-primary"></i>
                     <span>Telegram</span>
                 </a>
-                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-5 py-2 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center space-x-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,212,0,0.4)]">
+                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center space-x-2 transition-all shadow-[0_0_15px_rgba(255,212,0,0.4)]">
                     <i class="fa-solid fa-honey-pot"></i>
                     <span>Buy $GuGu</span>
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button id="menu-btn" class="lg:hidden text-primary focus:outline-none text-2xl">
-                <i class="fa-solid fa-bars"></i>
+            <!-- Mobile Menu Toggle Button (Larger touch target) -->
+            <button id="menu-btn" aria-label="Toggle Navigation Menu" class="lg:hidden text-primary p-2 focus:outline-none text-2xl active:scale-95 transition-transform">
+                <i class="fa-solid fa-bars" id="menu-icon"></i>
             </button>
         </div>
 
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto mt-2 glass-panel rounded-2xl p-6 flex flex-col space-y-4">
-            <a href="#home" class="mobile-link text-gray-200 hover:text-primary font-medium">Home</a>
-            <a href="#about" class="mobile-link text-gray-200 hover:text-primary font-medium">About</a>
-            <a href="#market" class="mobile-link text-gray-200 hover:text-primary font-medium">Live Market</a>
-            <a href="#tokenomics" class="mobile-link text-gray-200 hover:text-primary font-medium">Tokenomics</a>
-            <a href="#roadmap" class="mobile-link text-gray-200 hover:text-primary font-medium">Roadmap</a>
-            <a href="#community" class="mobile-link text-gray-200 hover:text-primary font-medium">Community</a>
-            <a href="#faq" class="mobile-link text-gray-200 hover:text-primary font-medium">FAQ</a>
-            <div class="pt-2 flex flex-col space-y-3">
-                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/20 text-center font-semibold text-sm flex items-center justify-center space-x-2">
-                    <i class="fab fa-telegram-plane text-primary"></i>
-                    <span>Join Telegram</span>
+        <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto mt-2 glass-panel rounded-2xl p-5 flex flex-col space-y-3.5 border border-primary/30 shadow-2xl">
+            <a href="#home" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>Home</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            <a href="#market" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>Live Market</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            <a href="#about" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>About Us</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            <a href="#tokenomics" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>Tokenomics</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            <a href="#roadmap" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>Roadmap</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            <a href="#community" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>Community</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            <a href="#faq" class="mobile-link text-gray-200 hover:text-primary font-medium py-1.5 flex items-center justify-between"><span>FAQ</span><i class="fa-solid fa-chevron-right text-xs text-primary/50"></i></a>
+            
+            <div class="pt-3 border-t border-white/10 flex flex-col space-y-2.5">
+                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/20 text-center font-semibold text-sm flex items-center justify-center space-x-2 active:bg-white/5">
+                    <i class="fab fa-telegram-plane text-primary text-base"></i>
+                    <span>Join Telegram Swarm</span>
                 </a>
-                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-center text-sm">
+                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-center text-sm shadow-[0_0_20px_rgba(255,212,0,0.4)]">
                     🐝 Buy $GuGu Now
                 </a>
             </div>
@@ -232,64 +234,65 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-4 overflow-hidden">
+    <section id="home" class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center pt-28 sm:pt-32 pb-16 px-4 overflow-hidden">
         <!-- Ambient Glowing Orbs -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-honey/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-honey/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20">
-            <!-- Left Column: Content -->
-            <div class="lg:col-span-7 text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-20 w-full">
+            
+            <!-- Left Column: Content (Appears first on mobile for conversion) -->
+            <div class="lg:col-span-7 text-center lg:text-left order-2 lg:order-1" data-aos="fade-right" data-aos-duration="800">
                 <!-- Badge -->
-                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-panel border border-primary/30 mb-6 shadow-[0_0_20px_rgba(255,212,0,0.2)]">
-                    <span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
-                    <span class="text-xs font-mono font-bold text-primary tracking-wider uppercase">Solana's Sweetest Meme Coin • $GuGu</span>
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-primary/30 mb-4 sm:mb-6 shadow-[0_0_15px_rgba(255,212,0,0.2)]">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                    <span class="text-[11px] sm:text-xs font-mono font-bold text-primary tracking-wider uppercase">Solana's Sweetest Meme Coin • $GuGu</span>
                 </div>
 
                 <!-- Title -->
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-black tracking-tight leading-tight mb-4">
-                    GuGu the <span class="text-transparent bg-clip-text bg-gradient-to-r from-honey via-primary to-amber-200 drop-shadow-[0_0_35px_rgba(255,212,0,0.5)]">Bumblebee</span>
+                <h1 class="text-3.5xl sm:text-6xl lg:text-7xl font-heading font-black tracking-tight leading-[1.1] mb-3 sm:mb-4">
+                    GuGu the <span class="text-transparent bg-clip-text bg-gradient-to-r from-honey via-primary to-amber-200 drop-shadow-[0_0_25px_rgba(255,212,0,0.4)]">Bumblebee</span>
                 </h1>
 
                 <!-- Subtitle -->
-                <p class="text-lg sm:text-xl font-medium text-primary/90 mb-4 italic">
+                <p class="text-base sm:text-xl font-medium text-primary/90 mb-3 sm:mb-4 italic px-2 sm:px-0">
                     "The Internet's Favorite Bumblebee is Now Buzzing in Web3."
                 </p>
 
                 <!-- Description -->
-                <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                <p class="text-gray-300 text-xs sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 px-1">
                     Inspired by one of the internet's most viral bumblebee moments, GuGu brings together memes, community, fun, and positive energy. No complicated promises—just good vibes, unforgettable memes, and a buzzing community.
                 </p>
 
-                <!-- CTA Buttons -->
-                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-8">
-                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-base flex items-center space-x-3 transition-all hover:scale-105 shadow-[0_0_30px_rgba(255,212,0,0.5)]">
+                <!-- CTA Buttons (Stack neatly on mobile) -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-8 w-full">
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-sm sm:text-base flex items-center justify-center space-x-3 transition-all active:scale-95 shadow-[0_0_25px_rgba(255,212,0,0.4)]">
                         <i class="fa-solid fa-honey-pot text-lg"></i>
                         <span>Buy $GuGu</span>
                     </a>
-                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-7 py-4 rounded-2xl glass-panel border border-primary/30 hover:border-primary text-white font-heading font-semibold text-base flex items-center space-x-3 transition-all hover:scale-105">
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full sm:w-auto px-7 py-4 rounded-2xl glass-panel border border-primary/30 hover:border-primary text-white font-heading font-semibold text-sm sm:text-base flex items-center justify-center space-x-3 transition-all active:scale-95">
                         <i class="fab fa-telegram-plane text-primary text-lg"></i>
                         <span>Join Telegram</span>
                     </a>
-                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="px-7 py-4 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 text-gray-300 hover:text-white font-heading font-semibold text-base flex items-center space-x-3 transition-all hover:scale-105">
+                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-full sm:w-auto px-7 py-4 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 text-gray-300 hover:text-white font-heading font-semibold text-sm sm:text-base flex items-center justify-center space-x-3 transition-all active:scale-95">
                         <i class="fa-solid fa-chart-line text-primary text-lg"></i>
                         <span>View Chart</span>
                     </a>
                 </div>
 
-                <!-- Contract Address Glass Card -->
-                <div class="glass-panel rounded-2xl p-4 max-w-xl mx-auto lg:mx-0 border border-primary/20">
+                <!-- Contract Address Glass Card (Mobile Optimized Text Wrapping) -->
+                <div class="glass-panel rounded-2xl p-3.5 sm:p-4 max-w-xl mx-auto lg:mx-0 border border-primary/20">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-mono text-gray-400 uppercase flex items-center space-x-1.5">
+                        <span class="text-[11px] font-mono text-gray-400 uppercase flex items-center space-x-1.5">
                             <i class="fa-solid fa-file-contract text-primary"></i>
                             <span>Contract Address (Solana)</span>
                         </span>
-                        <span class="text-[10px] font-mono bg-primary/20 text-primary px-2 py-0.5 rounded-md font-bold">VERIFIED</span>
+                        <span class="text-[9px] font-mono bg-primary/20 text-primary px-2 py-0.5 rounded font-bold">VERIFIED</span>
                     </div>
-                    <div class="flex items-center justify-between bg-black/40 rounded-xl p-3 border border-white/5">
-                        <span id="ca-text" class="text-xs sm:text-sm font-mono text-primary truncate mr-2">C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</span>
+                    <div class="flex items-center justify-between bg-black/50 rounded-xl p-2.5 sm:p-3 border border-white/5">
+                        <span id="ca-text" class="text-[11px] sm:text-sm font-mono text-primary truncate mr-2 select-all">C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</span>
                         <div class="flex items-center space-x-2 shrink-0">
-                            <button onclick="copyCA()" class="px-3 py-1.5 rounded-lg bg-primary text-black font-bold text-xs flex items-center space-x-1.5 hover:bg-honey transition-colors">
+                            <button onclick="copyCA()" class="px-3 py-1.5 rounded-lg bg-primary text-black font-bold text-xs flex items-center space-x-1 hover:bg-honey transition-colors active:scale-95">
                                 <i id="copy-icon" class="fa-regular fa-copy"></i>
                                 <span id="copy-text">Copy</span>
                             </button>
@@ -301,109 +304,110 @@
                 </div>
             </div>
 
-            <!-- Right Column: Pixar-Quality Mascot & Floating Bee Animation -->
-            <div class="lg:col-span-5 flex flex-col items-center justify-center relative" data-aos="fade-left" data-aos-duration="1000">
+            <!-- Right Column: Mascot Visual (Appears second on mobile) -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center relative order-1 lg:order-2 mb-4 lg:mb-0" data-aos="fade-left" data-aos-duration="800">
                 <!-- Glowing Backdrop Circle -->
-                <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-honey/30 to-primary/30 blur-2xl animate-pulse-glow"></div>
+                <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-honey/30 to-primary/30 blur-2xl animate-pulse-glow"></div>
                 
                 <!-- Main Mascot Container -->
                 <div class="relative z-10 animate-float">
-                    <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-3xl glass-panel p-4 border-2 border-primary/50 shadow-[0_0_50px_rgba(255,212,0,0.3)] overflow-hidden group">
-                        <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu the Bumblebee" class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
+                    <div class="w-64 h-64 sm:w-80 sm:h-80 rounded-3xl glass-panel p-3.5 border-2 border-primary/50 shadow-[0_0_40px_rgba(255,212,0,0.3)] overflow-hidden">
+                        <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu the Bumblebee" class="w-full h-full object-cover rounded-2xl">
                         <!-- Floating Honeycomb Badge overlay -->
-                        <div class="absolute bottom-6 left-6 right-6 glass-panel rounded-2xl p-3 flex items-center justify-between border border-primary/40">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-black font-black text-lg">🐝</div>
+                        <div class="absolute bottom-4 left-4 right-4 glass-panel rounded-2xl p-2.5 sm:p-3 flex items-center justify-between border border-primary/40">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-black font-black text-sm">🐝</div>
                                 <div>
-                                    <h4 class="font-heading font-bold text-sm text-white">GuGu Mascot</h4>
-                                    <p class="text-xs text-primary font-mono">Pixar-Grade Viral Energy</p>
+                                    <h4 class="font-heading font-bold text-xs sm:text-sm text-white">GuGu Mascot</h4>
+                                    <p class="text-[10px] text-primary font-mono">Pixar-Grade Energy</p>
                                 </div>
                             </div>
-                            <span class="animate-bounce text-primary text-xl">🍯</span>
+                            <span class="animate-bounce text-base">🍯</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Secondary Animated Flying Bee element -->
-                <div class="absolute -top-10 right-0 sm:-right-4 animate-wiggle z-20 pointer-events-none">
-                    <div class="glass-panel px-4 py-2 rounded-full border border-primary/40 flex items-center space-x-2 shadow-lg">
-                        <span class="text-lg">🐝</span>
-                        <span class="text-xs font-mono font-bold text-primary">Buzzing Live...</span>
+                <div class="absolute -top-4 right-2 sm:right-4 animate-wiggle z-20 pointer-events-none">
+                    <div class="glass-panel px-3 py-1.5 rounded-full border border-primary/40 flex items-center space-x-1.5 shadow-lg">
+                        <span class="text-sm">🐝</span>
+                        <span class="text-[10px] font-mono font-bold text-primary">Buzzing Live...</span>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
     <!-- LIVE MARKET SECTION -->
-    <section id="market" class="py-20 px-4 relative z-20">
+    <section id="market" class="py-16 px-4 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Real-Time Stats</span>
-                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Live Market & Ecosystem</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Track $GuGu across Solana decentralized exchanges and official portals instantly.</p>
+            <div class="text-center max-w-3xl mx-auto mb-12" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full border border-primary/25">Real-Time Stats</span>
+                <h2 class="text-2.5xl sm:text-4xl font-heading font-extrabold mt-3 mb-3">Live Market & Ecosystem</h2>
+                <p class="text-gray-400 text-xs sm:text-base">Track $GuGu across Solana decentralized exchanges and official portals instantly.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <!-- Card 1: Pump.fun -->
-                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20 hover:border-primary transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-lg">
                             <i class="fa-solid fa-rocket"></i>
                         </div>
-                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-green-500/20 text-green-400 font-bold">ACTIVE</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 font-bold">ACTIVE</span>
                     </div>
-                    <h3 class="font-heading font-bold text-lg mb-1">Pump.fun Launch</h3>
-                    <p class="text-xs text-gray-400 mb-6">Official bonding curve & trading portal for $GuGu.</p>
-                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                    <h3 class="font-heading font-bold text-base sm:text-lg mb-1">Pump.fun Launch</h3>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Official bonding curve & trading portal for $GuGu.</p>
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
                         <span>Buy on Pump.fun</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
 
                 <!-- Card 2: DexScreener -->
-                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20 hover:border-primary transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-lg">
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
-                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-bold">LIVE CHART</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-bold">LIVE CHART</span>
                     </div>
-                    <h3 class="font-heading font-bold text-lg mb-1">DexScreener</h3>
-                    <p class="text-xs text-gray-400 mb-6">Real-time price action, liquidity pools, and volume analytics.</p>
-                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                    <h3 class="font-heading font-bold text-base sm:text-lg mb-1">DexScreener</h3>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Real-time price action, liquidity pools, and volume analytics.</p>
+                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
                         <span>View Chart</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
 
                 <!-- Card 3: Solana Network -->
-                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20 hover:border-primary transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-lg">
                             <i class="fa-solid fa-bolt"></i>
                         </div>
-                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-400 font-bold">SOLANA</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 font-bold">SOLANA</span>
                     </div>
-                    <h3 class="font-heading font-bold text-lg mb-1">Lightning Fast</h3>
-                    <p class="text-xs text-gray-400 mb-6">Zero friction, ultra-low fees, and instant settlement on Solana.</p>
-                    <a href="https://solana.com" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                    <h3 class="font-heading font-bold text-base sm:text-lg mb-1">Lightning Fast</h3>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Zero friction, ultra-low fees, and instant settlement on Solana.</p>
+                    <a href="https://solana.com" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
                         <span>Solana Network</span>
                         <i class="fa-solid fa-globe"></i>
                     </a>
                 </div>
 
                 <!-- Card 4: Official Telegram -->
-                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20 hover:border-primary transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-lg">
                             <i class="fab fa-telegram-plane"></i>
                         </div>
-                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-400 font-bold">COMMUNITY</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold">COMMUNITY</span>
                     </div>
-                    <h3 class="font-heading font-bold text-lg mb-1">Telegram Swarm</h3>
-                    <p class="text-xs text-gray-400 mb-6">Join thousands of holders in the official viral community.</p>
-                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                    <h3 class="font-heading font-bold text-base sm:text-lg mb-1">Telegram Swarm</h3>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Join thousands of holders in the official viral community.</p>
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
                         <span>Open Telegram</span>
                         <i class="fab fa-telegram-plane"></i>
                     </a>
@@ -413,31 +417,32 @@
     </section>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="py-20 px-4 relative z-20">
+    <section id="about" class="py-16 px-4 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
                 <!-- Left: Visual Banner -->
                 <div class="lg:col-span-6 relative" data-aos="fade-right">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-honey/20 rounded-3xl blur-2xl"></div>
-                    <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative z-10">
-                        <div class="flex items-center space-x-4 mb-6">
-                            <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-16 h-16 rounded-full object-cover border-2 border-primary">
+                    <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-primary/30 relative z-10">
+                        <div class="flex items-center space-x-3.5 mb-5">
+                            <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-14 h-14 rounded-full object-cover border-2 border-primary">
                             <div>
-                                <h3 class="text-xl font-heading font-bold">The GuGu Phenomenon</h3>
+                                <h3 class="text-lg sm:text-xl font-heading font-bold">The GuGu Phenomenon</h3>
                                 <p class="text-xs font-mono text-primary">Viral Internet Sensation</p>
                             </div>
                         </div>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        <p class="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6">
                             GuGu wasn't manufactured in a corporate boardroom. Born from one of the most endearing and viral bumblebee moments on the internet, GuGu captured the hearts of millions with pure innocence, chubby cheeks, and unbridled joy.
                         </p>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
-                                <span class="text-2xl font-black text-primary font-heading block mb-1">100%</span>
-                                <span class="text-xs text-gray-400">Community Owned</span>
+                        <div class="grid grid-cols-2 gap-3.5">
+                            <div class="bg-black/40 rounded-2xl p-3.5 border border-white/5 text-center sm:text-left">
+                                <span class="text-xl sm:text-2xl font-black text-primary font-heading block mb-0.5">100%</span>
+                                <span class="text-[11px] text-gray-400">Community Owned</span>
                             </div>
-                            <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
-                                <span class="text-2xl font-black text-primary font-heading block mb-1">0%</span>
-                                <span class="text-xs text-gray-400">Tax / Hidden Fees</span>
+                            <div class="bg-black/40 rounded-2xl p-3.5 border border-white/5 text-center sm:text-left">
+                                <span class="text-xl sm:text-2xl font-black text-primary font-heading block mb-0.5">0%</span>
+                                <span class="text-[11px] text-gray-400">Tax / Hidden Fees</span>
                             </div>
                         </div>
                     </div>
@@ -445,172 +450,175 @@
 
                 <!-- Right: Why GuGu features -->
                 <div class="lg:col-span-6" data-aos="fade-left">
-                    <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Why GuGu?</span>
-                    <h2 class="text-3xl sm:text-4xl font-heading font-extrabold mt-4 mb-6">Built for Maximum Buzz & Good Vibes</h2>
-                    <p class="text-gray-300 text-sm mb-8">We combine top-tier Pixar-quality meme branding with the blinding speed and zero friction of the Solana blockchain.</p>
+                    <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full border border-primary/25">Why GuGu?</span>
+                    <h2 class="text-2.5xl sm:text-4xl font-heading font-extrabold mt-3 mb-4">Built for Maximum Buzz & Good Vibes</h2>
+                    <p class="text-gray-300 text-xs sm:text-sm mb-6">We combine top-tier Pixar-quality meme branding with the blinding speed and zero friction of the Solana blockchain.</p>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <!-- Feature 1 -->
-                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
-                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">🐝</div>
-                            <h4 class="font-heading font-bold text-base mb-1">Viral Meme</h4>
-                            <p class="text-xs text-gray-400">Rooted in genuine viral culture that resonates across TikTok, IG, and X.</p>
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                            <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">🐝</div>
+                            <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Viral Meme</h4>
+                            <p class="text-[11px] sm:text-xs text-gray-400">Rooted in genuine viral culture that resonates across platforms.</p>
                         </div>
                         <!-- Feature 2 -->
-                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
-                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">🍯</div>
-                            <h4 class="font-heading font-bold text-base mb-1">Sweet Community</h4>
-                            <p class="text-xs text-gray-400">A warm, welcoming hive where holders support each other and spread positivity.</p>
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                            <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">🍯</div>
+                            <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Sweet Community</h4>
+                            <p class="text-[11px] sm:text-xs text-gray-400">A warm, welcoming hive where holders support each other.</p>
                         </div>
                         <!-- Feature 3 -->
-                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
-                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">🚀</div>
-                            <h4 class="font-heading font-bold text-base mb-1">Fast Growing</h4>
-                            <p class="text-xs text-gray-400">Leveraging Solana's high-speed architecture for explosive viral momentum.</p>
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                            <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">🚀</div>
+                            <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Fast Growing</h4>
+                            <p class="text-[11px] sm:text-xs text-gray-400">Leveraging Solana's high-speed architecture for momentum.</p>
                         </div>
                         <!-- Feature 4 -->
-                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
-                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">💎</div>
-                            <h4 class="font-heading font-bold text-base mb-1">Diamond Hands</h4>
-                            <p class="text-xs text-gray-400">Committed swarm members dedicated to building a legendary meme legacy.</p>
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                            <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">💎</div>
+                            <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Diamond Hands</h4>
+                            <p class="text-[11px] sm:text-xs text-gray-400">Committed swarm members dedicated to building a legacy.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- TOKENOMICS SECTION -->
-    <section id="tokenomics" class="py-20 px-4 relative z-20">
+    <section id="tokenomics" class="py-16 px-4 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Tokenomics</span>
-                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Sweet & Transparent</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Designed for sustainable growth, fair distribution, and maximum community reward.</p>
+            <div class="text-center max-w-3xl mx-auto mb-12" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full border border-primary/25">Tokenomics</span>
+                <h2 class="text-2.5xl sm:text-5xl font-heading font-extrabold mt-3 mb-3">Sweet & Transparent</h2>
+                <p class="text-gray-400 text-xs sm:text-base">Designed for sustainable growth, fair distribution, and maximum community reward.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                
                 <!-- Left: Key Stats Cards -->
-                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6" data-aos="fade-right">
-                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
-                        <span class="text-xs font-mono text-gray-400 uppercase">Total Supply</span>
-                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-primary mt-1 mb-2">1,000,000,000</h3>
-                        <p class="text-xs text-gray-400">One billion sweet bumblebees ready to take over Solana.</p>
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" data-aos="fade-right">
+                    <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20">
+                        <span class="text-[11px] font-mono text-gray-400 uppercase">Total Supply</span>
+                        <h3 class="text-xl sm:text-2.5xl font-heading font-black text-primary mt-1 mb-1">1,000,000,000</h3>
+                        <p class="text-[11px] text-gray-400">One billion sweet bumblebees ready for Solana.</p>
                     </div>
-                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
-                        <span class="text-xs font-mono text-gray-400 uppercase">Buy / Sell Tax</span>
-                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-primary mt-1 mb-2">0% / 0%</h3>
-                        <p class="text-xs text-gray-400">Zero friction trading. What you buy is what you get.</p>
+                    <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20">
+                        <span class="text-[11px] font-mono text-gray-400 uppercase">Buy / Sell Tax</span>
+                        <h3 class="text-xl sm:text-2.5xl font-heading font-black text-primary mt-1 mb-1">0% / 0%</h3>
+                        <p class="text-[11px] text-gray-400">Zero friction trading. What you buy is yours.</p>
                     </div>
-                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
-                        <span class="text-xs font-mono text-gray-400 uppercase">Liquidity Pool</span>
-                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-primary mt-1 mb-2">Burned</h3>
-                        <p class="text-xs text-gray-400">LP tokens permanently burned for absolute rug-proof safety.</p>
+                    <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20">
+                        <span class="text-[11px] font-mono text-gray-400 uppercase">Liquidity Pool</span>
+                        <h3 class="text-xl sm:text-2.5xl font-heading font-black text-primary mt-1 mb-1">Burned</h3>
+                        <p class="text-[11px] text-gray-400">LP tokens permanently burned for absolute safety.</p>
                     </div>
-                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
-                        <span class="text-xs font-mono text-gray-400 uppercase">Contract</span>
-                        <h3 class="text-lg font-heading font-black text-primary mt-1 mb-2 truncate">Renounced</h3>
-                        <p class="text-xs text-gray-400">Fully decentralized and community-governed swarm.</p>
+                    <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20">
+                        <span class="text-[11px] font-mono text-gray-400 uppercase">Contract</span>
+                        <h3 class="text-base sm:text-lg font-heading font-black text-primary mt-1 mb-1 truncate">Renounced</h3>
+                        <p class="text-[11px] text-gray-400">Fully decentralized community swarm.</p>
                     </div>
                 </div>
 
                 <!-- Right: Distribution Progress Bars -->
-                <div class="lg:col-span-6 glass-panel rounded-3xl p-8 border border-primary/30" data-aos="fade-left">
-                    <h3 class="text-xl font-heading font-bold mb-6 flex items-center space-x-2">
+                <div class="lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 border border-primary/30" data-aos="fade-left">
+                    <h3 class="text-lg sm:text-xl font-heading font-bold mb-5 flex items-center space-x-2">
                         <span>🍯</span>
                         <span>Token Distribution</span>
                     </h3>
 
-                    <div class="space-y-6">
+                    <div class="space-y-5">
                         <div>
-                            <div class="flex justify-between text-sm font-semibold mb-2">
+                            <div class="flex justify-between text-xs sm:text-sm font-semibold mb-2">
                                 <span>Community & Liquidity</span>
                                 <span class="text-primary font-mono">85%</span>
                             </div>
-                            <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
+                            <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
                                 <div class="h-full bg-gradient-to-r from-honey to-primary rounded-full w-[85%]"></div>
                             </div>
                         </div>
 
                         <div>
-                            <div class="flex justify-between text-sm font-semibold mb-2">
+                            <div class="flex justify-between text-xs sm:text-sm font-semibold mb-2">
                                 <span>Marketing & Viral Growth</span>
                                 <span class="text-primary font-mono">10%</span>
                             </div>
-                            <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
+                            <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
                                 <div class="h-full bg-gradient-to-r from-honey to-primary rounded-full w-[10%]"></div>
                             </div>
                         </div>
 
                         <div>
-                            <div class="flex justify-between text-sm font-semibold mb-2">
+                            <div class="flex justify-between text-xs sm:text-sm font-semibold mb-2">
                                 <span>Ecosystem Treasury & CEX Listings</span>
                                 <span class="text-primary font-mono">5%</span>
                             </div>
-                            <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
+                            <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
                                 <div class="h-full bg-gradient-to-r from-honey to-primary rounded-full w-[5%]"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-8 p-4 rounded-2xl bg-black/40 border border-primary/20 flex items-center space-x-3">
-                        <i class="fa-solid fa-shield-halved text-primary text-xl"></i>
-                        <p class="text-xs text-gray-300">Safety First: Liquidity is permanently locked/burned on Pump.fun bonding curve transition.</p>
+                    <div class="mt-6 p-3.5 rounded-2xl bg-black/40 border border-primary/20 flex items-center space-x-3">
+                        <i class="fa-solid fa-shield-halved text-primary text-base shrink-0"></i>
+                        <p class="text-[11px] sm:text-xs text-gray-300">Safety First: Liquidity is permanently locked/burned on Pump.fun bonding curve.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- ROADMAP SECTION -->
-    <section id="roadmap" class="py-20 px-4 relative z-20">
+    <section id="roadmap" class="py-16 px-4 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Roadmap</span>
-                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">The Hive Flight Plan</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Our journey from a viral internet moment to a premier Web3 meme ecosystem.</p>
+            <div class="text-center max-w-3xl mx-auto mb-12" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full border border-primary/25">Roadmap</span>
+                <h2 class="text-2.5xl sm:text-5xl font-heading font-extrabold mt-3 mb-3">The Hive Flight Plan</h2>
+                <p class="text-gray-400 text-xs sm:text-base">Our journey from a viral internet moment to a premier Web3 meme ecosystem.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Phase 1 -->
-                <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative hover:border-primary transition-all" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-xs">
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-primary/30 relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-3.5 left-6 px-3.5 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-[11px]">
                         PHASE 1
                     </div>
-                    <h3 class="text-xl font-heading font-bold mt-4 mb-4">Hive Awakening</h3>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Website & Branding Launch</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Pump.fun Fair Launch</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Telegram & X Community Building</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Initial Meme Campaigns</span></li>
+                    <h3 class="text-lg sm:text-xl font-heading font-bold mt-3 mb-3">Hive Awakening</h3>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-gray-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary text-xs"></i><span>Website & Branding Launch</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary text-xs"></i><span>Pump.fun Fair Launch</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary text-xs"></i><span>Telegram & X Community Building</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary text-xs"></i><span>Initial Meme Campaigns</span></li>
                     </ul>
                 </div>
 
                 <!-- Phase 2 -->
-                <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative hover:border-primary transition-all" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-xs">
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-primary/30 relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-3.5 left-6 px-3.5 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-[11px]">
                         PHASE 2
                     </div>
-                    <h3 class="text-xl font-heading font-bold mt-4 mb-4">Viral Swarm</h3>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>CoinGecko & CoinMarketCap Fast-Track</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>Influencer Partnerships & Raids</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>DexScreener Trending Campaigns</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>Tier-2 CEX Discussions</span></li>
+                    <h3 class="text-lg sm:text-xl font-heading font-bold mt-3 mb-3">Viral Swarm</h3>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-gray-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary text-xs"></i><span>CoinGecko & CMC Fast-Track</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary text-xs"></i><span>Influencer Partnerships & Raids</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary text-xs"></i><span>DexScreener Trending Campaigns</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary text-xs"></i><span>Tier-2 CEX Discussions</span></li>
                     </ul>
                 </div>
 
                 <!-- Phase 3 -->
-                <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative hover:border-primary transition-all" data-aos="fade-up" data-aos-delay="300">
-                    <div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-xs">
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-primary/30 relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute -top-3.5 left-6 px-3.5 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-[11px]">
                         PHASE 3
                     </div>
-                    <h3 class="text-xl font-heading font-bold mt-4 mb-4">Honey Kingdom</h3>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>GuGu NFT Collection Drop</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>Exclusive Merchandise Store</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>Ecosystem Staking & Rewards</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>Global Viral Expansion</span></li>
+                    <h3 class="text-lg sm:text-xl font-heading font-bold mt-3 mb-3">Honey Kingdom</h3>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-gray-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[6px]"></i><span>GuGu NFT Collection Drop</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[6px]"></i><span>Exclusive Merchandise Store</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[6px]"></i><span>Ecosystem Staking & Rewards</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[6px]"></i><span>Global Viral Expansion</span></li>
                     </ul>
                 </div>
             </div>
@@ -618,43 +626,43 @@
     </section>
 
     <!-- COMMUNITY & LIVE COUNTERS SECTION -->
-    <section id="community" class="py-20 px-4 relative z-20">
+    <section id="community" class="py-16 px-4 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-primary/30 relative overflow-hidden text-center" data-aos="zoom-in">
-                <div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-honey/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="glass-panel rounded-3xl p-6 sm:p-12 border border-primary/30 relative overflow-hidden text-center" data-aos="zoom-in">
+                <div class="absolute -right-20 -top-20 w-64 sm:w-80 h-64 sm:h-80 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -bottom-20 w-64 sm:w-80 h-64 sm:h-80 bg-honey/20 rounded-full blur-3xl pointer-events-none"></div>
 
-                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">The Hive</span>
-                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Become Part of the Swarm</h2>
-                <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-12">Join thousands of holders, meme creators, and believers in the official Telegram channel. Good vibes only.</p>
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full border border-primary/25">The Hive</span>
+                <h2 class="text-2.5xl sm:text-5xl font-heading font-extrabold mt-3 mb-3">Become Part of the Swarm</h2>
+                <p class="text-gray-300 text-xs sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10">Join thousands of holders, meme creators, and believers in the official Telegram channel. Good vibes only.</p>
 
-                <!-- Live Counters Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
-                        <span id="counter-holders" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">4,250+</span>
-                        <span class="text-xs text-gray-400 font-mono uppercase">Holders</span>
+                <!-- Live Counters Grid (2x2 on mobile for clean spacing) -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-6 mb-8 sm:mb-10">
+                    <div class="bg-black/40 rounded-2xl p-4 sm:p-6 border border-white/5">
+                        <span id="counter-holders" class="text-2xl sm:text-4xl font-heading font-black text-primary block mb-0.5">4,250+</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 font-mono uppercase">Holders</span>
                     </div>
-                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
-                        <span id="counter-mcap" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">$4.8M</span>
-                        <span class="text-xs text-gray-400 font-mono uppercase">Market Cap</span>
+                    <div class="bg-black/40 rounded-2xl p-4 sm:p-6 border border-white/5">
+                        <span id="counter-mcap" class="text-2xl sm:text-4xl font-heading font-black text-primary block mb-0.5">$4.8M</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 font-mono uppercase">Market Cap</span>
                     </div>
-                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
-                        <span id="counter-txs" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">35,000+</span>
-                        <span class="text-xs text-gray-400 font-mono uppercase">Transactions</span>
+                    <div class="bg-black/40 rounded-2xl p-4 sm:p-6 border border-white/5">
+                        <span id="counter-txs" class="text-2xl sm:text-4xl font-heading font-black text-primary block mb-0.5">35,000+</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 font-mono uppercase">Transactions</span>
                     </div>
-                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
-                        <span id="counter-tg" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">6,100+</span>
-                        <span class="text-xs text-gray-400 font-mono uppercase">Telegram Members</span>
+                    <div class="bg-black/40 rounded-2xl p-4 sm:p-6 border border-white/5">
+                        <span id="counter-tg" class="text-2xl sm:text-4xl font-heading font-black text-primary block mb-0.5">6,100+</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 font-mono uppercase">Telegram Members</span>
                     </div>
                 </div>
 
                 <!-- CTA Buttons -->
-                <div class="flex flex-wrap items-center justify-center gap-4">
-                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-base flex items-center space-x-3 transition-all hover:scale-105 shadow-[0_0_30px_rgba(255,212,0,0.5)]">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-sm sm:text-base flex items-center justify-center space-x-3 active:scale-95 shadow-[0_0_25px_rgba(255,212,0,0.4)]">
                         <i class="fab fa-telegram-plane text-lg"></i>
                         <span>Join Telegram Swarm</span>
                     </a>
-                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-8 py-4 rounded-2xl glass-panel border border-primary/30 hover:border-primary text-white font-heading font-semibold text-base flex items-center space-x-3 transition-all hover:scale-105">
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-panel border border-primary/30 hover:border-primary text-white font-heading font-semibold text-sm sm:text-base flex items-center justify-center space-x-3 active:scale-95">
                         <i class="fa-solid fa-honey-pot text-primary text-lg"></i>
                         <span>Buy $GuGu</span>
                     </a>
@@ -664,67 +672,67 @@
     </section>
 
     <!-- FAQ SECTION -->
-    <section id="faq" class="py-20 px-4 relative z-20">
+    <section id="faq" class="py-16 px-4 relative z-20">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">FAQ</span>
-                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Frequently Asked Questions</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Everything you need to know about GuGu the Bumblebee.</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-3.5 py-1.5 rounded-full border border-primary/25">FAQ</span>
+                <h2 class="text-2.5xl sm:text-5xl font-heading font-extrabold mt-3 mb-3">Frequently Asked Questions</h2>
+                <p class="text-gray-400 text-xs sm:text-base">Everything you need to know about GuGu the Bumblebee.</p>
             </div>
 
-            <div class="space-y-4" data-aos="fade-up">
+            <div class="space-y-3.5" data-aos="fade-up">
                 <!-- FAQ Item 1 -->
-                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
-                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
                         <span>What is GuGu the Bumblebee ($GuGu)?</span>
-                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
-                        <p class="pb-6">GuGu is a viral meme coin inspired by one of the internet's most beloved bumblebee moments. Built on Solana, $GuGu combines Pixar-level cute character branding with high-energy community vibes and zero complicated promises.</p>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">GuGu is a viral meme coin inspired by one of the internet's most beloved bumblebee moments. Built on Solana, $GuGu combines Pixar-level cute character branding with high-energy community vibes and zero complicated promises.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
-                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
                         <span>How do I buy $GuGu?</span>
-                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
-                        <p class="pb-6">You can buy $GuGu directly on Pump.fun using Phantom or any Solana wallet. Simply connect your wallet, swap SOL for $GuGu, and join the hive!</p>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">You can buy $GuGu directly on Pump.fun using Phantom or any Solana wallet. Simply connect your wallet, swap SOL for $GuGu, and join the hive!</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
-                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
                         <span>Is liquidity locked?</span>
-                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
-                        <p class="pb-6">Yes! Liquidity generated on Pump.fun is permanently locked/burned upon bonding curve graduation, ensuring complete safety and rug-proof trading.</p>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">Yes! Liquidity generated on Pump.fun is permanently locked/burned upon bonding curve graduation, ensuring complete safety and rug-proof trading.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 4 -->
-                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
-                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
                         <span>Where can I track the live chart?</span>
-                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
-                        <p class="pb-6">You can track real-time price action, volume, and holder statistics on DexScreener using our official contract address.</p>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">You can track real-time price action, volume, and holder statistics on DexScreener using our official contract address.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 5 -->
-                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
-                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
                         <span>What chain is GuGu on?</span>
-                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
-                        <p class="pb-6">GuGu is proudly built on Solana, taking advantage of lightning-fast transaction speeds and ultra-low fees.</p>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">GuGu is proudly built on Solana, taking advantage of lightning-fast transaction speeds and ultra-low fees.</p>
                     </div>
                 </div>
             </div>
@@ -732,31 +740,31 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="pt-20 pb-12 px-4 relative z-20 border-t border-white/5 bg-black/60">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+    <footer class="pt-16 pb-10 px-4 relative z-20 border-t border-white/5 bg-black/70">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-12 mb-12">
             <!-- Brand Column -->
             <div class="md:col-span-2">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary shadow-[0_0_15px_rgba(255,212,0,0.4)]">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-primary shadow-[0_0_12px_rgba(255,212,0,0.4)]">
                         <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <h3 class="font-heading font-extrabold text-lg text-white">GuGu the Bumblebee</h3>
+                        <h3 class="font-heading font-extrabold text-base sm:text-lg text-white">GuGu the Bumblebee</h3>
                         <span class="text-xs font-mono text-primary font-semibold">$GuGu on Solana</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">
+                <p class="text-gray-400 text-xs sm:text-sm max-w-sm mb-5 leading-relaxed">
                     The internet's favorite bumblebee bringing viral energy, positive community vibes, and Pixar-level charm to Web3.
                 </p>
                 <!-- Social Icons -->
                 <div class="flex items-center space-x-3">
-                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary active:scale-95">
                         <i class="fab fa-telegram-plane"></i>
                     </a>
-                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary active:scale-95">
                         <i class="fa-solid fa-honey-pot"></i>
                     </a>
-                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary active:scale-95">
                         <i class="fa-solid fa-chart-line"></i>
                     </a>
                 </div>
@@ -764,11 +772,11 @@
 
             <!-- Quick Links -->
             <div>
-                <h4 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4">Quick Navigation</h4>
-                <ul class="space-y-2 text-sm text-gray-400">
+                <h4 class="font-heading font-bold text-xs sm:text-sm text-white uppercase tracking-wider mb-3">Quick Navigation</h4>
+                <ul class="space-y-2 text-xs sm:text-sm text-gray-400">
                     <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
-                    <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
                     <li><a href="#market" class="hover:text-primary transition-colors">Live Market</a></li>
+                    <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
                     <li><a href="#tokenomics" class="hover:text-primary transition-colors">Tokenomics</a></li>
                     <li><a href="#roadmap" class="hover:text-primary transition-colors">Roadmap</a></li>
                 </ul>
@@ -776,29 +784,30 @@
 
             <!-- Legal & Disclaimer -->
             <div>
-                <h4 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4">Disclaimer</h4>
-                <p class="text-xs text-gray-500 leading-relaxed mb-4">
-                    $GuGu is a meme coin created for entertainment and community engagement purposes with no intrinsic value or expectation of financial return. Enjoy the buzz!
+                <h4 class="font-heading font-bold text-xs sm:text-sm text-white uppercase tracking-wider mb-3">Disclaimer</h4>
+                <p class="text-[11px] text-gray-500 leading-relaxed mb-4">
+                    $GuGu is a meme coin created for entertainment and community engagement purposes with no intrinsic value. Enjoy the buzz!
                 </p>
-                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2 rounded-xl glass-panel border border-primary/20 text-primary font-bold text-xs flex items-center space-x-2 hover:border-primary transition-colors">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-full sm:w-auto px-4 py-2.5 rounded-xl glass-panel border border-primary/20 text-primary font-bold text-xs flex items-center justify-center space-x-2 active:scale-95">
                     <i class="fa-solid fa-arrow-up"></i>
                     <span>Back To Top</span>
                 </button>
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 text-center sm:text-left space-y-2 sm:space-y-0">
             <p>&copy; 2026 GuGu the Bumblebee ($GuGu). All rights reserved.</p>
-            <p class="mt-2 sm:mt-0 font-mono text-primary">Powered by Solana ⚡</p>
+            <p class="font-mono text-primary">Powered by Solana ⚡</p>
         </div>
     </footer>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Initialize AOS
+        // Initialize AOS with mobile disable option or optimized settings
         AOS.init({
-            duration: 800,
+            duration: 700,
             once: true,
+            disable: 'mobile' // Disables heavy scroll animations on smaller screens for instant silky-smooth touch performance
         });
 
         // Preloader Simulation
@@ -809,7 +818,7 @@
             
             let progress = 0;
             let interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 15) + 5;
+                progress += Math.floor(Math.random() * 20) + 10;
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
@@ -817,32 +826,34 @@
                         preloader.style.opacity = '0';
                         setTimeout(() => {
                             preloader.style.display = 'none';
-                        }, 700);
-                    }, 300);
+                        }, 500);
+                    }, 200);
                 }
                 loadingBar.style.width = progress + '%';
                 loadingPercentage.innerText = progress + '%';
-            }, 50);
+            }, 30);
         });
 
-        // Custom Cursor Movement
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursor-dot');
-        
-        window.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
-        });
+        // Custom Cursor Movement (Only active on pointer devices)
+        if (window.matchMedia('(pointer: fine)').matches) {
+            const cursor = document.getElementById('cursor');
+            const cursorDot = document.getElementById('cursor-dot');
+            
+            window.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+            });
+        }
 
-        // Dynamic Background Floating Particles Generator
+        // Dynamic Background Floating Particles Generator (Reduced for mobile efficiency)
         const particlesContainer = document.getElementById('particles-container');
-        const particleCount = 25;
+        const particleCount = window.innerWidth < 768 ? 10 : 22;
         for (let i = 0; i < particleCount; i++) {
             const p = document.createElement('div');
-            p.className = 'absolute rounded-full bg-primary pointer-events-none opacity-30 animate-float';
-            const size = Math.random() * 6 + 2;
+            p.className = 'absolute rounded-full bg-primary pointer-events-none opacity-20 animate-float';
+            const size = Math.random() * 5 + 2;
             p.style.width = size + 'px';
             p.style.height = size + 'px';
             p.style.left = Math.random() * 100 + 'vw';
@@ -856,38 +867,45 @@
         const navbar = document.getElementById('navbar');
         const navContainer = document.getElementById('nav-container');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
+            if (window.scrollY > 30) {
                 navContainer.classList.add('py-2');
-                navContainer.classList.remove('py-3');
-                navbar.classList.add('py-2');
-                navbar.classList.remove('py-4');
+                navContainer.classList.remove('py-2.5', 'sm:py-3');
             } else {
                 navContainer.classList.remove('py-2');
-                navContainer.classList.add('py-3');
-                navbar.classList.remove('py-2');
-                navbar.classList.add('py-4');
+                navContainer.classList.add('py-2.5', 'sm:py-3');
             }
         });
 
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle with Icon Swap Animation
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark';
+            }
         });
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fa-solid fa-bars';
             });
         });
 
-        // Copy Contract Address Function
+        // Copy Contract Address Function with mobile vibration feedback if supported
         function copyCA() {
             const caText = "C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump";
             navigator.clipboard.writeText(caText);
+            
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
             
             const copyText = document.getElementById('copy-text');
             const copyIcon = document.getElementById('copy-icon');
@@ -908,7 +926,6 @@
                 const content = toggle.nextElementSibling;
                 const icon = toggle.querySelector('i');
                 
-                // Close other open accordions
                 faqToggles.forEach(otherToggle => {
                     if (otherToggle !== toggle) {
                         otherToggle.nextElementSibling.style.maxHeight = null;
