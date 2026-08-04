@@ -1,1079 +1,930 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GuGu the Bumblebee ($GuGu) - The Internet's Favorite Meme Coin & Game</title>
-<!-- Tailwind CSS -->
-<script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-beeYellow: '#FFD400',
-honeyGold: '#FFC107',
-deepBlack: '#111111',
-surfaceDark: '#1a1a1a',
-cardDark: 'rgba(26, 26, 26, 0.75)',
-amberGlow: '#FFA000',
-softOrange: '#FF8F00',
-warmGold: '#FFD54F'
-},
-fontFamily: {
-sans: ['Inter', 'sans-serif'],
-display: ['Fredoka', 'Inter', 'sans-serif']
-}
-}
-}
-}
-</script>
-<!-- Google Fonts -->
-<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-<link href="[https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap)" rel="stylesheet">
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
-<!-- AOS Animation Library -->
-<link href="[https://unpkg.com/aos@2.3.1/dist/aos.css](https://unpkg.com/aos@2.3.1/dist/aos.css)" rel="stylesheet">
-<style>
-body {
-background-color: #111111;
-color: #ffffff;
-font-family: 'Inter', sans-serif;
-overflow-x: hidden;
-}
-h1, h2, h3, h4, .font-display {
-font-family: 'Fredoka', sans-serif;
-}
-.glass-panel {
-background: rgba(26, 26, 26, 0.65);
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
-border: 1px solid rgba(255, 212, 0, 0.15);
-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-.glass-nav {
-background: rgba(17, 17, 17, 0.8);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border-bottom: 1px solid rgba(255, 212, 0, 0.1);
-}
-.glow-yellow {
-box-shadow: 0 0 25px rgba(255, 212, 0, 0.35);
-}
-.glow-yellow-lg {
-box-shadow: 0 0 50px rgba(255, 212, 0, 0.5);
-}
-.text-gradient {
-background: linear-gradient(135deg, #FFD400 0%, #FFC107 50%, #FFA000 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
-.bg-gradient-bee {
-background: linear-gradient(135deg, #FFD400 0%, #FFC107 100%);
-}
-.honeycomb-bg {
-background-image: radial-gradient(rgba(255, 212, 0, 0.05) 1px, transparent 1px);
-background-size: 30px 30px;
-}
-@keyframes floatBee {
-0% { transform: translateY(0px) rotate(0deg); }
-50% { transform: translateY(-20px) rotate(3deg); }
-100% { transform: translateY(0px) rotate(0deg); }
-}
-.animate-float {
-animation: floatBee 4s ease-in-out infinite;
-}
-.pollen {
-position: absolute;
-background: #FFD400;
-border-radius: 50%;
-pointer-events: none;
-opacity: 0.6;
-animation: risePollen 8s linear infinite;
-}
-@keyframes risePollen {
-0% { transform: translateY(100vh) scale(0); opacity: 0; }
-50% { opacity: 0.8; }
-100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-}
-#loader {
-transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-::-webkit-scrollbar {
-width: 10px;
-}
-::-webkit-scrollbar-track {
-background: #111111;
-}
-::-webkit-scrollbar-thumb {
-background: #FFC107;
-border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-background: #FFD400;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuGu the Bumblebee ($GuGu) | The Internet's Favorite Bumblebee on Solana</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFD400',
+                        honey: '#FFC107',
+                        darkBg: '#111111',
+                        surface: '#1c1c1e',
+                        surfaceGlass: 'rgba(28, 28, 30, 0.75)',
+                        amberGlow: 'rgba(255, 193, 7, 0.35)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out 3s infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'drip': 'drip 4s ease-in infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(5deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 212, 0, 0.4)' },
+                            '50%': { boxShadow: '0 0 40px rgba(255, 212, 0, 0.8)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        drip: {
+                            '0%': { transform: 'translateY(-10px)', opacity: '0' },
+                            '50%': { opacity: '1' },
+                            '100%': { transform: 'translateY(40px)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP & AOS Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111;
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom Cursor */
+        .custom-cursor {
+            pointer-events: none;
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border: 2px solid #FFD400;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            z-index: 9999;
+            box-shadow: 0 0 15px rgba(255, 212, 0, 0.5);
+        }
+        .cursor-dot {
+            pointer-events: none;
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: #FFD400;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+        }
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(28, 28, 30, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 212, 0, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glass-panel:hover {
+            border-color: rgba(255, 212, 0, 0.4);
+            box-shadow: 0 12px 40px 0 rgba(255, 212, 0, 0.15);
+        }
+        /* Honeycomb Pattern Background */
+        .honeycomb-bg {
+            background-image: radial-gradient(rgba(255, 193, 7, 0.08) 1px, transparent 1px), radial-gradient(rgba(255, 193, 7, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFC107;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFD400;
+        }
+    </style>
 </head>
-<body class="honeycomb-bg">
-<!-- Premium Loading Screen -->
-<div id="loader" class="fixed inset-0 z-50 bg-deepBlack flex flex-col items-center justify-center">
-<div class="relative w-28 h-28 mb-6">
-<img src="[https://i.imgur.com/y68XoNl.jpeg](https://i.imgur.com/y68XoNl.jpeg)" alt="GuGu Logo" class="w-full h-full object-cover rounded-full border-4 border-beeYellow animate-bounce glow-yellow-lg">
-</div>
-<h2 class="text-2xl font-bold font-display text-gradient tracking-wide mb-2">GuGu is Buzzing...</h2>
-<div class="w-48 h-2 bg-surfaceDark rounded-full overflow-hidden border border-beeYellow/20">
-<div id="loader-bar" class="h-full bg-gradient-bee w-0 transition-all duration-300"></div>
-</div>
-</div>
-<!-- Mouse Glow Effect -->
-<div id="mouse-glow" class="fixed w-96 h-96 rounded-full pointer-events-none z-30 filter blur-3xl opacity-20 bg-beeYellow transition-transform duration-100 ease-out hidden lg:block" style="transform: translate(-50%, -50%);"></div>
-<!-- Background Pollen Container -->
-<div id="pollen-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
-<!-- Navigation Bar -->
-<header class="fixed top-0 left-0 right-0 z-40 glass-nav transition-all duration-300">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-<a href="#home" class="flex items-center space-x-3 group">
-<div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-beeYellow glow-yellow group-hover:scale-105 transition-transform">
-<img src="[https://i.imgur.com/y68XoNl.jpeg](https://i.imgur.com/y68XoNl.jpeg)" alt="GuGu Logo" class="w-full h-full object-cover">
-</div>
-<div class="flex flex-col">
-<span class="font-display font-bold text-lg sm:text-xl tracking-wide text-white group-hover:text-beeYellow transition-colors">GuGu</span>
-<span class="text-xs text-beeYellow font-semibold tracking-widest">$GuGu</span>
-</div>
-</a>
-<nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-<a href="#home" class="hover:text-beeYellow transition-colors">Home</a>
-<a href="#about" class="hover:text-beeYellow transition-colors">About</a>
-<a href="#tokenomics" class="hover:text-beeYellow transition-colors">Tokenomics</a>
-<a href="#game" class="text-beeYellow font-bold flex items-center space-x-1 hover:brightness-125 transition-all"><i class="fas fa-gamepad"></i><span>Mini-Game</span></a>
-<a href="#roadmap" class="hover:text-beeYellow transition-colors">Roadmap</a>
-<a href="#community" class="hover:text-beeYellow transition-colors">Community</a>
-<a href="#faq" class="hover:text-beeYellow transition-colors">FAQ</a>
-</nav>
-<div class="hidden md:flex items-center space-x-4">
-<a href="[https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump](https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump)" target="_blank" class="px-5 py-2.5 rounded-full bg-honeyGold text-deepBlack font-display font-bold text-sm hover:brightness-110 transition-all flex items-center space-x-2">
-<i class="fas fa-rocket"></i>
-<span>Buy on Pump.fun</span>
-</a>
-<a href="[https://t.me/GuGutheBumblebee](https://t.me/GuGutheBumblebee)" target="_blank" class="relative group overflow-hidden rounded-full p-[2px] focus:outline-none">
-<span class="absolute inset-0 bg-gradient-to-r from-beeYellow to-amberGlow rounded-full animate-pulse"></span>
-<span class="relative px-6 py-2.5 rounded-full bg-deepBlack text-beeYellow font-display font-semibold text-sm flex items-center space-x-2 group-hover:bg-transparent group-hover:text-deepBlack transition-all">
-<i class="fab fa-telegram-plane"></i>
-<span>Join Telegram</span>
-</span>
-</a>
-</div>
-<button id="menu-btn" class="md:hidden text-beeYellow text-2xl focus:outline-none">
-<i class="fas fa-bars"></i>
-</button>
-</div>
-<div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-beeYellow/10 px-6 py-6 space-y-4">
-<a href="#home" class="block text-lg font-medium text-gray-200 hover:text-beeYellow">Home</a>
-<a href="#about" class="block text-lg font-medium text-gray-200 hover:text-beeYellow">About</a>
-<a href="#tokenomics" class="block text-lg font-medium text-gray-200 hover:text-beeYellow">Tokenomics</a>
-<a href="#game" class="block text-lg font-medium text-beeYellow font-bold"><i class="fas fa-gamepad mr-2"></i> Mini-Game</a>
-<a href="#roadmap" class="block text-lg font-medium text-gray-200 hover:text-beeYellow">Roadmap</a>
-<a href="#community" class="block text-lg font-medium text-gray-200 hover:text-beeYellow">Community</a>
-<a href="#faq" class="block text-lg font-medium text-gray-200 hover:text-beeYellow">FAQ</a>
-<div class="pt-4 space-y-3">
-<a href="[https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump](https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump)" target="_blank" class="w-full py-3 rounded-xl bg-honeyGold text-deepBlack font-display font-bold text-center block">
-<i class="fas fa-rocket mr-2"></i> Buy on Pump.fun
-</a>
-<a href="[https://t.me/GuGutheBumblebee](https://t.me/GuGutheBumblebee)" target="_blank" class="w-full py-3 rounded-xl bg-gradient-bee text-deepBlack font-display font-bold text-center block glow-yellow">
-<i class="fab fa-telegram-plane mr-2"></i> Join Telegram
-</a>
-</div>
-</div>
-</header>
-<!-- Hero Section -->
-<section id="home" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden z-10">
-<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-beeYellow/15 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute bottom-10 left-10 w-72 h-72 bg-amberGlow/10 rounded-full blur-3xl pointer-events-none"></div>
-<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
-<div class="lg:col-span-7 text-center lg:text-left space-y-6" data-aos="fade-right" data-aos-duration="1000">
-<div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel border-beeYellow/30 glow-yellow">
-<span class="w-2.5 h-2.5 rounded-full bg-beeYellow animate-ping"></span>
-<span class="font-display font-bold text-beeYellow tracking-wider text-sm">$GuGu Official Ticker</span>
-</div>
-<h1 class="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight leading-none text-white">
-GuGu the <span class="text-gradient">Bumblebee</span>
-</h1>
-<p class="text-xl sm:text-2xl font-display font-semibold text-warmGold">
-"The Internet's Favorite Bumblebee is Now Buzzing in Web3."
-</p>
-<p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-Inspired by one of the internet's most viral bumblebee moments, GuGu brings together memes, community, fun, and positive energy. Play our arcade mini-game and earn your place on the global leaderboard!
-</p>
-<!-- Contract Address Display Box -->
-<div class="glass-panel p-4 rounded-2xl border-beeYellow/30 max-w-xl mx-auto lg:mx-0 text-left">
-<div class="flex justify-between items-center mb-1">
-<span class="text-xs text-beeYellow font-semibold uppercase tracking-wider">Contract Address (CA):</span>
-<button onclick="navigator.clipboard.writeText('C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump'); alert('CA Copied to Clipboard!');" class="text-xs text-honeyGold hover:underline flex items-center space-x-1">
-<i class="fas fa-copy"></i> <span>Copy CA</span>
-</button>
-</div>
-<div class="font-mono text-xs sm:text-sm text-gray-200 break-all bg-deepBlack/50 p-2 rounded-xl border border-gray-800">
-C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump
-</div>
-</div>
-<div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-<a href="[https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump](https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump)" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-bee text-deepBlack font-display font-bold text-lg shadow-lg glow-yellow hover:scale-105 transition-all flex items-center space-x-3">
-<i class="fas fa-rocket"></i>
-<span>Buy on Pump.fun</span>
-</a>
-<a href="[https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j](https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j)" target="_blank" class="px-8 py-4 rounded-2xl glass-panel text-beeYellow font-display font-bold text-lg border-beeYellow/40 hover:bg-beeYellow/10 hover:scale-105 transition-all flex items-center space-x-3">
-<i class="fas fa-chart-line"></i>
-<span>Dexscreener</span>
-</a>
-</div>
-</div>
-<div class="lg:col-span-5 flex items-center justify-center relative" data-aos="fade-left" data-aos-duration="1000">
-<div class="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
-<div class="absolute inset-0 rounded-full bg-gradient-to-r from-beeYellow via-amberGlow to-honeyGold opacity-30 blur-2xl animate-pulse"></div>
-<div class="absolute inset-4 rounded-full border border-dashed border-beeYellow/40 animate-spin" style="animation-duration: 25s;"></div>
-<div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-3xl overflow-hidden glass-panel p-3 glow-yellow-lg animate-float">
-<img src="[https://i.imgur.com/y68XoNl.jpeg](https://i.imgur.com/y68XoNl.jpeg)" alt="GuGu the Bumblebee" class="w-full h-full object-cover rounded-2xl">
-</div>
-<div class="absolute -top-4 -left-4 glass-panel px-4 py-2 rounded-2xl border-beeYellow/30 flex items-center space-x-2 animate-bounce" style="animation-duration: 3s;">
-<span class="text-xl">🍯</span>
-<span class="font-display font-bold text-sm text-white">Pure Honey</span>
-</div>
-<div class="absolute -bottom-2 -right-2 glass-panel px-4 py-2 rounded-2xl border-beeYellow/30 flex items-center space-x-2 animate-bounce" style="animation-duration: 4s;">
-<span class="text-xl">🚀</span>
-<span class="font-display font-bold text-sm text-white">100x Viral</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- About Section -->
-<section id="about" class="py-24 relative z-10">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-<span class="text-beeYellow font-display font-semibold tracking-widest uppercase text-sm">The Buzz Story</span>
-<h2 class="text-3xl sm:text-5xl font-display font-bold mt-2 text-white">Meet <span class="text-gradient">GuGu</span></h2>
-<p class="text-gray-300 mt-4 text-base sm:text-lg">
-GuGu isn't just another token; it's a movement born from internet culture, designed to spread positive energy, honey-sweet rewards, and unstoppable viral momentum on Solana.
-</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-<div class="lg:col-span-6" data-aos="fade-right">
-<div class="relative rounded-3xl overflow-hidden glass-panel p-4 glow-yellow">
-<img src="[https://i.imgur.com/y68XoNl.jpeg](https://i.imgur.com/y68XoNl.jpeg)" alt="GuGu Story" class="w-full h-80 sm:h-[400px] object-cover rounded-2xl">
-<div class="absolute inset-0 bg-gradient-to-t from-deepBlack/80 via-transparent to-transparent flex items-end p-6">
-<div>
-<span class="px-3 py-1 rounded-full bg-beeYellow text-deepBlack font-display font-bold text-xs uppercase">Viral Sensation</span>
-<h3 class="text-2xl font-display font-bold text-white mt-2">Born to Fly High in Web3</h3>
-</div>
-</div>
-</div>
-</div>
-<div class="lg:col-span-6 space-y-6" data-aos="fade-left">
-<div class="glass-panel p-6 rounded-3xl border-beeYellow/20 hover:border-beeYellow/50 transition-all">
-<div class="flex items-start space-x-4">
-<div class="w-12 h-12 rounded-2xl bg-beeYellow/20 flex items-center justify-center text-beeYellow text-2xl font-bold shrink-0">🐝</div>
-<div>
-<h3 class="text-xl font-display font-bold text-white mb-1">The Viral Spark</h3>
-<p class="text-gray-300 text-sm sm:text-base leading-relaxed">
-Inspired by unforgettable viral moments across social media, GuGu captured hearts worldwide with adorable charm and mischievous energy.
-</p>
-</div>
-</div>
-</div>
-<div class="glass-panel p-6 rounded-3xl border-beeYellow/20 hover:border-beeYellow/50 transition-all">
-<div class="flex items-start space-x-4">
-<div class="w-12 h-12 rounded-2xl bg-honeyGold/20 flex items-center justify-center text-honeyGold text-2xl font-bold shrink-0">🍯</div>
-<div>
-<h3 class="text-xl font-display font-bold text-white mb-1">Sweet Tokenomics & Community</h3>
-<p class="text-gray-300 text-sm sm:text-base leading-relaxed">
-Launched fairly via Pump.fun. No hidden taxes, safe contracts, and community-driven momentum mean complete peace of mind.
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- MINI GAME SECTION: GuGu Bee Flight -->
-<section id="game" class="py-24 relative z-10 bg-surfaceDark/50 border-y border-beeYellow/20">
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-12" data-aos="fade-up">
-<span class="text-beeYellow font-display font-semibold tracking-widest uppercase text-sm">Arcade Experience</span>
-<h2 class="text-3xl sm:text-5xl font-display font-bold mt-2 text-white">🐝 GuGu <span class="text-gradient">Bee Flight</span></h2>
-<p class="text-gray-300 mt-2 text-base">Collect honey, evade spiders & birds, and climb the Solana leaderboard!</p>
-</div>
-<!-- Game Wrapper / Container -->
-<div class="relative glass-panel rounded-3xl p-4 sm:p-8 glow-yellow-lg border-beeYellow/40 overflow-hidden" data-aos="zoom-in">
-<!-- Wallet Login Overlay -->
-<div id="wallet-overlay" class="absolute inset-0 z-30 bg-deepBlack/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
-<div class="w-20 h-20 rounded-full overflow-hidden border-2 border-beeYellow mb-4 glow-yellow">
-<img src="[https://i.imgur.com/y68XoNl.jpeg](https://i.imgur.com/y68XoNl.jpeg)" alt="Logo" class="w-full h-full object-cover">
-</div>
-<h3 class="text-2xl sm:text-3xl font-display font-bold text-white mb-2">Connect Solana Wallet</h3>
-<p class="text-gray-300 text-sm max-w-md mb-6">Enter your Solana public wallet address to unlock the game and submit scores to the global leaderboard.</p>
-<div class="w-full max-w-md space-y-4">
-<input type="text" id="solana-address-input" placeholder="Enter Solana Address (e.g. 9dHx...)" class="w-full px-5 py-4 rounded-2xl bg-surfaceDark border border-beeYellow/40 text-white placeholder-gray-500 focus:outline-none focus:border-beeYellow font-mono text-center text-sm">
-<p id="wallet-error" class="text-red-400 text-xs hidden">Invalid Solana public key format!</p>
-<button id="wallet-login-btn" class="w-full py-4 rounded-2xl bg-gradient-bee text-deepBlack font-display font-bold text-lg glow-yellow hover:scale-[1.02] transition-all">
-🐝 Enter The Hive & Play
-</button>
-</div>
-</div>
-<!-- Game Header HUD (Visible when logged in) -->
-<div id="game-hud" class="hidden flex flex-wrap justify-between items-center mb-4 pb-4 border-b border-beeYellow/20 gap-4">
-<div class="flex items-center space-x-3">
-<span id="player-badge" class="px-3 py-1 rounded-xl bg-beeYellow/20 text-beeYellow font-mono text-xs border border-beeYellow/30">Wallet: Connected</span>
-<button id="logout-wallet-btn" class="text-xs text-gray-400 hover:text-red-400 underline">Switch Wallet</button>
-</div>
-<div class="flex items-center space-x-6 text-sm font-display font-bold">
-<div class="text-beeYellow">Score: <span id="hud-score" class="text-white text-lg">0</span></div>
-<div class="text-honeyGold">Honey: <span id="hud-honey" class="text-white text-lg">0</span></div>
-<div class="text-amberGlow">Time: <span id="hud-time" class="text-white text-lg">0s</span></div>
-<button id="sound-toggle-btn" class="w-8 h-8 rounded-full glass-panel flex items-center justify-center text-beeYellow hover:bg-beeYellow hover:text-deepBlack transition-all" title="Mute/Unmute">
-<i class="fas fa-volume-up" id="sound-icon"></i>
-</button>
-</div>
-</div>
-<!-- Canvas Area -->
-<div class="relative w-full aspect-[16/9] max-h-[500px] rounded-2xl overflow-hidden bg-gradient-to-b from-sky-900 via-emerald-950 to-deepBlack border border-beeYellow/20 shadow-inner flex items-center justify-center">
-<canvas id="gameCanvas" class="w-full h-full block"></canvas>
-<!-- Start / Pause / Game Over Screen Overlay inside canvas area -->
-<div id="canvas-overlay" class="absolute inset-0 bg-deepBlack/70 backdrop-blur-sm flex flex-col items-center justify-center text-center p-6">
-<h3 id="overlay-title" class="text-3xl sm:text-4xl font-display font-bold text-gradient mb-2">GuGu Bee Flight</h3>
-<p id="overlay-subtitle" class="text-gray-300 text-sm sm:text-base max-w-md mb-6">Use Arrow Keys / WASD or Touch controls to fly. Avoid birds, spiders & branches, and collect sweet honey drops!</p>
-<button id="start-game-btn" class="px-8 py-4 rounded-2xl bg-gradient-bee text-deepBlack font-display font-bold text-lg glow-yellow hover:scale-105 transition-all">
-🚀 Start Flight
-</button>
-</div>
-</div>
-<!-- Controls hint -->
-<div class="mt-4 flex flex-wrap justify-between items-center text-xs text-gray-400 gap-2">
-<div><span class="text-beeYellow font-bold">Desktop:</span> Arrow Keys / WASD to move, Space to Dash</div>
-<div><span class="text-beeYellow font-bold">Mobile:</span> Touch & drag / Swipe controls</div>
-<div><span class="text-beeYellow font-bold">Powerups:</span> Honey Boost 🍯, Shield 🛡️, Speed ⚡, Magnet 🌸</div>
-</div>
-</div>
-<!-- Player Profile & Global Leaderboard Section -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-12">
-<!-- Player Profile Card -->
-<div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl border-beeYellow/20" data-aos="fade-right">
-<h3 class="text-xl font-display font-bold text-white mb-6 flex items-center">
-<i class="fas fa-user-astronaut text-beeYellow mr-2"></i> Player Profile
-</h3>
-<div id="profile-logged-out" class="text-center py-8">
-<p class="text-gray-400 text-sm mb-4">Connect wallet above to view your personalized game profile and stats.</p>
-</div>
-<div id="profile-logged-in" class="hidden space-y-4 text-sm">
-<div class="flex justify-between py-2 border-b border-gray-800">
-<span class="text-gray-400">Wallet Address:</span>
-<span id="prof-address" class="text-beeYellow font-mono font-bold">---</span>
-</div>
-<div class="flex justify-between py-2 border-b border-gray-800">
-<span class="text-gray-400">Highest Score:</span>
-<span id="prof-highscore" class="text-white font-bold">0</span>
-</div>
-<div class="flex justify-between py-2 border-b border-gray-800">
-<span class="text-gray-400">Games Played:</span>
-<span id="prof-games" class="text-white font-bold">0</span>
-</div>
-<div class="flex justify-between py-2 border-b border-gray-800">
-<span class="text-gray-400">Average Score:</span>
-<span id="prof-avg" class="text-white font-bold">0</span>
-</div>
-<div class="flex justify-between py-2 border-b border-gray-800">
-<span class="text-gray-400">Best Survival Time:</span>
-<span id="prof-time" class="text-white font-bold">0s</span>
-</div>
-<div class="flex justify-between py-2">
-<span class="text-gray-400">Global Rank:</span>
-<span id="prof-rank" class="text-beeYellow font-bold">#---</span>
-</div>
-<!-- Rewards Preview (Visual Only) -->
-<div class="mt-6 pt-6 border-t border-beeYellow/20">
-<h4 class="text-xs font-display font-bold text-honeyGold uppercase tracking-wider mb-3">Rewards & Badges (Coming Soon)</h4>
-<div class="grid grid-cols-3 gap-2 text-center text-xs">
-<div class="glass-panel p-2 rounded-xl opacity-60">
-<div class="text-lg">👑</div>
-<div class="text-[10px] mt-1 text-gray-300">Top 1 Bee</div>
-</div>
-<div class="glass-panel p-2 rounded-xl opacity-60">
-<div class="text-lg">🍯</div>
-<div class="text-[10px] mt-1 text-gray-300">Top 10 Master</div>
-</div>
-<div class="glass-panel p-2 rounded-xl opacity-60">
-<div class="text-lg">🐝</div>
-<div class="text-[10px] mt-1 text-gray-300">Top 100 Swarm</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Global Leaderboard -->
-<div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl border-beeYellow/20" data-aos="fade-left">
-<div class="flex justify-between items-center mb-6">
-<h3 class="text-xl font-display font-bold text-white flex items-center">
-<i class="fas fa-trophy text-honeyGold mr-2"></i> Top 100 Leaderboard
-</h3>
-<span class="text-xs text-beeYellow bg-beeYellow/10 px-3 py-1 rounded-full border border-beeYellow/20">Live Sync</span>
-</div>
-<div class="overflow-x-auto max-h-[380px] overflow-y-auto pr-1">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="text-xs text-gray-400 border-b border-gray-800">
-<th class="py-3 px-2">Rank</th>
-<th class="py-3 px-2">Solana Address</th>
-<th class="py-3 px-2 text-right">Score</th>
-<th class="py-3 px-2 text-right">Survival</th>
-</tr>
-</thead>
-<tbody id="leaderboard-body" class="text-sm">
-<!-- Populated dynamically -->
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Tokenomics Section -->
-<section id="tokenomics" class="py-24 relative z-10">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-<span class="text-beeYellow font-display font-semibold tracking-widest uppercase text-sm">Token Blueprint</span>
-<h2 class="text-3xl sm:text-5xl font-display font-bold mt-2 text-white">GuGu <span class="text-gradient">Tokenomics</span></h2>
-<p class="text-gray-300 mt-4 text-base sm:text-lg">
-Transparent, fair, and designed for sustainable hyper-growth. No hidden fees, pure meme power.
-</p>
-</div>
-<!-- Pump.fun & Dexscreener Direct Buttons -->
-<div class="flex flex-wrap justify-center gap-4 mb-16">
-<a href="[https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump](https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump)" target="_blank" class="px-6 py-3.5 rounded-2xl bg-honeyGold text-deepBlack font-display font-bold text-base hover:brightness-110 transition-all flex items-center space-x-2 shadow-lg">
-<i class="fas fa-rocket"></i>
-<span>Trade on Pump.fun</span>
-</a>
-<a href="[https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j](https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j)" target="_blank" class="px-6 py-3.5 rounded-2xl glass-panel text-beeYellow font-display font-bold text-base border-beeYellow/40 hover:bg-beeYellow/10 transition-all flex items-center space-x-2">
-<i class="fas fa-chart-line"></i>
-<span>View Chart on Dexscreener</span>
-</a>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-<div class="glass-panel p-6 rounded-3xl text-center border-beeYellow/20" data-aos="fade-up" data-aos-delay="100">
-<span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Total Supply</span>
-<h3 class="text-2xl sm:text-3xl font-display font-bold text-beeYellow mt-2">1,000,000,000</h3>
-<p class="text-xs text-gray-400 mt-1">$GuGu Tokens</p>
-</div>
-<div class="glass-panel p-6 rounded-3xl text-center border-beeYellow/20" data-aos="fade-up" data-aos-delay="200">
-<span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Buy / Sell Tax</span>
-<h3 class="text-2xl sm:text-3xl font-display font-bold text-beeYellow mt-2">0% / 0%</h3>
-<p class="text-xs text-gray-400 mt-1">Zero Transaction Tax</p>
-</div>
-<div class="glass-panel p-6 rounded-3xl text-center border-beeYellow/20" data-aos="fade-up" data-aos-delay="300">
-<span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Liquidity Pool</span>
-<h3 class="text-2xl sm:text-3xl font-display font-bold text-beeYellow mt-2">100%</h3>
-<p class="text-xs text-gray-400 mt-1">Burned & Locked Forever</p>
-</div>
-<div class="glass-panel p-6 rounded-3xl text-center border-beeYellow/20" data-aos="fade-up" data-aos-delay="400">
-<span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Contract</span>
-<h3 class="text-lg sm:text-xl font-display font-bold text-white mt-3 truncate">Pump.fun 🔒</h3>
-<p class="text-xs text-beeYellow mt-1">Safe & Secure</p>
-</div>
-</div>
-<div class="glass-panel p-8 sm:p-12 rounded-3xl max-w-4xl mx-auto border-beeYellow/30" data-aos="fade-up">
-<h3 class="text-2xl font-display font-bold text-white mb-8 text-center">Token Allocation Breakdown</h3>
-<div class="space-y-6">
-<div>
-<div class="flex justify-between text-sm font-semibold mb-2">
-<span class="text-white flex items-center"><span class="w-3 h-3 rounded-full bg-beeYellow mr-2"></span> Community & Liquidity</span>
-<span class="text-beeYellow">85%</span>
-</div>
-<div class="w-full h-3 bg-deepBlack rounded-full overflow-hidden p-0.5 border border-beeYellow/20">
-<div class="h-full bg-gradient-bee rounded-full" style="width: 85%;"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-sm font-semibold mb-2">
-<span class="text-white flex items-center"><span class="w-3 h-3 rounded-full bg-amberGlow mr-2"></span> Marketing & CEX Listings</span>
-<span class="text-beeYellow">10%</span>
-</div>
-<div class="w-full h-3 bg-deepBlack rounded-full overflow-hidden p-0.5 border border-beeYellow/20">
-<div class="h-full bg-amberGlow rounded-full" style="width: 10%;"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-sm font-semibold mb-2">
-<span class="text-white flex items-center"><span class="w-3 h-3 rounded-full bg-honeyGold mr-2"></span> Ecosystem & Development</span>
-<span class="text-beeYellow">5%</span>
-</div>
-<div class="w-full h-3 bg-deepBlack rounded-full overflow-hidden p-0.5 border border-beeYellow/20">
-<div class="h-full bg-honeyGold rounded-full" style="width: 5%;"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Roadmap Section -->
-<section id="roadmap" class="py-24 relative z-10 bg-surfaceDark/40">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-<span class="text-beeYellow font-display font-semibold tracking-widest uppercase text-sm">Flight Plan</span>
-<h2 class="text-3xl sm:text-5xl font-display font-bold mt-2 text-white">GuGu <span class="text-gradient">Roadmap</span></h2>
-<p class="text-gray-300 mt-4 text-base sm:text-lg">Our step-by-step journey to conquer the meme coin universe.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="glass-panel p-8 rounded-3xl border-beeYellow/20 relative group hover:border-beeYellow transition-all" data-aos="fade-up" data-aos-delay="100">
-<div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-gradient-bee text-deepBlack font-display font-bold text-xs uppercase">Phase 01</div>
-<h3 class="text-2xl font-display font-bold text-white mt-4 mb-4">Hive Awakening</h3>
-<ul class="space-y-3 text-gray-300 text-sm">
-<li class="flex items-center"><i class="fas fa-check-circle text-beeYellow mr-2"></i> Website & Mini-Game Launch</li>
-<li class="flex items-center"><i class="fas fa-check-circle text-beeYellow mr-2"></i> Community Building (Telegram & X)</li>
-<li class="flex items-center"><i class="fas fa-check-circle text-beeYellow mr-2"></i> Pump.fun Fair Launch</li>
-<li class="flex items-center"><i class="fas fa-check-circle text-beeYellow mr-2"></i> Dexscreener Tracking Active</li>
-</ul>
-</div>
-<div class="glass-panel p-8 rounded-3xl border-beeYellow/20 relative group hover:border-beeYellow transition-all" data-aos="fade-up" data-aos-delay="200">
-<div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-gradient-bee text-deepBlack font-display font-bold text-xs uppercase">Phase 02</div>
-<h3 class="text-2xl font-display font-bold text-white mt-4 mb-4">Swarm Expansion</h3>
-<ul class="space-y-3 text-gray-300 text-sm">
-<li class="flex items-center"><i class="fas fa-clock text-amberGlow mr-2"></i> Influencer Partnerships</li>
-<li class="flex items-center"><i class="fas fa-clock text-amberGlow mr-2"></i> Coingecko & CoinMarketCap Listings</li>
-<li class="flex items-center"><i class="fas fa-clock text-amberGlow mr-2"></i> Massive Trending Campaign</li>
-<li class="flex items-center"><i class="fas fa-clock text-amberGlow mr-2"></i> 5,000+ Holders Milestone</li>
-</ul>
-</div>
-<div class="glass-panel p-8 rounded-3xl border-beeYellow/20 relative group hover:border-beeYellow transition-all" data-aos="fade-up" data-aos-delay="300">
-<div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-gradient-bee text-deepBlack font-display font-bold text-xs uppercase">Phase 03</div>
-<h3 class="text-2xl font-display font-bold text-white mt-4 mb-4">Global Domination</h3>
-<ul class="space-y-3 text-gray-300 text-sm">
-<li class="flex items-center"><i class="fas fa-spinner text-honeyGold mr-2"></i> Global NFT Collection</li>
-<li class="flex items-center"><i class="fas fa-spinner text-honeyGold mr-2"></i> Official GuGu Merchandise</li>
-<li class="flex items-center"><i class="fas fa-spinner text-honeyGold mr-2"></i> Tier-2 CEX Listings</li>
-<li class="flex items-center"><i class="fas fa-spinner text-honeyGold mr-2"></i> Future Ecosystem Utility</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<!-- Community Section -->
-<section id="community" class="py-24 relative z-10">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-<div class="max-w-3xl mx-auto mb-16" data-aos="fade-up">
-<span class="text-beeYellow font-display font-semibold tracking-widest uppercase text-sm">Join The Hive</span>
-<h2 class="text-3xl sm:text-5xl font-display font-bold mt-2 text-white">Become Part of the <span class="text-gradient">Swarm</span></h2>
-<p class="text-gray-300 mt-4 text-base sm:text-lg">Connect with thousands of fellow bee enthusiasts, meme lords, and diamond hands.</p>
-</div>
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-<div class="glass-panel p-6 rounded-3xl border-beeYellow/20" data-aos="zoom-in" data-aos-delay="100">
-<h3 class="text-3xl sm:text-4xl font-display font-bold text-beeYellow">10,000+</h3>
-<p class="text-sm text-gray-300 mt-1">Holders</p>
-</div>
-<div class="glass-panel p-6 rounded-3xl border-beeYellow/20" data-aos="zoom-in" data-aos-delay="200">
-<h3 class="text-3xl sm:text-4xl font-display font-bold text-beeYellow">$50M+</h3>
-<p class="text-sm text-gray-300 mt-1">Market Cap</p>
-</div>
-<div class="glass-panel p-6 rounded-3xl border-beeYellow/20" data-aos="zoom-in" data-aos-delay="300">
-<h3 class="text-3xl sm:text-4xl font-display font-bold text-beeYellow">50,000+</h3>
-<p class="text-sm text-gray-300 mt-1">Transactions</p>
-</div>
-<div class="glass-panel p-6 rounded-3xl border-beeYellow/20" data-aos="zoom-in" data-aos-delay="400">
-<h3 class="text-3xl sm:text-4xl font-display font-bold text-beeYellow">25,000+</h3>
-<p class="text-sm text-gray-300 mt-1">Community Members</p>
-</div>
-</div>
-<div class="glass-panel p-10 sm:p-16 rounded-3xl max-w-4xl mx-auto border-beeYellow/40 glow-yellow relative overflow-hidden" data-aos="fade-up">
-<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-beeYellow/10 rounded-full blur-3xl pointer-events-none"></div>
-<h3 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4">Ready to Buzz With Us?</h3>
-<p class="text-gray-300 max-w-xl mx-auto mb-8 text-sm sm:text-base">Don't miss out on the sweetest meme coin adventure. Hop into our Telegram or buy on Pump.fun right now!</p>
-<div class="flex flex-wrap justify-center gap-4">
-<a href="[https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump](https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump)" target="_blank" class="px-8 py-4 rounded-2xl bg-honeyGold text-deepBlack font-display font-bold text-lg shadow-lg hover:scale-105 transition-all flex items-center space-x-3">
-<i class="fas fa-rocket"></i>
-<span>Buy on Pump.fun</span>
-</a>
-<a href="[https://t.me/GuGutheBumblebee](https://t.me/GuGutheBumblebee)" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-bee text-deepBlack font-display font-bold text-lg shadow-lg hover:scale-105 transition-all flex items-center space-x-3">
-<i class="fab fa-telegram-plane"></i>
-<span>Join Telegram</span>
-</a>
-</div>
-</div>
-</div>
-</section>
-<!-- FAQ Section -->
-<section id="faq" class="py-24 relative z-10 bg-surfaceDark/40">
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16" data-aos="fade-up">
-<span class="text-beeYellow font-display font-semibold tracking-widest uppercase text-sm">Got Questions?</span>
-<h2 class="text-3xl sm:text-5xl font-display font-bold mt-2 text-white">Frequently Asked <span class="text-gradient">Questions</span></h2>
-</div>
-<div class="space-y-4" data-aos="fade-up">
-<div class="glass-panel rounded-2xl border-beeYellow/20 overflow-hidden transition-all">
-<button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
-<span class="font-display font-bold text-lg text-white">What is GuGu?</span>
-<i class="fas fa-chevron-down text-beeYellow transition-transform duration-300"></i>
-</button>
-<div class="faq-content hidden px-6 pb-5 text-gray-300 text-sm sm:text-base">
-GuGu the Bumblebee ($GuGu) is a premier Web3 meme coin inspired by an iconic viral internet moment. It combines high-energy community vibes, delightful branding, and pure meme culture on Solana.
-</div>
-</div>
-<div class="glass-panel rounded-2xl border-beeYellow/20 overflow-hidden transition-all">
-<button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
-<span class="font-display font-bold text-lg text-white">How do I buy $GuGu?</span>
-<i class="fas fa-chevron-down text-beeYellow transition-transform duration-300"></i>
-</button>
-<div class="faq-content hidden px-6 pb-5 text-gray-300 text-sm sm:text-base">
-You can purchase $GuGu directly on Pump.fun using our official Contract Address (CA): <code class="text-beeYellow font-mono text-xs bg-black/40 px-2 py-1 rounded">C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</code>. Track live charts on Dexscreener.
-</div>
-</div>
-<div class="glass-panel rounded-2xl border-beeYellow/20 overflow-hidden transition-all">
-<button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
-<span class="font-display font-bold text-lg text-white">How do I play the GuGu Mini-Game?</span>
-<i class="fas fa-chevron-down text-beeYellow transition-transform duration-300"></i>
-</button>
-<div class="faq-content hidden px-6 pb-5 text-gray-300 text-sm sm:text-base">
-Simply enter your valid Solana public wallet address in the game login popup, use your arrow keys or touch controls to fly GuGu, collect honey drops and powerups, and compete on the global leaderboard!
-</div>
-</div>
-<div class="glass-panel rounded-2xl border-beeYellow/20 overflow-hidden transition-all">
-<button class="faq-toggle w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
-<span class="font-display font-bold text-lg text-white">Is liquidity locked?</span>
-<i class="fas fa-chevron-down text-beeYellow transition-transform duration-300"></i>
-</button>
-<div class="faq-content hidden px-6 pb-5 text-gray-300 text-sm sm:text-base">
-Yes! 100% of the initial liquidity pool tokens have been permanently burned/locked through Pump.fun to ensure complete safety and trust for all community members.
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Footer -->
-<footer class="pt-16 pb-12 border-t border-beeYellow/10 relative z-10 bg-deepBlack">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 pb-12 border-b border-gray-800">
-<div class="flex items-center space-x-3">
-<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-beeYellow glow-yellow">
-<img src="[https://i.imgur.com/y68XoNl.jpeg](https://i.imgur.com/y68XoNl.jpeg)" alt="Logo" class="w-full h-full object-cover">
-</div>
-<div>
-<span class="font-display font-bold text-xl text-white">GuGu the Bumblebee</span>
-<p class="text-xs text-beeYellow">$GuGu Meme Coin</p>
-</div>
-</div>
-<div class="flex items-center space-x-4 text-sm font-mono text-gray-400">
-<span class="truncate max-w-[280px]">CA: C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</span>
-<button onclick="navigator.clipboard.writeText('C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump'); alert('CA Copied!');" class="text-beeYellow hover:underline">Copy</button>
-</div>
-<div class="flex items-center space-x-6 text-xl">
-<a href="[https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump](https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump)" target="_blank" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-beeYellow hover:bg-honeyGold hover:text-deepBlack transition-all" title="Pump.fun"><i class="fas fa-rocket"></i></a>
-<a href="[https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j](https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j)" target="_blank" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-beeYellow hover:bg-honeyGold hover:text-deepBlack transition-all" title="Dexscreener"><i class="fas fa-chart-line"></i></a>
-<a href="[https://t.me/GuGutheBumblebee](https://t.me/GuGutheBumblebee)" target="_blank" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-beeYellow hover:bg-beeYellow hover:text-deepBlack transition-all"><i class="fab fa-telegram-plane"></i></a>
-<a href="[https://x.com](https://x.com)" target="_blank" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-beeYellow hover:bg-beeYellow hover:text-deepBlack transition-all"><i class="fab fa-twitter"></i></a>
-</div>
-</div>
-<div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 space-y-4 sm:space-y-0">
-<p>© 2026 GuGu the Bumblebee ($GuGu). All rights reserved.</p>
-<button id="back-to-top" class="flex items-center space-x-1 text-beeYellow hover:underline focus:outline-none"><span>Back to Top</span><i class="fas fa-arrow-up"></i></button>
-</div>
-</div>
-</footer>
-<!-- AOS JS -->
-<script src="[https://unpkg.com/aos@2.3.1/dist/aos.js](https://unpkg.com/aos@2.3.1/dist/aos.js)"></script>
-<!-- Mini-Game & Site JavaScript -->
-<script>
-AOS.init({ duration: 800, once: true, offset: 100 });
-window.addEventListener('load', () => {
-const loaderBar = document.getElementById('loader-bar');
-loaderBar.style.width = '100%';
-setTimeout(() => {
-const loader = document.getElementById('loader');
-loader.style.opacity = '0';
-loader.style.visibility = 'hidden';
-}, 500);
-});
-// Mobile Menu
-const menuBtn = document.getElementById('menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-document.querySelectorAll('#mobile-menu a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
-// Mouse glow & Pollen
-const mouseGlow = document.getElementById('mouse-glow');
-window.addEventListener('mousemove', (e) => {
-mouseGlow.style.left = e.clientX + 'px';
-mouseGlow.style.top = e.clientY + 'px';
-});
-const pollenContainer = document.getElementById('pollen-container');
-for (let i = 0; i < 20; i++) {
-const pollen = document.createElement('div');
-pollen.classList.add('pollen');
-const size = Math.random() * 6 + 4 + 'px';
-pollen.style.width = size;
-pollen.style.height = size;
-pollen.style.left = Math.random() * 100 + 'vw';
-pollen.style.animationDuration = (Math.random() * 5 + 5) + 's';
-pollen.style.animationDelay = (Math.random() * 5) + 's';
-pollenContainer.appendChild(pollen);
-}
-// FAQ & Back to Top
-document.querySelectorAll('.faq-toggle').forEach(t => {
-t.addEventListener('click', () => {
-t.nextElementSibling.classList.toggle('hidden');
-t.querySelector('i').classList.toggle('rotate-180');
-});
-});
-document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-/* ========================================================
-MINI-GAME LOGIC & SOLANA WALLET LOGIN
-======================================================== */
-let currentUser = localStorage.getItem('gugu_solana_wallet') || null;
-let gameStats = JSON.parse(localStorage.getItem('gugu_game_stats')) || {
-highscore: 0,
-gamesPlayed: 0,
-totalScore: 0,
-bestTime: 0
-};
-const walletOverlay = document.getElementById('wallet-overlay');
-const walletInput = document.getElementById('solana-address-input');
-const walletLoginBtn = document.getElementById('wallet-login-btn');
-const walletError = document.getElementById('wallet-error');
-const gameHud = document.getElementById('game-hud');
-const logoutWalletBtn = document.getElementById('logout-wallet-btn');
-const playerBadge = document.getElementById('player-badge');
-const profileLoggedOut = document.getElementById('profile-logged-out');
-const profileLoggedIn = document.getElementById('profile-logged-in');
-const profAddress = document.getElementById('prof-address');
-const profHighscore = document.getElementById('prof-highscore');
-const profGames = document.getElementById('prof-games');
-const profAvg = document.getElementById('prof-avg');
-const profTime = document.getElementById('prof-time');
-const profRank = document.getElementById('prof-rank');
-// Simple Solana public key regex validator (Base58, 32-44 chars)
-function isValidSolanaAddress(address) {
-const base58Regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
-return base58Regex.test(address);
-}
-function truncateAddress(addr) {
-if (!addr || addr.length < 8) return addr;
-return addr.slice(0, 4) + '...' + addr.slice(-4);
-}
-function updateUIState() {
-if (currentUser) {
-walletOverlay.classList.add('hidden');
-gameHud.classList.remove('hidden');
-playerBadge.textContent = 'Wallet: ' + truncateAddress(currentUser);
-profileLoggedOut.classList.add('hidden');
-profileLoggedIn.classList.remove('hidden');
-profAddress.textContent = truncateAddress(currentUser);
-profHighscore.textContent = gameStats.highscore;
-profGames.textContent = gameStats.gamesPlayed;
-profAvg.textContent = gameStats.gamesPlayed > 0 ? Math.round(gameStats.totalScore / gameStats.gamesPlayed) : 0;
-profTime.textContent = gameStats.bestTime + 's';
-profRank.textContent = '#12'; // Mock leaderboard rank
-} else {
-walletOverlay.classList.remove('hidden');
-gameHud.classList.add('hidden');
-profileLoggedOut.classList.remove('hidden');
-profileLoggedIn.classList.add('hidden');
-}
-renderLeaderboard();
-}
-walletLoginBtn.addEventListener('click', () => {
-const addr = walletInput.value.trim();
-if (!isValidSolanaAddress(addr)) {
-walletError.classList.remove('hidden');
-return;
-}
-walletError.classList.add('hidden');
-currentUser = addr;
-localStorage.setItem('gugu_solana_wallet', currentUser);
-updateUIState();
-});
-logoutWalletBtn.addEventListener('click', () => {
-currentUser = null;
-localStorage.removeItem('gugu_solana_wallet');
-updateUIState();
-});
-// Mock Leaderboard Data Generator
-function getLeaderboardData() {
-let lb = JSON.parse(localStorage.getItem('gugu_leaderboard')) || [
-{ address: '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU', score: 1420, time: 85 },
-{ address: '9dHxP2LmK9wQ8sR2vY7F3xL4nM6pB1jC5zV9hK3wN8q2', score: 1150, time: 72 },
-{ address: '3vK9sL2mP8wQ7xR4nY6F1xL5nM3pB9jC2zV8hK4wN7q1', score: 980, time: 64 },
-{ address: '5mP2wQ8sR7xL4nM6pB1jC9dHxP2LmK3zV9hK3wN8q2vY7F', score: 850, time: 55 }
-];
-if (currentUser) {
-let existing = lb.find(item => item.address === currentUser);
-if (existing) {
-if (gameStats.highscore > existing.score) {
-existing.score = gameStats.highscore;
-existing.time = gameStats.bestTime;
-}
-} else {
-lb.push({ address: currentUser, score: gameStats.highscore, time: gameStats.bestTime });
-}
-lb.sort((a, b) => b.score - a.score);
-}
-return lb.slice(0, 100);
-}
-function renderLeaderboard() {
-const tbody = document.getElementById('leaderboard-body');
-const lb = getLeaderboardData();
-tbody.innerHTML = '';
-lb.forEach((entry, idx) => {
-const tr = document.createElement('tr');
-tr.className = 'border-b border-gray-800/60 hover:bg-white/5 transition-colors' + (entry.address === currentUser ? ' bg-beeYellow/10 text-beeYellow font-bold' : '');
-tr.innerHTML = <td class="py-3 px-2">#${idx + 1}</td> <td class="py-3 px-2 font-mono">${truncateAddress(entry.address)}</td> <td class="py-3 px-2 text-right">${entry.score}</td> <td class="py-3 px-2 text-right">${entry.time}s</td>;
-tbody.appendChild(tr);
-});
-}
-updateUIState();
-/* ========================================================
-HTML5 CANVAS ARCADE GAME ENGINE
-======================================================== */
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const startGameBtn = document.getElementById('start-game-btn');
-const canvasOverlay = document.getElementById('canvas-overlay');
-const overlayTitle = document.getElementById('overlay-title');
-const overlaySubtitle = document.getElementById('overlay-subtitle');
-const hudScore = document.getElementById('hud-score');
-const hudHoney = document.getElementById('hud-honey');
-const hudTime = document.getElementById('hud-time');
-const soundToggleBtn = document.getElementById('sound-toggle-btn');
-const soundIcon = document.getElementById('sound-icon');
-let soundEnabled = true;
-soundToggleBtn.addEventListener('click', () => {
-soundEnabled = !soundEnabled;
-soundIcon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
-});
-// Resize canvas correctly
-function resizeCanvas() {
-canvas.width = canvas.parentElement.clientWidth;
-canvas.height = canvas.parentElement.clientHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-let gameState = 'IDLE'; // IDLE, PLAYING, GAMEOVER
-let score = 0;
-let honeyCount = 0;
-let survivalTime = 0;
-let gameTimer = null;
-let gameSpeed = 3;
-let bee = {
-x: 80,
-y: canvas.height / 2,
-radius: 20,
-vy: 0,
-gravity: 0.4,
-lift: -7,
-shield: false,
-speedBoost: false,
-magnet: false
-};
-let obstacles = [];
-let collectibles = [];
-let particles = [];
-let keys = {};
-window.addEventListener('keydown', e => {
-keys[e.code] = true;
-if ((e.code === 'Space' || e.code === 'ArrowUp') && gameState === 'PLAYING') {
-bee.vy = bee.lift;
-e.preventDefault();
-}
-});
-window.addEventListener('keyup', e => { keys[e.code] = false; });
-// Touch controls for mobile
-canvas.addEventListener('touchstart', e => {
-if (gameState === 'PLAYING') {
-bee.vy = bee.lift;
-e.preventDefault();
-}
-});
-startGameBtn.addEventListener('click', () => {
-if (!currentUser) {
-alert('Please enter your Solana wallet address first!');
-return;
-}
-initGame();
-});
-function initGame() {
-gameState = 'PLAYING';
-score = 0;
-honeyCount = 0;
-survivalTime = 0;
-gameSpeed = 3;
-bee.y = canvas.height / 2;
-bee.vy = 0;
-bee.shield = false;
-bee.speedBoost = false;
-bee.magnet = false;
-obstacles = [];
-collectibles = [];
-particles = [];
-canvasOverlay.classList.add('hidden');
-if (gameTimer) clearInterval(gameTimer);
-gameTimer = setInterval(() => {
-if (gameState === 'PLAYING') {
-survivalTime++;
-hudTime.textContent = survivalTime + 's';
-score += 10;
-hudScore.textContent = score;
-// Difficulty scaling
-if (survivalTime % 10 === 0) {
-gameSpeed += 0.5;
-}
-}
-}, 1000);
-}
-// Spawn mechanics
-function spawnEntities() {
-if (Math.random() < 0.02) {
-// Spawn collectible (Honey drop, flower, golden honey, powerups)
-let types = ['honey', 'flower', 'shield', 'magnet', 'gold'];
-let type = types[Math.floor(Math.random() * types.length)];
-collectibles.push({
-x: canvas.width + 30,
-y: Math.random() * (canvas.height - 100) + 50,
-radius: 15,
-type: type
-});
-}
-if (Math.random() < 0.015) {
-// Spawn obstacle (Spider, Bird, Branch)
-let types = ['spider', 'bird', 'branch'];
-let type = types[Math.floor(Math.random() * types.length)];
-obstacles.push({
-x: canvas.width + 50,
-y: type === 'branch' ? (Math.random() > 0.5 ? 40 : canvas.height - 40) : Math.random() * (canvas.height - 100) + 50,
-width: 40,
-height: 40,
-type: type,
-speed: gameSpeed + (type === 'bird' ? 2 : 0)
-});
-}
-}
-function updateGame() {
-if (gameState !== 'PLAYING') return;
-// Movement controls (WASD / Arrows)
-if (keys['ArrowUp'] || keys['KeyW']) bee.vy = -5;
-if (keys['ArrowDown'] || keys['KeyS']) bee.vy = 4;
-bee.vy += bee.gravity;
-bee.y += bee.vy;
-// Boundaries
-if (bee.y < bee.radius) { bee.y = bee.radius; bee.vy = 0; }
-if (bee.y > canvas.height - bee.radius) {
-gameOver();
-}
-// Update collectibles
-for (let i = collectibles.length - 1; i >= 0; i--) {
-let c = collectibles[i];
-c.x -= gameSpeed;
-// Magnet powerup attraction
-if (bee.magnet) {
-let dx = bee.x - c.x;
-let dy = bee.y - c.y;
-c.x += dx * 0.05;
-c.y += dy * 0.05;
-}
-// Collision with bee
-let dist = Math.hypot(bee.x - c.x, bee.y - c.y);
-if (dist < bee.radius + c.radius) {
-if (c.type === 'honey') { score += 50; honeyCount++; }
-else if (c.type === 'flower') { score += 100; }
-else if (c.type === 'gold') { score += 500; honeyCount += 5; }
-else if (c.type === 'shield') { bee.shield = true; }
-else if (c.type === 'magnet') { bee.magnet = true; setTimeout(() => bee.magnet = false, 7000); }
-hudScore.textContent = score;
-hudHoney.textContent = honeyCount;
-collectibles.splice(i, 1);
-continue;
-}
-if (c.x < -30) collectibles.splice(i, 1);
-}
-// Update obstacles
-for (let i = obstacles.length - 1; i >= 0; i--) {
-let o = obstacles[i];
-o.x -= o.speed;
-let dist = Math.hypot(bee.x - (o.x + o.width/2), bee.y - (o.y + o.height/2));
-if (dist < bee.radius + 15) {
-if (bee.shield) {
-bee.shield = false; // absorb hit
-obstacles.splice(i, 1);
-continue;
-} else {
-gameOver();
-return;
-}
-}
-if (o.x < -60) obstacles.splice(i, 1);
-}
-spawnEntities();
-}
-function drawGame() {
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-// Draw Background Gradients & Clouds
-ctx.fillStyle = 'rgba(255, 212, 0, 0.03)';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-// Draw Collectibles
-collectibles.forEach(c => {
-ctx.font = '24px sans-serif';
-let emoji = '🍯';
-if (c.type === 'flower') emoji = '🌸';
-if (c.type === 'gold') emoji = '⭐';
-if (c.type === 'shield') emoji = '🛡️';
-if (c.type === 'magnet') emoji = '🧲';
-ctx.fillText(emoji, c.x - 12, c.y + 8);
-});
-// Draw Obstacles
-obstacles.forEach(o => {
-ctx.font = '28px sans-serif';
-let emoji = '🕷️';
-if (o.type === 'bird') emoji = '🦅';
-if (o.type === 'branch') emoji = '🪵';
-ctx.fillText(emoji, o.x - 14, o.y + 10);
-});
-// Draw Bee (GuGu)
-ctx.save();
-ctx.translate(bee.x, bee.y);
-if (bee.shield) {
-ctx.strokeStyle = '#FFD400';
-ctx.lineWidth = 3;
-ctx.beginPath();
-ctx.arc(0, 0, bee.radius + 8, 0, Math.PI * 2);
-ctx.stroke();
-}
-ctx.font = '32px sans-serif';
-ctx.fillText('🐝', -16, 10);
-ctx.restore();
-}
-function gameOver() {
-gameState = 'GAMEOVER';
-clearInterval(gameTimer);
-// Save stats
-gameStats.gamesPlayed++;
-gameStats.totalScore += score;
-if (score > gameStats.highscore) {
-gameStats.highscore = score;
-gameStats.bestTime = Math.max(gameStats.bestTime, survivalTime);
-}
-if (survivalTime > gameStats.bestTime) {
-gameStats.bestTime = survivalTime;
-}
-localStorage.setItem('gugu_game_stats', JSON.stringify(gameStats));
-updateUIState();
-// Show Game Over overlay
-overlayTitle.textContent = 'Game Over!';
-overlaySubtitle.textContent = You scored ${score} points and survived for ${survivalTime}s!;
-startGameBtn.textContent = '🐝 Play Again';
-canvasOverlay.classList.remove('hidden');
-}
-// Main Game Loop (60 FPS)
-function gameLoop() {
-updateGame();
-drawGame();
-requestAnimationFrame(gameLoop);
-}
-requestAnimationFrame(gameLoop);
-</script>
+<body class="bg-darkBg text-white honeycomb-bg relative selection:bg-primary selection:text-black">
+
+    <!-- Custom Cursor Elements -->
+    <div class="custom-cursor hidden md:block" id="cursor"></div>
+    <div class="cursor-dot hidden md:block" id="cursor-dot"></div>
+
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[10000] bg-[#111] flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="relative flex flex-col items-center">
+            <div class="w-32 h-32 rounded-full border-4 border-primary/20 border-t-primary animate-spin flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,212,0,0.4)]">
+                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu Logo" class="w-24 h-24 rounded-full object-cover animate-pulse">
+            </div>
+            <h2 class="text-2xl font-bold font-heading text-primary tracking-wider mb-2">GUGU THE BUMBLEBEE</h2>
+            <p class="text-sm text-gray-400 mb-6 animate-pulse">Buzzing into the Solana Kingdom...</p>
+            <div class="w-64 h-2 bg-gray-800 rounded-full overflow-hidden border border-primary/30">
+                <div id="loading-bar" class="h-full bg-gradient-to-r from-honey to-primary w-0 transition-all duration-300"></div>
+            </div>
+            <span id="loading-percentage" class="text-xs font-mono text-primary mt-2">0%</span>
+        </div>
+    </div>
+
+    <!-- BACKGROUND EFFECTS -->
+    <!-- Honey Drips from top -->
+    <div class="absolute top-0 left-0 right-0 h-16 pointer-events-none overflow-hidden z-20 opacity-85 flex justify-around">
+        <div class="w-4 h-12 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip"></div>
+        <div class="w-6 h-20 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 1.2s;"></div>
+        <div class="w-3 h-10 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 0.5s;"></div>
+        <div class="w-5 h-16 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 2.1s;"></div>
+        <div class="w-4 h-14 bg-gradient-to-b from-honey to-primary rounded-b-full animate-drip" style="animation-delay: 0.9s;"></div>
+    </div>
+
+    <!-- Floating Pollen / Dust Particles Container -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-3 flex items-center justify-between transition-all duration-300" id="nav-container">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(255,212,0,0.5)]">
+                    <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-extrabold text-lg tracking-wide text-white group-hover:text-primary transition-colors">GuGu</span>
+                    <span class="text-[10px] font-mono text-primary font-semibold tracking-widest uppercase">$GuGu</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-primary transition-colors">About</a>
+                <a href="#market" class="text-gray-300 hover:text-primary transition-colors">Live Market</a>
+                <a href="#tokenomics" class="text-gray-300 hover:text-primary transition-colors">Tokenomics</a>
+                <a href="#roadmap" class="text-gray-300 hover:text-primary transition-colors">Roadmap</a>
+                <a href="#community" class="text-gray-300 hover:text-primary transition-colors">Community</a>
+                <a href="#faq" class="text-gray-300 hover:text-primary transition-colors">FAQ</a>
+            </div>
+
+            <!-- Right-side CTAs -->
+            <div class="hidden sm:flex items-center space-x-3">
+                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-4 py-2 rounded-xl bg-surface border border-primary/20 text-white hover:border-primary text-xs font-semibold flex items-center space-x-2 transition-all hover:scale-105">
+                    <i class="fab fa-telegram-plane text-primary"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-5 py-2 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center space-x-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,212,0,0.4)]">
+                    <i class="fa-solid fa-honey-pot"></i>
+                    <span>Buy $GuGu</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="lg:hidden text-primary focus:outline-none text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto mt-2 glass-panel rounded-2xl p-6 flex flex-col space-y-4">
+            <a href="#home" class="mobile-link text-gray-200 hover:text-primary font-medium">Home</a>
+            <a href="#about" class="mobile-link text-gray-200 hover:text-primary font-medium">About</a>
+            <a href="#market" class="mobile-link text-gray-200 hover:text-primary font-medium">Live Market</a>
+            <a href="#tokenomics" class="mobile-link text-gray-200 hover:text-primary font-medium">Tokenomics</a>
+            <a href="#roadmap" class="mobile-link text-gray-200 hover:text-primary font-medium">Roadmap</a>
+            <a href="#community" class="mobile-link text-gray-200 hover:text-primary font-medium">Community</a>
+            <a href="#faq" class="mobile-link text-gray-200 hover:text-primary font-medium">FAQ</a>
+            <div class="pt-2 flex flex-col space-y-3">
+                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/20 text-center font-semibold text-sm flex items-center justify-center space-x-2">
+                    <i class="fab fa-telegram-plane text-primary"></i>
+                    <span>Join Telegram</span>
+                </a>
+                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-center text-sm">
+                    🐝 Buy $GuGu Now
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-4 overflow-hidden">
+        <!-- Ambient Glowing Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-honey/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20">
+            <!-- Left Column: Content -->
+            <div class="lg:col-span-7 text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+                <!-- Badge -->
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-panel border border-primary/30 mb-6 shadow-[0_0_20px_rgba(255,212,0,0.2)]">
+                    <span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+                    <span class="text-xs font-mono font-bold text-primary tracking-wider uppercase">Solana's Sweetest Meme Coin • $GuGu</span>
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-black tracking-tight leading-tight mb-4">
+                    GuGu the <span class="text-transparent bg-clip-text bg-gradient-to-r from-honey via-primary to-amber-200 drop-shadow-[0_0_35px_rgba(255,212,0,0.5)]">Bumblebee</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg sm:text-xl font-medium text-primary/90 mb-4 italic">
+                    "The Internet's Favorite Bumblebee is Now Buzzing in Web3."
+                </p>
+
+                <!-- Description -->
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                    Inspired by one of the internet's most viral bumblebee moments, GuGu brings together memes, community, fun, and positive energy. No complicated promises—just good vibes, unforgettable memes, and a buzzing community.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-8">
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-base flex items-center space-x-3 transition-all hover:scale-105 shadow-[0_0_30px_rgba(255,212,0,0.5)]">
+                        <i class="fa-solid fa-honey-pot text-lg"></i>
+                        <span>Buy $GuGu</span>
+                    </a>
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-7 py-4 rounded-2xl glass-panel border border-primary/30 hover:border-primary text-white font-heading font-semibold text-base flex items-center space-x-3 transition-all hover:scale-105">
+                        <i class="fab fa-telegram-plane text-primary text-lg"></i>
+                        <span>Join Telegram</span>
+                    </a>
+                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="px-7 py-4 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 text-gray-300 hover:text-white font-heading font-semibold text-base flex items-center space-x-3 transition-all hover:scale-105">
+                        <i class="fa-solid fa-chart-line text-primary text-lg"></i>
+                        <span>View Chart</span>
+                    </a>
+                </div>
+
+                <!-- Contract Address Glass Card -->
+                <div class="glass-panel rounded-2xl p-4 max-w-xl mx-auto lg:mx-0 border border-primary/20">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-gray-400 uppercase flex items-center space-x-1.5">
+                            <i class="fa-solid fa-file-contract text-primary"></i>
+                            <span>Contract Address (Solana)</span>
+                        </span>
+                        <span class="text-[10px] font-mono bg-primary/20 text-primary px-2 py-0.5 rounded-md font-bold">VERIFIED</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-black/40 rounded-xl p-3 border border-white/5">
+                        <span id="ca-text" class="text-xs sm:text-sm font-mono text-primary truncate mr-2">C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</span>
+                        <div class="flex items-center space-x-2 shrink-0">
+                            <button onclick="copyCA()" class="px-3 py-1.5 rounded-lg bg-primary text-black font-bold text-xs flex items-center space-x-1.5 hover:bg-honey transition-colors">
+                                <i id="copy-icon" class="fa-regular fa-copy"></i>
+                                <span id="copy-text">Copy</span>
+                            </button>
+                            <a href="https://solscan.io/token/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" title="View on Solscan" class="p-2 rounded-lg bg-surface border border-white/10 text-primary hover:border-primary transition-colors text-xs">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Pixar-Quality Mascot & Floating Bee Animation -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center relative" data-aos="fade-left" data-aos-duration="1000">
+                <!-- Glowing Backdrop Circle -->
+                <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-honey/30 to-primary/30 blur-2xl animate-pulse-glow"></div>
+                
+                <!-- Main Mascot Container -->
+                <div class="relative z-10 animate-float">
+                    <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-3xl glass-panel p-4 border-2 border-primary/50 shadow-[0_0_50px_rgba(255,212,0,0.3)] overflow-hidden group">
+                        <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu the Bumblebee" class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
+                        <!-- Floating Honeycomb Badge overlay -->
+                        <div class="absolute bottom-6 left-6 right-6 glass-panel rounded-2xl p-3 flex items-center justify-between border border-primary/40">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-black font-black text-lg">🐝</div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-sm text-white">GuGu Mascot</h4>
+                                    <p class="text-xs text-primary font-mono">Pixar-Grade Viral Energy</p>
+                                </div>
+                            </div>
+                            <span class="animate-bounce text-primary text-xl">🍯</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Animated Flying Bee element -->
+                <div class="absolute -top-10 right-0 sm:-right-4 animate-wiggle z-20 pointer-events-none">
+                    <div class="glass-panel px-4 py-2 rounded-full border border-primary/40 flex items-center space-x-2 shadow-lg">
+                        <span class="text-lg">🐝</span>
+                        <span class="text-xs font-mono font-bold text-primary">Buzzing Live...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE MARKET SECTION -->
+    <section id="market" class="py-20 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Real-Time Stats</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Live Market & Ecosystem</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Track $GuGu across Solana decentralized exchanges and official portals instantly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1: Pump.fun -->
+                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-green-500/20 text-green-400 font-bold">ACTIVE</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg mb-1">Pump.fun Launch</h3>
+                    <p class="text-xs text-gray-400 mb-6">Official bonding curve & trading portal for $GuGu.</p>
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                        <span>Buy on Pump.fun</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2: DexScreener -->
+                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 font-bold">LIVE CHART</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg mb-1">DexScreener</h3>
+                    <p class="text-xs text-gray-400 mb-6">Real-time price action, liquidity pools, and volume analytics.</p>
+                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                        <span>View Chart</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Card 3: Solana Network -->
+                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-400 font-bold">SOLANA</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg mb-1">Lightning Fast</h3>
+                    <p class="text-xs text-gray-400 mb-6">Zero friction, ultra-low fees, and instant settlement on Solana.</p>
+                    <a href="https://solana.com" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                        <span>Solana Network</span>
+                        <i class="fa-solid fa-globe"></i>
+                    </a>
+                </div>
+
+                <!-- Card 4: Official Telegram -->
+                <div class="glass-panel rounded-3xl p-6 border border-primary/20 hover:border-primary transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-xl group-hover:scale-110 transition-transform">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-400 font-bold">COMMUNITY</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg mb-1">Telegram Swarm</h3>
+                    <p class="text-xs text-gray-400 mb-6">Join thousands of holders in the official viral community.</p>
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 transition-transform hover:scale-105">
+                        <span>Open Telegram</span>
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left: Visual Banner -->
+                <div class="lg:col-span-6 relative" data-aos="fade-right">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-honey/20 rounded-3xl blur-2xl"></div>
+                    <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative z-10">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-16 h-16 rounded-full object-cover border-2 border-primary">
+                            <div>
+                                <h3 class="text-xl font-heading font-bold">The GuGu Phenomenon</h3>
+                                <p class="text-xs font-mono text-primary">Viral Internet Sensation</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            GuGu wasn't manufactured in a corporate boardroom. Born from one of the most endearing and viral bumblebee moments on the internet, GuGu captured the hearts of millions with pure innocence, chubby cheeks, and unbridled joy.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                                <span class="text-2xl font-black text-primary font-heading block mb-1">100%</span>
+                                <span class="text-xs text-gray-400">Community Owned</span>
+                            </div>
+                            <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                                <span class="text-2xl font-black text-primary font-heading block mb-1">0%</span>
+                                <span class="text-xs text-gray-400">Tax / Hidden Fees</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Why GuGu features -->
+                <div class="lg:col-span-6" data-aos="fade-left">
+                    <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Why GuGu?</span>
+                    <h2 class="text-3xl sm:text-4xl font-heading font-extrabold mt-4 mb-6">Built for Maximum Buzz & Good Vibes</h2>
+                    <p class="text-gray-300 text-sm mb-8">We combine top-tier Pixar-quality meme branding with the blinding speed and zero friction of the Solana blockchain.</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Feature 1 -->
+                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
+                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">🐝</div>
+                            <h4 class="font-heading font-bold text-base mb-1">Viral Meme</h4>
+                            <p class="text-xs text-gray-400">Rooted in genuine viral culture that resonates across TikTok, IG, and X.</p>
+                        </div>
+                        <!-- Feature 2 -->
+                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
+                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">🍯</div>
+                            <h4 class="font-heading font-bold text-base mb-1">Sweet Community</h4>
+                            <p class="text-xs text-gray-400">A warm, welcoming hive where holders support each other and spread positivity.</p>
+                        </div>
+                        <!-- Feature 3 -->
+                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
+                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">🚀</div>
+                            <h4 class="font-heading font-bold text-base mb-1">Fast Growing</h4>
+                            <p class="text-xs text-gray-400">Leveraging Solana's high-speed architecture for explosive viral momentum.</p>
+                        </div>
+                        <!-- Feature 4 -->
+                        <div class="glass-panel rounded-2xl p-5 border border-primary/20 hover:border-primary transition-all hover:-translate-y-1">
+                            <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-lg mb-3">💎</div>
+                            <h4 class="font-heading font-bold text-base mb-1">Diamond Hands</h4>
+                            <p class="text-xs text-gray-400">Committed swarm members dedicated to building a legendary meme legacy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOKENOMICS SECTION -->
+    <section id="tokenomics" class="py-20 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Tokenomics</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Sweet & Transparent</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Designed for sustainable growth, fair distribution, and maximum community reward.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Key Stats Cards -->
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6" data-aos="fade-right">
+                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
+                        <span class="text-xs font-mono text-gray-400 uppercase">Total Supply</span>
+                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-primary mt-1 mb-2">1,000,000,000</h3>
+                        <p class="text-xs text-gray-400">One billion sweet bumblebees ready to take over Solana.</p>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
+                        <span class="text-xs font-mono text-gray-400 uppercase">Buy / Sell Tax</span>
+                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-primary mt-1 mb-2">0% / 0%</h3>
+                        <p class="text-xs text-gray-400">Zero friction trading. What you buy is what you get.</p>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
+                        <span class="text-xs font-mono text-gray-400 uppercase">Liquidity Pool</span>
+                        <h3 class="text-2xl sm:text-3xl font-heading font-black text-primary mt-1 mb-2">Burned</h3>
+                        <p class="text-xs text-gray-400">LP tokens permanently burned for absolute rug-proof safety.</p>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-6 border border-primary/20">
+                        <span class="text-xs font-mono text-gray-400 uppercase">Contract</span>
+                        <h3 class="text-lg font-heading font-black text-primary mt-1 mb-2 truncate">Renounced</h3>
+                        <p class="text-xs text-gray-400">Fully decentralized and community-governed swarm.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Distribution Progress Bars -->
+                <div class="lg:col-span-6 glass-panel rounded-3xl p-8 border border-primary/30" data-aos="fade-left">
+                    <h3 class="text-xl font-heading font-bold mb-6 flex items-center space-x-2">
+                        <span>🍯</span>
+                        <span>Token Distribution</span>
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span>Community & Liquidity</span>
+                                <span class="text-primary font-mono">85%</span>
+                            </div>
+                            <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
+                                <div class="h-full bg-gradient-to-r from-honey to-primary rounded-full w-[85%]"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span>Marketing & Viral Growth</span>
+                                <span class="text-primary font-mono">10%</span>
+                            </div>
+                            <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
+                                <div class="h-full bg-gradient-to-r from-honey to-primary rounded-full w-[10%]"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span>Ecosystem Treasury & CEX Listings</span>
+                                <span class="text-primary font-mono">5%</span>
+                            </div>
+                            <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden p-0.5 border border-white/10">
+                                <div class="h-full bg-gradient-to-r from-honey to-primary rounded-full w-[5%]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 rounded-2xl bg-black/40 border border-primary/20 flex items-center space-x-3">
+                        <i class="fa-solid fa-shield-halved text-primary text-xl"></i>
+                        <p class="text-xs text-gray-300">Safety First: Liquidity is permanently locked/burned on Pump.fun bonding curve transition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP SECTION -->
+    <section id="roadmap" class="py-20 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">Roadmap</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">The Hive Flight Plan</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Our journey from a viral internet moment to a premier Web3 meme ecosystem.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Phase 1 -->
+                <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative hover:border-primary transition-all" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-xs">
+                        PHASE 1
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-4 mb-4">Hive Awakening</h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Website & Branding Launch</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Pump.fun Fair Launch</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Telegram & X Community Building</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-primary"></i><span>Initial Meme Campaigns</span></li>
+                    </ul>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative hover:border-primary transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-xs">
+                        PHASE 2
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-4 mb-4">Viral Swarm</h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>CoinGecko & CoinMarketCap Fast-Track</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>Influencer Partnerships & Raids</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>DexScreener Trending Campaigns</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-arrow-right text-primary"></i><span>Tier-2 CEX Discussions</span></li>
+                    </ul>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="glass-panel rounded-3xl p-8 border border-primary/30 relative hover:border-primary transition-all" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute -top-4 left-8 px-4 py-1 rounded-full bg-primary text-black font-heading font-extrabold text-xs">
+                        PHASE 3
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-4 mb-4">Honey Kingdom</h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>GuGu NFT Collection Drop</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>Exclusive Merchandise Store</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>Ecosystem Staking & Rewards</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-circle text-primary text-[8px]"></i><span>Global Viral Expansion</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY & LIVE COUNTERS SECTION -->
+    <section id="community" class="py-20 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-primary/30 relative overflow-hidden text-center" data-aos="zoom-in">
+                <div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-honey/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">The Hive</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Become Part of the Swarm</h2>
+                <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-12">Join thousands of holders, meme creators, and believers in the official Telegram channel. Good vibes only.</p>
+
+                <!-- Live Counters Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
+                        <span id="counter-holders" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">4,250+</span>
+                        <span class="text-xs text-gray-400 font-mono uppercase">Holders</span>
+                    </div>
+                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
+                        <span id="counter-mcap" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">$4.8M</span>
+                        <span class="text-xs text-gray-400 font-mono uppercase">Market Cap</span>
+                    </div>
+                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
+                        <span id="counter-txs" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">35,000+</span>
+                        <span class="text-xs text-gray-400 font-mono uppercase">Transactions</span>
+                    </div>
+                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5">
+                        <span id="counter-tg" class="text-3xl sm:text-4xl font-heading font-black text-primary block mb-1">6,100+</span>
+                        <span class="text-xs text-gray-400 font-mono uppercase">Telegram Members</span>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-base flex items-center space-x-3 transition-all hover:scale-105 shadow-[0_0_30px_rgba(255,212,0,0.5)]">
+                        <i class="fab fa-telegram-plane text-lg"></i>
+                        <span>Join Telegram Swarm</span>
+                    </a>
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="px-8 py-4 rounded-2xl glass-panel border border-primary/30 hover:border-primary text-white font-heading font-semibold text-base flex items-center space-x-3 transition-all hover:scale-105">
+                        <i class="fa-solid fa-honey-pot text-primary text-lg"></i>
+                        <span>Buy $GuGu</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-20 px-4 relative z-20">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-xs font-mono text-primary font-bold uppercase tracking-widest bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">FAQ</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mt-4 mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Everything you need to know about GuGu the Bumblebee.</p>
+            </div>
+
+            <div class="space-y-4" data-aos="fade-up">
+                <!-- FAQ Item 1 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
+                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>What is GuGu the Bumblebee ($GuGu)?</span>
+                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
+                        <p class="pb-6">GuGu is a viral meme coin inspired by one of the internet's most beloved bumblebee moments. Built on Solana, $GuGu combines Pixar-level cute character branding with high-energy community vibes and zero complicated promises.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
+                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>How do I buy $GuGu?</span>
+                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
+                        <p class="pb-6">You can buy $GuGu directly on Pump.fun using Phantom or any Solana wallet. Simply connect your wallet, swap SOL for $GuGu, and join the hive!</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
+                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>Is liquidity locked?</span>
+                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
+                        <p class="pb-6">Yes! Liquidity generated on Pump.fun is permanently locked/burned upon bonding curve graduation, ensuring complete safety and rug-proof trading.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
+                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>Where can I track the live chart?</span>
+                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
+                        <p class="pb-6">You can track real-time price action, volume, and holder statistics on DexScreener using our official contract address.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden transition-all">
+                    <button class="faq-toggle w-full p-6 text-left font-heading font-bold text-base sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>What chain is GuGu on?</span>
+                        <i class="fa-solid fa-chevron-down text-primary transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-300 text-sm leading-relaxed">
+                        <p class="pb-6">GuGu is proudly built on Solana, taking advantage of lightning-fast transaction speeds and ultra-low fees.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pt-20 pb-12 px-4 relative z-20 border-t border-white/5 bg-black/60">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <!-- Brand Column -->
+            <div class="md:col-span-2">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary shadow-[0_0_15px_rgba(255,212,0,0.4)]">
+                        <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-lg text-white">GuGu the Bumblebee</h3>
+                        <span class="text-xs font-mono text-primary font-semibold">$GuGu on Solana</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">
+                    The internet's favorite bumblebee bringing viral energy, positive community vibes, and Pixar-level charm to Web3.
+                </p>
+                <!-- Social Icons -->
+                <div class="flex items-center space-x-3">
+                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-honey-pot"></i>
+                    </a>
+                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-primary hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4">Quick Navigation</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+                    <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                    <li><a href="#market" class="hover:text-primary transition-colors">Live Market</a></li>
+                    <li><a href="#tokenomics" class="hover:text-primary transition-colors">Tokenomics</a></li>
+                    <li><a href="#roadmap" class="hover:text-primary transition-colors">Roadmap</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal & Disclaimer -->
+            <div>
+                <h4 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4">Disclaimer</h4>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">
+                    $GuGu is a meme coin created for entertainment and community engagement purposes with no intrinsic value or expectation of financial return. Enjoy the buzz!
+                </p>
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2 rounded-xl glass-panel border border-primary/20 text-primary font-bold text-xs flex items-center space-x-2 hover:border-primary transition-colors">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    <span>Back To Top</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+            <p>&copy; 2026 GuGu the Bumblebee ($GuGu). All rights reserved.</p>
+            <p class="mt-2 sm:mt-0 font-mono text-primary">Powered by Solana ⚡</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Preloader Simulation
+        window.addEventListener('load', () => {
+            let loadingBar = document.getElementById('loading-bar');
+            let loadingPercentage = document.getElementById('loading-percentage');
+            let preloader = document.getElementById('preloader');
+            
+            let progress = 0;
+            let interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 15) + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                        }, 700);
+                    }, 300);
+                }
+                loadingBar.style.width = progress + '%';
+                loadingPercentage.innerText = progress + '%';
+            }, 50);
+        });
+
+        // Custom Cursor Movement
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        // Dynamic Background Floating Particles Generator
+        const particlesContainer = document.getElementById('particles-container');
+        const particleCount = 25;
+        for (let i = 0; i < particleCount; i++) {
+            const p = document.createElement('div');
+            p.className = 'absolute rounded-full bg-primary pointer-events-none opacity-30 animate-float';
+            const size = Math.random() * 6 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = Math.random() * 100 + 'vh';
+            p.style.animationDuration = (Math.random() * 6 + 4) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            particlesContainer.appendChild(p);
+        }
+
+        // Sticky Navbar shrink on scroll
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('nav-container');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navContainer.classList.add('py-2');
+                navContainer.classList.remove('py-3');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navContainer.classList.remove('py-2');
+                navContainer.classList.add('py-3');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy Contract Address Function
+        function copyCA() {
+            const caText = "C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump";
+            navigator.clipboard.writeText(caText);
+            
+            const copyText = document.getElementById('copy-text');
+            const copyIcon = document.getElementById('copy-icon');
+            
+            copyText.innerText = "Copied!";
+            copyIcon.className = "fa-solid fa-check";
+            
+            setTimeout(() => {
+                copyText.innerText = "Copy";
+                copyIcon.className = "fa-regular fa-copy";
+            }, 2000);
+        }
+
+        // FAQ Accordion Toggle Logic
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('i');
+                
+                // Close other open accordions
+                faqToggles.forEach(otherToggle => {
+                    if (otherToggle !== toggle) {
+                        otherToggle.nextElementSibling.style.maxHeight = null;
+                        otherToggle.querySelector('i').style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
