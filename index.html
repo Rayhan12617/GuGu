@@ -1,853 +1,862 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GuGu the Bumblebee | The Internet's Favorite Solana Meme Coin ($GuGu)</title>
-    
-    <!-- Tailwind CSS -->
+    <title>GuGu the Bumblebee | $GuGu Meme Coin</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            DEFAULT: '#FFD400',
-                            50: '#FFFBEB',
-                            100: '#FEF3C7',
-                            200: '#FDE68A',
-                            300: '#FCD34D',
-                            400: '#FBBF24',
-                            500: '#FFD400',
-                            600: '#D97706',
-                            700: '#B45309',
-                            800: '#92400E',
-                            900: '#78350F',
-                        },
                         honey: '#FFC107',
+                        amber: '#FFB300',
                         darkBg: '#111111',
                     },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-                        'drip': 'drip 4s ease-in-out infinite',
-                        'sway': 'sway 5s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-20px) rotate(5deg)' },
-                        },
-                        pulseGlow: {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 212, 0, 0.4)' },
-                            '50%': { boxShadow: '0 0 40px rgba(255, 212, 0, 0.8)' },
-                        },
-                        drip: {
-                            '0%': { transform: 'scaleY(0.8)', transformOrigin: 'top' },
-                            '50%': { transform: 'scaleY(1.2)', transformOrigin: 'top' },
-                            '100%': { transform: 'scaleY(0.8)', transformOrigin: 'top' },
-                        },
-                        sway: {
-                            '0%': { transform: 'rotate(-5deg)' },
-                            '100%': { transform: 'rotate(5deg)' },
-                        }
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
-    <!-- GSAP & AOS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #111111;
             color: #FFFFFF;
+            font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
         }
-        h1, h2, h3, h4, h5, h6, .brand-font {
-            font-family: 'Outfit', sans-serif;
-        }
-        .glass-card {
+        .glass-panel {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 212, 0, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 1.5rem;
         }
-        .glass-card:hover {
-            border-color: rgba(255, 212, 0, 0.4);
-            box-shadow: 0 0 30px rgba(255, 212, 0, 0.15);
+        .glow-honey {
+            box-shadow: 0 0 25px rgba(255, 193, 7, 0.4);
         }
-        .glass-nav {
-            background: rgba(17, 17, 17, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 212, 0, 0.1);
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #FFD400;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #FFC107;
-        }
-        /* Custom Cursor */
-        .cursor-dot, .cursor-outline {
-            pointer-events: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-radius: 50%;
-            z-index: 9999;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #FFD400;
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(255, 212, 0, 0.5);
-            transition: transform 0.1s ease-out, width 0.2s, height 0.2s;
-        }
-        .honeycomb-bg {
-            background-image: radial-gradient(rgba(255, 212, 0, 0.07) 1px, transparent 1px);
-            background-size: 30px 30px;
+        .glow-honey-lg {
+            box-shadow: 0 0 50px rgba(255, 193, 7, 0.6);
         }
         .text-gradient {
-            background: linear-gradient(135deg, #FFD400 0%, #FFC107 50%, #FFA000 100%);
+            background: linear-gradient(135deg, #FFC107 0%, #FFB300 50%, #FFA000 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .btn-glow {
-            box-shadow: 0 0 25px rgba(255, 212, 0, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .honey-drip {
+            position: absolute;
+            top: 0;
+            width: 15px;
+            background: linear-gradient(to bottom, #FFC107, #FFB300);
+            border-radius: 0 0 10px 10px;
+            animation: drip 4s infinite ease-in-out;
         }
-        .btn-glow:hover {
-            box-shadow: 0 0 35px rgba(255, 212, 0, 0.8);
-            transform: translateY(-2px);
+        @keyframes drip {
+            0% { height: 0px; transform: scaleY(0.8); }
+            50% { height: 40px; transform: scaleY(1.2); }
+            100% { height: 0px; transform: scaleY(0.5); opacity: 0; }
         }
-        .mouse-glow {
-            pointer-events: none;
+        canvas#bg-canvas, canvas#bee-canvas {
             position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 212, 0, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
-            transform: translate(-50%, -50%);
-            z-index: 999;
-            transition: width 0.3s, height 0.3s;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .interactive-layer {
+            position: relative;
+            z-index: 10;
         }
     </style>
 </head>
-<body class="bg-[#111111] text-white honeycomb-bg">
+<body class="relative min-h-screen selection:bg-honey selection:text-black">
 
-    <!-- Mouse Tracker & Custom Cursor -->
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-    <div class="mouse-glow" id="mouseGlow"></div>
+    <!-- Background Animation Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <!-- Bee Swarm & Flight Canvas -->
+    <canvas id="bee-canvas"></canvas>
 
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#111111] transition-opacity duration-700">
-        <div class="relative mb-6">
-            <div class="absolute -inset-4 rounded-full bg-[#FFD400]/20 blur-xl animate-pulse"></div>
-            <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu Logo" class="w-28 h-28 rounded-full border-4 border-[#FFD400] object-cover animate-bounce relative z-10 shadow-2xl">
+    <!-- Honey Drips from Top -->
+    <div class="fixed top-0 left-10 honey-drip" style="animation-delay: 0s;"></div>
+    <div class="fixed top-0 left-1/4 honey-drip" style="animation-delay: 1.5s;"></div>
+    <div class="fixed top-0 left-2/3 honey-drip" style="animation-delay: 0.8s;"></div>
+    <div class="fixed top-0 right-12 honey-drip" style="animation-delay: 2.2s;"></div>
+
+    <!-- Navigation Header -->
+    <header class="interactive-layer sticky top-0 backdrop-blur-md bg-black/60 border-b border-honey/10 px-6 py-4 flex justify-between items-center z-50">
+        <div class="flex items-center space-x-3">
+            <div class="relative w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-honey to-amber glow-honey">
+                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu Logo" class="w-full h-full rounded-full object-cover">
+            </div>
+            <span class="font-black text-xl tracking-wider text-gradient">$GuGu</span>
         </div>
-        <h2 class="text-2xl font-black brand-font tracking-wider mb-2 text-gradient">GuGu The Bumblebee</h2>
-        <p class="text-gray-400 text-sm mb-6 animate-pulse">Brewing Fresh Honey & Buzzing to Solana...</p>
-        <div class="w-64 h-3 bg-white/10 rounded-full overflow-hidden p-0.5 border border-[#FFD400]/30">
-            <div id="loadingBar" class="h-full bg-gradient-to-r from-[#FFD400] to-[#FFC107] rounded-full transition-all duration-300 w-0"></div>
-        </div>
-        <span id="loadingPercent" class="text-xs text-[#FFD400] font-bold mt-2">0%</span>
-    </div>
-
-    <!-- Floating Background Bees & Pollen -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute top-1/4 left-10 text-[#FFD400]/20 text-3xl animate-float"><i class="fa-solid fa-bee"></i></div>
-        <div class="absolute top-1/3 right-16 text-[#FFD400]/15 text-4xl animate-float" style="animation-delay: 2s;"><i class="fa-solid fa-bee"></i></div>
-        <div class="absolute bottom-1/4 left-1/4 text-[#FFD400]/20 text-2xl animate-float" style="animation-delay: 4s;"><i class="fa-solid fa-bee"></i></div>
-        <div class="absolute top-2/3 right-1/3 text-[#FFD400]/15 text-3xl animate-float" style="animation-delay: 1s;"><i class="fa-solid fa-bee"></i></div>
-    </div>
-
-    <!-- Sticky Glassmorphism Navbar -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav py-4 px-6 md:px-12">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="relative">
-                    <div class="absolute -inset-1 rounded-full bg-[#FFD400]/30 blur-sm group-hover:bg-[#FFD400]/60 transition-all"></div>
-                    <img src="https://i.imgur.com/y68XoNl.jpeg" alt="Logo" class="w-10 h-10 rounded-full border-2 border-[#FFD400] object-cover relative z-10">
-                </div>
-                <span class="text-xl font-black brand-font tracking-wide text-gradient">$GuGu</span>
+        <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide text-gray-300">
+            <a href="#about" class="hover:text-honey transition">About</a>
+            <a href="#why" class="hover:text-honey transition">Why GuGu</a>
+            <a href="#tokenomics" class="hover:text-honey transition">Tokenomics</a>
+            <a href="#roadmap" class="hover:text-honey transition">Roadmap</a>
+            <a href="#minigame" class="hover:text-honey transition text-honey">Bee Flight 🎮</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <a href="https://t.me/GuGutheBumblebee" target="_blank" class="bg-honey/10 border border-honey text-honey hover:bg-honey hover:text-black px-4 py-2 rounded-full font-bold text-sm transition glow-honey">
+                <i class="fab fa-telegram-plane mr-2"></i>Telegram
             </a>
-
-            <!-- Nav Links -->
-            <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-300">
-                <a href="#home" class="hover:text-[#FFD400] transition-colors">Home</a>
-                <a href="#about" class="hover:text-[#FFD400] transition-colors">About</a>
-                <a href="#tokenomics" class="hover:text-[#FFD400] transition-colors">Tokenomics</a>
-                <a href="#roadmap" class="hover:text-[#FFD400] transition-colors">Roadmap</a>
-                <a href="#community" class="hover:text-[#FFD400] transition-colors">Community</a>
-                <a href="#faq" class="hover:text-[#FFD400] transition-colors">FAQ</a>
-            </div>
-
-            <!-- Right CTA Buttons -->
-            <div class="hidden md:flex items-center space-x-4">
-                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="bg-[#FFD400] text-black font-extrabold px-5 py-2.5 rounded-full btn-glow flex items-center space-x-2 text-sm">
-                    <i class="fa-solid fa-bee"></i>
-                    <span>Buy $GuGu</span>
-                </a>
-                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="bg-white/10 hover:bg-white/20 text-white border border-[#FFD400]/30 font-bold px-4 py-2.5 rounded-full transition-all flex items-center space-x-2 text-sm">
-                    <i class="fa-brands fa-telegram text-[#FFD400]"></i>
-                    <span>Telegram</span>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button id="mobileMenuBtn" class="lg:hidden text-2xl text-[#FFD400] focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
         </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="hidden lg:hidden absolute top-full left-0 right-0 glass-nav border-t border-[#FFD400]/20 py-6 px-6 flex flex-col space-y-4 shadow-2xl">
-            <a href="#home" class="mobile-link text-lg font-semibold hover:text-[#FFD400]">Home</a>
-            <a href="#about" class="mobile-link text-lg font-semibold hover:text-[#FFD400]">About</a>
-            <a href="#tokenomics" class="mobile-link text-lg font-semibold hover:text-[#FFD400]">Tokenomics</a>
-            <a href="#roadmap" class="mobile-link text-lg font-semibold hover:text-[#FFD400]">Roadmap</a>
-            <a href="#community" class="mobile-link text-lg font-semibold hover:text-[#FFD400]">Community</a>
-            <a href="#faq" class="mobile-link text-lg font-semibold hover:text-[#FFD400]">FAQ</a>
-            <div class="pt-4 flex flex-col space-y-3">
-                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="bg-[#FFD400] text-black font-extrabold px-5 py-3 rounded-full text-center btn-glow">
-                    <i class="fa-solid fa-bee mr-2"></i> Buy $GuGu
-                </a>
-                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="bg-white/10 text-white font-bold px-5 py-3 rounded-full text-center border border-[#FFD400]/30">
-                    <i class="fa-brands fa-telegram text-[#FFD400] mr-2"></i> Join Telegram
-                </a>
-            </div>
-        </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden z-10">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FFD400]/10 rounded-full blur-[120px] pointer-events-none"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <!-- Hero Content -->
-            <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
-                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card border border-[#FFD400]/40 text-[#FFD400] text-sm font-bold shadow-lg">
-                    <span class="animate-pulse">✨</span>
-                    <span>The Internet's Ultimate Viral Sensation</span>
-                    <span class="bg-[#FFD400] text-black text-xs px-2 py-0.5 rounded-full font-black">$GuGu</span>
-                </div>
-
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black brand-font tracking-tight leading-none">
-                    GuGu the <span class="text-gradient">Bumblebee</span>
-                </h1>
-
-                <p class="text-lg sm:text-xl text-gray-300 font-medium max-w-2xl mx-auto lg:mx-0">
-                    "The Internet's Favorite Bumblebee is Now Buzzing in Web3." Inspired by one of the internet's most viral bumblebee moments, GuGu brings together memes, community, fun, and positive energy. No complicated promises—just good vibes, unforgettable memes, and a buzzing community.
-                </p>
-
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
-                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="bg-[#FFD400] text-black font-black px-8 py-4 rounded-full btn-glow flex items-center space-x-3 text-lg">
-                        <i class="fa-solid fa-bee text-xl"></i>
-                        <span>Buy $GuGu</span>
-                    </a>
-                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="glass-card hover:bg-white/10 text-white font-bold px-7 py-4 rounded-full border border-[#FFD400]/30 transition-all flex items-center space-x-3 text-lg">
-                        <i class="fa-brands fa-telegram text-[#FFD400] text-xl"></i>
-                        <span>Join Telegram</span>
-                    </a>
-                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="glass-card hover:bg-white/10 text-white font-bold px-6 py-4 rounded-full border border-[#FFD400]/30 transition-all flex items-center space-x-2 text-base">
-                        <i class="fa-solid fa-chart-line text-[#FFD400]"></i>
-                        <span>View Chart</span>
-                    </a>
-                </div>
-
-                <!-- Contract Address Glass Card -->
-                <div class="pt-4 max-w-xl mx-auto lg:mx-0">
-                    <div class="glass-card p-4 rounded-2xl flex items-center justify-between border border-[#FFD400]/30 shadow-xl">
-                        <div class="flex items-center space-x-3 truncate">
-                            <div class="w-10 h-10 rounded-xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] flex-shrink-0">
-                                <i class="fa-solid fa-file-contract text-lg"></i>
-                            </div>
-                            <div class="truncate text-left">
-                                <span class="text-xs text-gray-400 block font-semibold">Contract Address (Solana)</span>
-                                <span id="caText" class="text-sm font-mono text-[#FFD400] truncate">C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</span>
-                            </div>
-                        </div>
-                        <button onclick="copyCA()" class="ml-4 bg-[#FFD400] text-black px-4 py-2.5 rounded-xl font-extrabold text-sm hover:bg-[#FFC107] transition-all flex items-center space-x-2 flex-shrink-0 btn-glow">
-                            <i id="copyIcon" class="fa-regular fa-copy"></i>
-                            <span id="copyText">Copy</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hero Image / Visual -->
-            <div class="lg:col-span-5 flex flex-col items-center justify-center relative" data-aos="fade-left" data-aos-duration="1000">
-                <div class="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
-                    <!-- Glowing Background Ring -->
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#FFD400] to-honey opacity-30 blur-3xl animate-pulse-glow"></div>
-                    <!-- Rotating Honeycomb Border Effect -->
-                    <div class="absolute inset-0 rounded-3xl border-2 border-dashed border-[#FFD400]/40 animate-spin" style="animation-duration: 30s;"></div>
-                    
-                    <!-- Main Logo Card -->
-                    <div class="glass-card p-4 rounded-3xl border-2 border-[#FFD400]/50 shadow-2xl relative z-10 transform hover:scale-105 transition-all duration-500">
-                        <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu the Bumblebee" class="w-64 h-64 sm:w-80 sm:h-80 rounded-2xl object-cover shadow-2xl">
-                        <div class="absolute -bottom-4 -right-4 bg-[#111111] border-2 border-[#FFD400] px-4 py-2 rounded-full text-xs font-black text-[#FFD400] shadow-xl flex items-center space-x-2">
-                            <i class="fa-solid fa-crown text-[#FFD400]"></i>
-                            <span>$GuGu Solana King</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Floating Bee Animation underneath -->
-                <div class="mt-8 flex items-center space-x-3 text-[#FFD400] font-bold text-sm bg-black/40 px-6 py-2 rounded-full border border-[#FFD400]/30 animate-bounce">
-                    <i class="fa-solid fa-bee text-xl animate-spin" style="animation-duration: 4s;"></i>
-                    <span>Buzzing Live on Solana Network!</span>
-                </div>
+    <section class="interactive-layer min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-16 relative overflow-hidden">
+        <div class="relative w-44 h-44 md:w-56 md:h-56 mb-8 rounded-full p-1 bg-gradient-to-r from-honey via-amber to-honey glow-honey-lg animate-spin" style="animation-duration: 12s;">
+            <div class="w-full h-full rounded-full bg-black flex items-center justify-center p-2">
+                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu the Bumblebee" class="w-full h-full rounded-full object-cover animate-pulse">
             </div>
         </div>
-    </section>
 
-    <!-- Live Market Section -->
-    <section class="py-16 relative z-10 border-y border-[#FFD400]/10 bg-black/40">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <span class="text-[#FFD400] text-sm font-bold uppercase tracking-widest">Live Metrics & Links</span>
-                <h2 class="text-3xl sm:text-4xl font-black brand-font mt-2">Instant Swarm Access</h2>
-            </div>
+        <div class="inline-block bg-honey/10 border border-honey/30 rounded-full px-4 py-1.5 text-xs font-bold tracking-widest text-honey uppercase mb-4 glow-honey">
+            Ticker: $GuGu
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Pump.fun Card -->
-                <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="100">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-rocket"></i>
-                            </div>
-                            <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/30">Active</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-1">Pump.fun</h3>
-                        <p class="text-gray-400 text-sm mb-6">Official fair launch & bonding curve trading platform.</p>
-                    </div>
-                    <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full bg-[#FFD400] text-black font-extrabold py-3 rounded-xl text-center btn-glow text-sm flex items-center justify-center space-x-2">
-                        <span>Buy on Pump.fun</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
+        <h1 class="text-4xl md:text-7xl font-black tracking-tight mb-4 max-w-4xl">
+            GuGu the <span class="text-gradient">Bumblebee</span>
+        </h1>
 
-                <!-- DexScreener Card -->
-                <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="200">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-chart-candlestick"></i>
-                            </div>
-                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold border border-blue-500/30">Live Chart</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-1">DexScreener</h3>
-                        <p class="text-gray-400 text-sm mb-6">Real-time price charts, volume analytics, and trades.</p>
-                    </div>
-                    <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-full glass-card hover:bg-white/10 text-white font-bold py-3 rounded-xl text-center border border-[#FFD400]/30 text-sm flex items-center justify-center space-x-2 transition-all">
-                        <span>View DexScreener</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
+        <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mb-8 font-medium">
+            "Buzzing into Web3 with the sweetest community."
+        </p>
 
-                <!-- Telegram Card -->
-                <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="300">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-brands fa-telegram"></i>
-                            </div>
-                            <span class="px-3 py-1 rounded-full bg-[#FFD400]/20 text-[#FFD400] text-xs font-bold border border-[#FFD400]/30">Community</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-1">Official Telegram</h3>
-                        <p class="text-gray-400 text-sm mb-6">Join thousands of holders in the buzzing community hub.</p>
-                    </div>
-                    <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-full glass-card hover:bg-white/10 text-white font-bold py-3 rounded-xl text-center border border-[#FFD400]/30 text-sm flex items-center justify-center space-x-2 transition-all">
-                        <span>Open Telegram</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <!-- Network Card -->
-                <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="400">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-bolt"></i>
-                            </div>
-                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold border border-purple-500/30">Solana</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-1">Solana Network</h3>
-                        <p class="text-gray-400 text-sm mb-6">Lightning-fast transactions with ultra-low gas fees.</p>
-                    </div>
-                    <button onclick="copyCA()" class="w-full glass-card hover:bg-white/10 text-white font-bold py-3 rounded-xl text-center border border-[#FFD400]/30 text-sm flex items-center justify-center space-x-2 transition-all">
-                        <span>Copy CA</span>
-                        <i class="fa-regular fa-copy"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 w-full max-w-md justify-center">
+            <a href="https://t.me/GuGutheBumblebee" target="_blank" class="bg-gradient-to-r from-honey to-amber text-black font-extxl font-bold py-4 px-8 rounded-full shadow-lg glow-honey hover:scale-105 transition flex items-center justify-center space-x-2">
+                <i class="fab fa-telegram-plane text-xl"></i>
+                <span>Join Telegram</span>
+            </a>
+            <a href="https://x.com/mrhanhq" target="_blank" class="glass-panel text-white hover:border-honey font-bold py-4 px-8 rounded-full transition flex items-center justify-center space-x-2">
+                <i class="fab fa-x-twitter text-xl"></i>
+                <span>Follow on X</span>
+            </a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-6" data-aos="fade-right">
-                    <div class="relative">
-                        <div class="absolute -inset-4 bg-[#FFD400]/20 rounded-3xl blur-2xl"></div>
-                        <div class="glass-card p-8 rounded-3xl border-2 border-[#FFD400]/40 relative z-10">
-                            <span class="text-[#FFD400] text-sm font-bold uppercase tracking-widest">The Legend of GuGu</span>
-                            <h2 class="text-3xl sm:text-5xl font-black brand-font mt-2 mb-6">Why GuGu is Taking Over Web3</h2>
-                            <p class="text-gray-300 text-base sm:text-lg mb-6 leading-relaxed">
-                                GuGu wasn't just born in a lab; it emerged from one of the most heartwarming and viral bumblebee moments on the internet. Transformed into a Pixar-quality digital icon, GuGu represents pure joy, relentless positivity, and unstoppable community power.
-                            </p>
-                            <p class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed">
-                                Built on Solana for maximum speed and zero friction, GuGu is here to unite meme lovers, diamond hands, and crypto degens into the ultimate honey-fueled swarm.
-                            </p>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="glass-card p-4 rounded-2xl border border-[#FFD400]/20">
-                                    <h4 class="text-2xl font-black text-[#FFD400] brand-font">100%</h4>
-                                    <p class="text-xs text-gray-400 mt-1">Community Driven</p>
-                                </div>
-                                <div class="glass-card p-4 rounded-2xl border border-[#FFD400]/20">
-                                    <h4 class="text-2xl font-black text-[#FFD400] brand-font">Lightning</h4>
-                                    <p class="text-xs text-gray-400 mt-1">Solana Speed</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <section id="about" class="interactive-layer py-24 px-6 max-w-6xl mx-auto">
+        <div class="glass-panel p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-honey/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="max-w-3xl">
+                <h2 class="text-3xl md:text-5xl font-black mb-6 text-gradient">About GuGu</h2>
+                <p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-6 font-medium">
+                    GuGu is a fun community-driven meme coin built to spread positivity, memes, and buzzing energy across Web3. Driven by unstoppable momentum and fueled by pure digital honey, $GuGu brings decentralized fun back to the blockchain.
+                </p>
+                <div class="flex flex-wrap gap-4 text-sm font-bold text-honey">
+                    <span class="bg-honey/10 px-4 py-2 rounded-full border border-honey/20">🐝 100% Community Driven</span>
+                    <span class="bg-honey/10 px-4 py-2 rounded-full border border-honey/20">🍯 Unstoppable Viral Buzz</span>
+                    <span class="bg-honey/10 px-4 py-2 rounded-full border border-honey/20">🚀 Solana Ecosystem</span>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Why GuGu Features Grid -->
-                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6" data-aos="fade-left">
-                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border border-[#FFD400]/20 hover:border-[#FFD400]/60">
-                        <div class="w-14 h-14 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-fire"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Viral Meme</h3>
-                        <p class="text-gray-400 text-sm">Backed by global viral internet culture and unmatched Pixar-level aesthetic branding.</p>
-                    </div>
+    <!-- Why GuGu Section -->
+    <section id="why" class="interactive-layer py-24 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-gradient">Why Choose GuGu?</h2>
+            <p class="text-gray-400 max-w-xl mx-auto">The hive is built different. Here is why $GuGu stands out in the swarm.</p>
+        </div>
 
-                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border border-[#FFD400]/20 hover:border-[#FFD400]/60">
-                        <div class="w-14 h-14 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-jar"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Sweet Community</h3>
-                        <p class="text-gray-400 text-sm">A warm, welcoming, and high-energy swarm of creators, holders, and believers.</p>
-                    </div>
-
-                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border border-[#FFD400]/20 hover:border-[#FFD400]/60">
-                        <div class="w-14 h-14 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-rocket"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Fast Growing</h3>
-                        <p class="text-gray-400 text-sm">Rapid expansion across Telegram, Twitter, and global meme channels.</p>
-                    </div>
-
-                    <div class="glass-card p-6 rounded-3xl group hover:-translate-y-2 transition-all duration-300 border border-[#FFD400]/20 hover:border-[#FFD400]/60">
-                        <div class="w-14 h-14 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-gem"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Diamond Hands</h3>
-                        <p class="text-gray-400 text-sm">Built for long-term holders who believe in the power of viral community lore.</p>
-                    </div>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div class="glass-panel p-6 text-center hover:scale-105 transition group">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition">🐝</div>
+                <h3 class="font-bold text-lg mb-2 text-honey">Community Powered</h3>
+                <p class="text-gray-400 text-sm">Every hive member plays a vital role in governance and viral outreach.</p>
+            </div>
+            <div class="glass-panel p-6 text-center hover:scale-105 transition group">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition">🍯</div>
+                <h3 class="font-bold text-lg mb-2 text-honey">Sweet Rewards</h3>
+                <p class="text-gray-400 text-sm">Earn rewards through community participation and exclusive mini-games.</p>
+            </div>
+            <div class="glass-panel p-6 text-center hover:scale-105 transition group">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition">🚀</div>
+                <h3 class="font-bold text-lg mb-2 text-honey">Fast Growth</h3>
+                <p class="text-gray-400 text-sm">Blazing fast expansion across social media channels and top platforms.</p>
+            </div>
+            <div class="glass-panel p-6 text-center hover:scale-105 transition group">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition">💛</div>
+                <h3 class="font-bold text-lg mb-2 text-honey">Strong Holders</h3>
+                <p class="text-gray-400 text-sm">Diamond hands united by honey and memes for the long haul.</p>
+            </div>
+            <div class="glass-panel p-6 text-center hover:scale-105 transition group">
+                <div class="text-4xl mb-4 group-hover:scale-125 transition">🌼</div>
+                <h3 class="font-bold text-lg mb-2 text-honey">Endless Energy</h3>
+                <p class="text-gray-400 text-sm">Non-stop creative meme output and engaging community activities.</p>
             </div>
         </div>
     </section>
 
     <!-- Tokenomics Section -->
-    <section id="tokenomics" class="py-24 relative z-10 bg-black/40 border-y border-[#FFD400]/10">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-[#FFD400] text-sm font-bold uppercase tracking-widest">Transparent & Secure</span>
-                <h2 class="text-3xl sm:text-5xl font-black brand-font mt-2 mb-4">$GuGu Tokenomics</h2>
-                <p class="text-gray-300 text-base sm:text-lg">Designed for maximum viral growth, sustainable liquidity, and total community trust.</p>
+    <section id="tokenomics" class="interactive-layer py-24 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-gradient">Sweet Tokenomics</h2>
+            <p class="text-gray-400 max-w-xl mx-auto">Transparent, fair, and honey-packed distribution.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="glass-panel p-8 relative">
+                <div class="text-honey text-xs font-bold uppercase tracking-wider mb-2">Total Supply</div>
+                <div class="text-3xl font-black mb-4">1,000,000,000</div>
+                <div class="w-full bg-black/50 h-3 rounded-full overflow-hidden border border-honey/20">
+                    <div class="bg-gradient-to-r from-honey to-amber h-full w-full"></div>
+                </div>
             </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Total Supply Card -->
-                <div class="glass-card p-8 rounded-3xl border border-[#FFD400]/30 text-center relative overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#FFD400]/10 rounded-full blur-xl group-hover:bg-[#FFD400]/30 transition-all"></div>
-                    <div class="w-16 h-16 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mx-auto mb-6">
-                        <i class="fa-solid fa-coins"></i>
-                    </div>
-                    <span class="text-sm text-gray-400 font-semibold block mb-2">Total Supply</span>
-                    <h3 class="text-3xl font-black brand-font text-gradient mb-4">1,000,000,000</h3>
-                    <p class="text-gray-400 text-sm">1 Billion pristine $GuGu tokens minted on the lightning-fast Solana blockchain.</p>
+            <div class="glass-panel p-8 relative">
+                <div class="text-honey text-xs font-bold uppercase tracking-wider mb-2">Liquidity Pool</div>
+                <div class="text-3xl font-black mb-4">80%</div>
+                <div class="w-full bg-black/50 h-3 rounded-full overflow-hidden border border-honey/20">
+                    <div class="bg-gradient-to-r from-honey to-amber h-full" style="width: 80%;"></div>
                 </div>
-
-                <!-- Liquidity Card -->
-                <div class="glass-card p-8 rounded-3xl border border-[#FFD400]/30 text-center relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#FFD400]/10 rounded-full blur-xl group-hover:bg-[#FFD400]/30 transition-all"></div>
-                    <div class="w-16 h-16 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mx-auto mb-6">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
-                    <span class="text-sm text-gray-400 font-semibold block mb-2">Liquidity</span>
-                    <h3 class="text-3xl font-black brand-font text-gradient mb-4">100% Locked</h3>
-                    <p class="text-gray-400 text-sm">Liquidity is permanently locked on Pump.fun bonding curve for ultimate safety.</p>
+            </div>
+            <div class="glass-panel p-8 relative">
+                <div class="text-honey text-xs font-bold uppercase tracking-wider mb-2">Community & Rewards</div>
+                <div class="text-3xl font-black mb-4">10%</div>
+                <div class="w-full bg-black/50 h-3 rounded-full overflow-hidden border border-honey/20">
+                    <div class="bg-gradient-to-r from-honey to-amber h-full" style="width: 10%;"></div>
                 </div>
-
-                <!-- Tax Card -->
-                <div class="glass-card p-8 rounded-3xl border border-[#FFD400]/30 text-center relative overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#FFD400]/10 rounded-full blur-xl group-hover:bg-[#FFD400]/30 transition-all"></div>
-                    <div class="w-16 h-16 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-2xl mx-auto mb-6">
-                        <i class="fa-solid fa-percent"></i>
-                    </div>
-                    <span class="text-sm text-gray-400 font-semibold block mb-2">Buy / Sell Tax</span>
-                    <h3 class="text-3xl font-black brand-font text-gradient mb-4">0% / 0%</h3>
-                    <p class="text-gray-400 text-sm">Zero friction trading. What you buy is what you hold. Pure meme energy.</p>
+            </div>
+            <div class="glass-panel p-8 relative">
+                <div class="text-honey text-xs font-bold uppercase tracking-wider mb-2">Marketing</div>
+                <div class="text-3xl font-black mb-4">5%</div>
+                <div class="w-full bg-black/50 h-3 rounded-full overflow-hidden border border-honey/20">
+                    <div class="bg-gradient-to-r from-honey to-amber h-full" style="width: 5%;"></div>
+                </div>
+            </div>
+            <div class="glass-panel p-8 relative md:col-span-2 lg:col-span-2">
+                <div class="text-honey text-xs font-bold uppercase tracking-wider mb-2">Ecosystem & Development</div>
+                <div class="text-3xl font-black mb-4">5%</div>
+                <div class="w-full bg-black/50 h-3 rounded-full overflow-hidden border border-honey/20">
+                    <div class="bg-gradient-to-r from-honey to-amber h-full" style="width: 5%;"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Roadmap Section -->
-    <section id="roadmap" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-[#FFD400] text-sm font-bold uppercase tracking-widest">Flight Path</span>
-                <h2 class="text-3xl sm:text-5xl font-black brand-font mt-2 mb-4">GuGu Roadmap</h2>
-                <p class="text-gray-300 text-base sm:text-lg">Our journey to conquer the Solana meme ecosystem and build the ultimate honey empire.</p>
+    <section id="roadmap" class="interactive-layer py-24 px-6 max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-gradient">The Hive Roadmap</h2>
+            <p class="text-gray-400">Our flight path to worldwide meme domination.</p>
+        </div>
+
+        <div class="relative border-l-2 border-honey/30 ml-4 md:ml-32 space-y-12">
+            <div class="relative pl-8">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-honey glow-honey"></div>
+                <div class="glass-panel p-6">
+                    <span class="text-xs font-bold text-honey uppercase tracking-wider">Phase 1</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">🐣 Hive Created</h3>
+                    <p class="text-gray-400 text-sm">Smart contract deployment, website launch, initial community building, and brand establishment.</p>
+                </div>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Phase 1 -->
-                <div class="glass-card p-8 rounded-3xl border border-[#FFD400]/30 relative group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute -top-4 -right-4 bg-[#FFD400] text-black font-black text-xs px-4 py-1.5 rounded-full shadow-lg">
-                        Phase 1
-                    </div>
-                    <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl mb-6">
-                        <i class="fa-solid fa-seedling"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Hive Awakening</h3>
-                    <ul class="space-y-3 text-gray-300 text-sm">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Website & Brand Launch</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Pump.fun Fair Launch</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Community & Telegram Swarm</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Initial Meme Campaigns</span></li>
-                    </ul>
+            <div class="relative pl-8">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-honey glow-honey"></div>
+                <div class="glass-panel p-6">
+                    <span class="text-xs font-bold text-honey uppercase tracking-wider">Phase 2</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">🐝 Community Growth</h3>
+                    <p class="text-gray-400 text-sm">Viral marketing campaigns, Telegram raids, meme contests, and release of the GuGu Bee Flight mini-game.</p>
                 </div>
-
-                <!-- Phase 2 -->
-                <div class="glass-card p-8 rounded-3xl border border-[#FFD400]/30 relative group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute -top-4 -right-4 bg-[#FFD400] text-black font-black text-xs px-4 py-1.5 rounded-full shadow-lg">
-                        Phase 2
-                    </div>
-                    <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl mb-6">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Swarm Expansion</h3>
-                    <ul class="space-y-3 text-gray-300 text-sm">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Influencer Partnerships</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>DexScreener & DEXTools Trending</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Global Viral Meme Takeover</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>CoinGecko & CoinMarketCap Fast-Track</span></li>
-                    </ul>
+            </div>
+            <div class="relative pl-8">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-honey glow-honey"></div>
+                <div class="glass-panel p-6">
+                    <span class="text-xs font-bold text-honey uppercase tracking-wider">Phase 3</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">🚀 Marketing Push</h3>
+                    <p class="text-gray-400 text-sm">Key influencer partnerships, trending on social platforms, and major community expansion events.</p>
                 </div>
-
-                <!-- Phase 3 -->
-                <div class="glass-card p-8 rounded-3xl border border-[#FFD400]/30 relative group hover:border-[#FFD400] transition-all" data-aos="fade-up" data-aos-delay="300">
-                    <div class="absolute -top-4 -right-4 bg-[#FFD400] text-black font-black text-xs px-4 py-1.5 rounded-full shadow-lg">
-                        Phase 3
-                    </div>
-                    <div class="w-12 h-12 rounded-2xl bg-[#FFD400]/20 flex items-center justify-center text-[#FFD400] text-xl mb-6">
-                        <i class="fa-solid fa-crown"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Honey Kingdom</h3>
-                    <ul class="space-y-3 text-gray-300 text-sm">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Exclusive GuGu NFT Collection</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Merchandise & Swag Store</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Tier 1 CEX Listings</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-[#FFD400]"></i><span>Future Ecosystem Expansion</span></li>
-                    </ul>
+            </div>
+            <div class="relative pl-8">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-honey glow-honey"></div>
+                <div class="glass-panel p-6">
+                    <span class="text-xs font-bold text-honey uppercase tracking-wider">Phase 4</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">📈 Exchange Listings</h3>
+                    <p class="text-gray-400 text-sm">CoinGecko and CoinMarketCap listings, plus targeted centralized exchange (CEX) listings.</p>
+                </div>
+            </div>
+            <div class="relative pl-8">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-honey glow-honey"></div>
+                <div class="glass-panel p-6">
+                    <span class="text-xs font-bold text-honey uppercase tracking-wider">Phase 5</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">🌍 Global Buzz</h3>
+                    <p class="text-gray-400 text-sm">Real-world merch, ecosystem expansions, and solidifying $GuGu as a top-tier global meme brand.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Community Section -->
-    <section id="community" class="py-24 relative z-10 bg-black/40 border-y border-[#FFD400]/10">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 text-center">
-            <div class="max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-[#FFD400] text-sm font-bold uppercase tracking-widest">Join The Swarm</span>
-                <h2 class="text-3xl sm:text-5xl font-black brand-font mt-2 mb-4">Become Part of the Swarm</h2>
-                <p class="text-gray-300 text-base sm:text-lg">Don't watch from the sidelines. Dive into the sweetest community on Solana today.</p>
+    <!-- Mini Game Section -->
+    <section id="minigame" class="interactive-layer py-24 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <div class="inline-block bg-honey/10 border border-honey/30 rounded-full px-4 py-1.5 text-xs font-bold tracking-widest text-honey uppercase mb-4 glow-honey">
+                Play & Compete
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-gradient">GuGu Bee Flight</h2>
+            <p class="text-gray-400 max-w-xl mx-auto">Collect flowers and honey while avoiding spooky spiders and birds!</p>
+        </div>
+
+        <div class="glass-panel p-4 md:p-8 relative">
+            <!-- Game Container -->
+            <div id="game-container" class="relative w-full aspect-[16/9] bg-black rounded-xl overflow-hidden border border-honey/30 flex items-center justify-center">
+                
+                <!-- Splash / Start Screen Overlay -->
+                <div id="game-overlay" class="absolute inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-6 z-20 text-center">
+                    <h3 class="text-3xl md:text-4xl font-black text-gradient mb-2">GuGu Bee Flight</h3>
+                    <p class="text-gray-300 text-sm md:text-base mb-6 max-w-md">Enter your Solana wallet address to authenticate and start buzzing for the leaderboard!</p>
+                    
+                    <div class="w-full max-w-md space-y-4">
+                        <input type="text" id="wallet-input" placeholder="Enter Solana Wallet Address..." class="w-full bg-black/80 border border-honey/40 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-honey text-sm">
+                        <div id="wallet-error" class="text-red-500 text-xs hidden">Please enter a valid Solana address (32-44 chars).</div>
+                        <button id="start-game-btn" class="w-full bg-gradient-to-r from-honey to-amber text-black font-bold py-3 rounded-xl glow-honey hover:scale-105 transition">
+                            Start Playing 🐝
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas for Game -->
+                <canvas id="game-canvas" class="w-full h-full block"></canvas>
+
+                <!-- In-Game HUD -->
+                <div id="game-hud" class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none hidden z-10">
+                    <div class="glass-panel px-4 py-2 text-sm font-bold text-honey">
+                        Score: <span id="current-score" class="text-white">0</span>
+                    </div>
+                    <div class="flex space-x-2 pointer-events-auto">
+                        <button id="pause-btn" class="glass-panel px-3 py-2 text-xs font-bold text-white hover:text-honey"><i class="fas fa-pause"></i></button>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                <div class="glass-card p-6 rounded-3xl border border-[#FFD400]/20" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-3xl sm:text-4xl font-black text-gradient brand-font mb-1">5,000+</h3>
-                    <p class="text-gray-400 text-sm">Holders</p>
-                </div>
-                <div class="glass-card p-6 rounded-3xl border border-[#FFD400]/20" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-3xl sm:text-4xl font-black text-gradient brand-font mb-1">$10M+</h3>
-                    <p class="text-gray-400 text-sm">Peak Volume</p>
-                </div>
-                <div class="glass-card p-6 rounded-3xl border border-[#FFD400]/20" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-3xl sm:text-4xl font-black text-gradient brand-font mb-1">10,000+</h3>
-                    <p class="text-gray-400 text-sm">Telegram Members</p>
-                </div>
-                <div class="glass-card p-6 rounded-3xl border border-[#FFD400]/20" data-aos="fade-up" data-aos-delay="400">
-                    <h3 class="text-3xl sm:text-4xl font-black text-gradient brand-font mb-1">100%</h3>
-                    <p class="text-gray-400 text-sm">Viral Energy</p>
-                </div>
+            <!-- Mobile Joystick & Controls hint -->
+            <div class="mt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+                <div><i class="fas fa-keyboard text-honey mr-2"></i> Controls: Use <b class="text-white">W/A/S/D</b>, <b class="text-white">Arrow Keys</b>, or Touch/Drag to fly.</div>
+                <div class="text-honey font-bold">Top Global Leaderboard Active Below 🏆</div>
             </div>
+        </div>
 
-            <div class="flex flex-wrap items-center justify-center gap-6" data-aos="fade-up">
-                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="bg-[#FFD400] text-black font-black px-8 py-4 rounded-full btn-glow flex items-center space-x-3 text-lg">
-                    <i class="fa-brands fa-telegram text-xl"></i>
-                    <span>Join Telegram Swarm</span>
-                </a>
-                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="glass-card hover:bg-white/10 text-white font-bold px-8 py-4 rounded-full border border-[#FFD400]/30 transition-all flex items-center space-x-3 text-lg">
-                    <i class="fa-solid fa-bee text-[#FFD400] text-xl"></i>
-                    <span>Buy $GuGu Now</span>
-                </a>
+        <!-- Leaderboard Section -->
+        <div class="mt-16 glass-panel p-6 md:p-8">
+            <h3 class="text-2xl font-black mb-6 text-gradient flex items-center">
+                <i class="fas fa-trophy text-honey mr-3"></i> Top 10 Swarm Leaderboard
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-honey/20 text-xs text-honey uppercase tracking-wider">
+                            <th class="py-3 px-4">Rank</th>
+                            <th class="py-3 px-4">Wallet Address</th>
+                            <th class="py-3 px-4 text-right">High Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="text-sm divide-y divide-honey/10">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="py-24 relative z-10">
-        <div class="max-w-4xl mx-auto px-6 md:px-12">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-[#FFD400] text-sm font-bold uppercase tracking-widest">Got Questions?</span>
-                <h2 class="text-3xl sm:text-5xl font-black brand-font mt-2">Frequently Asked Questions</h2>
-            </div>
-
-            <div class="space-y-4" data-aos="fade-up">
-                <!-- FAQ Item 1 -->
-                <div class="glass-card rounded-2xl border border-[#FFD400]/20 overflow-hidden">
-                    <button class="faq-btn w-full p-6 text-left font-bold text-lg flex items-center justify-between focus:outline-none">
-                        <span>What is GuGu the Bumblebee?</span>
-                        <i class="fa-solid fa-chevron-down text-[#FFD400] transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-gray-300 text-sm leading-relaxed">
-                        GuGu is the internet's favorite bumblebee brought to life as an ultra-premium meme coin on the Solana blockchain. It combines viral Pixar-style meme culture with pure positive energy and community power.
-                    </div>
+    <!-- Social Links Section -->
+    <section class="interactive-layer py-16 px-6 max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-black mb-8 text-gradient">Join The Swarm</h2>
+        <div class="flex flex-col sm:flex-row justify-center gap-6">
+            <a href="https://t.me/GuGutheBumblebee" target="_blank" class="glass-panel py-5 px-8 rounded-2xl flex items-center justify-center space-x-4 hover:border-honey glow-honey transition group">
+                <i class="fab fa-telegram-plane text-3xl text-honey group-hover:scale-110 transition"></i>
+                <div class="text-left">
+                    <div class="text-xs text-gray-400 font-bold">Official Channel</div>
+                    <div class="text-lg font-black text-white">Telegram Community</div>
                 </div>
-
-                <!-- FAQ Item 2 -->
-                <div class="glass-card rounded-2xl border border-[#FFD400]/20 overflow-hidden">
-                    <button class="faq-btn w-full p-6 text-left font-bold text-lg flex items-center justify-between focus:outline-none">
-                        <span>How do I buy $GuGu?</span>
-                        <i class="fa-solid fa-chevron-down text-[#FFD400] transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-gray-300 text-sm leading-relaxed">
-                        You can buy $GuGu easily by setting up a Solana wallet (Phantom or Solflare), funding it with SOL, and purchasing directly on our official Pump.fun page or Raydium.
-                    </div>
+            </a>
+            <a href="https://x.com/mrhanhq" target="_blank" class="glass-panel py-5 px-8 rounded-2xl flex items-center justify-center space-x-4 hover:border-honey glow-honey transition group">
+                <i class="fab fa-x-twitter text-3xl text-honey group-hover:scale-110 transition"></i>
+                <div class="text-left">
+                    <div class="text-xs text-gray-400 font-bold">Developer X</div>
+                    <div class="text-lg font-black text-white">Follow @mrhanhq</div>
                 </div>
-
-                <!-- FAQ Item 3 -->
-                <div class="glass-card rounded-2xl border border-[#FFD400]/20 overflow-hidden">
-                    <button class="faq-btn w-full p-6 text-left font-bold text-lg flex items-center justify-between focus:outline-none">
-                        <span>Is liquidity locked?</span>
-                        <i class="fa-solid fa-chevron-down text-[#FFD400] transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-gray-300 text-sm leading-relaxed">
-                        Yes! Liquidity is 100% locked on Pump.fun bonding curve and decentralized exchanges to ensure absolute safety and trust for all holders.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 4 -->
-                <div class="glass-card rounded-2xl border border-[#FFD400]/20 overflow-hidden">
-                    <button class="faq-btn w-full p-6 text-left font-bold text-lg flex items-center justify-between focus:outline-none">
-                        <span>What chain is GuGu on?</span>
-                        <i class="fa-solid fa-chevron-down text-[#FFD400] transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-gray-300 text-sm leading-relaxed">
-                        GuGu lives on the Solana network, ensuring lightning-fast transaction speeds and extremely low gas fees.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 5 -->
-                <div class="glass-card rounded-2xl border border-[#FFD400]/20 overflow-hidden">
-                    <button class="faq-btn w-full p-6 text-left font-bold text-lg flex items-center justify-between focus:outline-none">
-                        <span>Where can I track the chart?</span>
-                        <i class="fa-solid fa-chevron-down text-[#FFD400] transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-6 text-gray-300 text-sm leading-relaxed">
-                        You can track real-time price action, volume, and trades live on DexScreener using our official token contract address.
-                    </div>
-                </div>
-            </div>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 relative z-10 bg-black border-t border-[#FFD400]/20">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="flex items-center space-x-3">
-                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="Logo" class="w-12 h-12 rounded-full border-2 border-[#FFD400] object-cover">
-                <div>
-                    <span class="text-xl font-black brand-font tracking-wide text-gradient">GuGu the Bumblebee</span>
-                    <p class="text-xs text-gray-400">The Internet's Favorite Solana Meme Coin</p>
-                </div>
+    <footer class="interactive-layer border-t border-honey/10 py-12 px-6 text-center text-sm text-gray-400">
+        <div class="flex items-center justify-center space-x-3 mb-4">
+            <div class="w-8 h-8 rounded-full p-0.5 bg-gradient-to-tr from-honey to-amber">
+                <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu Logo" class="w-full h-full rounded-full object-cover">
             </div>
-
-            <!-- Social Links -->
-            <div class="flex items-center space-x-4">
-                <a href="https://t.me/GuGutheBumblebee" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-[#FFD400] hover:bg-[#FFD400] hover:text-black transition-all">
-                    <i class="fa-brands fa-telegram"></i>
-                </a>
-                <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-[#FFD400] hover:bg-[#FFD400] hover:text-black transition-all">
-                    <i class="fa-solid fa-rocket"></i>
-                </a>
-                <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-[#FFD400] hover:bg-[#FFD400] hover:text-black transition-all">
-                    <i class="fa-solid fa-chart-line"></i>
-                </a>
-            </div>
-
-            <!-- Back to top -->
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="glass-card px-5 py-2.5 rounded-full text-sm font-bold text-[#FFD400] hover:bg-[#FFD400] hover:text-black transition-all flex items-center space-x-2 border border-[#FFD400]/30">
-                <span>Back to Top</span>
-                <i class="fa-solid fa-arrow-up"></i>
-            </button>
+            <span class="font-black text-lg text-white">GuGu the Bumblebee</span>
         </div>
-
-        <div class="max-w-7xl mx-auto px-6 md:px-12 mt-12 pt-8 border-t border-white/5 text-center text-xs text-gray-500">
-            <p>&copy; 2026 GuGu the Bumblebee ($GuGu). All rights reserved. Meme coins are high risk. Always DYOR.</p>
+        <p class="mb-4">Spread positivity, memes, and buzzing energy across Web3.</p>
+        <div class="flex justify-center space-x-6 mb-6 text-honey text-lg">
+            <a href="https://t.me/GuGutheBumblebee" target="_blank" class="hover:scale-110 transition"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://x.com/mrhanhq" target="_blank" class="hover:scale-110 transition"><i class="fab fa-x-twitter"></i></a>
         </div>
+        <p class="text-xs text-gray-500">Copyright © 2026 GuGu the Bumblebee. All rights reserved. Meme coin for entertainment purposes only.</p>
     </footer>
 
-    <!-- JavaScript Implementation -->
+    <!-- Background & Bee Animation Engine -->
     <script>
-        // AOS Initialization
-        AOS.init({
-            duration: 800,
-            once: true,
-        });
+        // --- BACKGROUND & HIVE ENVIRONMENT CANVAS ---
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
 
-        // Loading Screen Animation
-        window.addEventListener('load', () => {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const loadingBar = document.getElementById('loadingBar');
-            const loadingPercent = document.getElementById('loadingPercent');
-            
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 15) + 5;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                        }, 700);
-                    }, 300);
-                }
-                loadingBar.style.width = progress + '%';
-                loadingPercent.innerText = progress + '%';
-            }, 50);
-        });
+        function resizeBg() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBg);
+        resizeBg();
 
-        // Custom Cursor & Mouse Glow
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-        const mouseGlow = document.getElementById('mouseGlow');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursorDot.style.transform = `translate(${posX}px, ${posY}px)`;
-            cursorOutline.style.transform = `translate(${posX - 16}px, ${posY - 16}px)`;
-            mouseGlow.style.left = posX + 'px';
-            mouseGlow.style.top = posY + 'px';
-        });
-
-        // Navbar Shrink on Scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('py-3');
-                navbar.classList.remove('py-4');
-            } else {
-                navbar.classList.add('py-4');
-                navbar.classList.remove('py-3');
-            }
-        });
-
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+        // Particles & Hexagons
+        const hexagons = [];
+        for (let i = 0; i < 15; i++) {
+            hexagons.push({
+                x: Math.random() * bgCanvas.width,
+                y: Math.random() * bgCanvas.height,
+                size: 30 + Math.random() * 50,
+                speedY: 0.2 + Math.random() * 0.5,
+                opacity: 0.03 + Math.random() * 0.05,
+                rotation: Math.random() * Math.PI
             });
-        });
-
-        // Copy Contract Address Function
-        function copyCA() {
-            const ca = "C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump";
-            navigator.clipboard.writeText(ca);
-            const copyText = document.getElementById('copyText');
-            const copyIcon = document.getElementById('copyIcon');
-            
-            copyText.innerText = "Copied!";
-            copyIcon.classList.remove('fa-regular', 'fa-copy');
-            copyIcon.classList.add('fa-solid', 'fa-check');
-
-            setTimeout(() => {
-                copyText.innerText = "Copy";
-                copyIcon.classList.remove('fa-solid', 'fa-check');
-                copyIcon.classList.add('fa-regular', 'fa-copy');
-            }, 2000);
         }
 
-        // FAQ Accordion
-        const faqButtons = document.querySelectorAll('.faq-btn');
-        faqButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const icon = button.querySelector('fa-chevron-down, i');
-                
-                // Toggle current
-                content.classList.toggle('hidden');
-                if(!content.classList.contains('hidden')) {
-                    icon.style.transform = 'rotate(180deg)';
-                } else {
-                    icon.style.transform = 'rotate(0deg)';
-                }
+        const pollen = [];
+        for (let i = 0; i < 50; i++) {
+            pollen.push({
+                x: Math.random() * bgCanvas.width,
+                y: Math.random() * bgCanvas.height,
+                radius: 1 + Math.random() * 2,
+                speedY: -0.1 - Math.random() * 0.3,
+                speedX: (Math.random() - 0.5) * 0.2,
+                opacity: 0.2 + Math.random() * 0.5
             });
+        }
+
+        function drawHexagon(ctx, x, y, radius, alpha, rot) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rot);
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                let angle = (i * Math.PI) / 3;
+                let hx = radius * Math.cos(angle);
+                let hy = radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy);
+                else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = `rgba(255, 193, 7, ${alpha})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+            // Draw Hexagons
+            hexagons.forEach(h => {
+                h.y -= h.speedY;
+                h.rotation += 0.002;
+                if (h.y < -50) h.y = bgCanvas.height + 50;
+                drawHexagon(bgCtx, h.x, h.y, h.size, h.opacity, h.rotation);
+            });
+
+            // Draw Pollen
+            pollen.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                if (p.y < 0) p.y = bgCanvas.height;
+                if (p.x < 0) p.x = bgCanvas.width;
+                if (p.x > bgCanvas.width) p.x = 0;
+
+                bgCtx.beginPath();
+                bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                bgCtx.fillStyle = `rgba(255, 193, 7, ${p.opacity})`;
+                bgCtx.fill();
+            });
+
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+
+        // --- BEE SWARM FLIGHT ENGINE ---
+        const beeCanvas = document.getElementById('bee-canvas');
+        const beeCtx = beeCanvas.getContext('2d');
+
+        function resizeBeeCanvas() {
+            beeCanvas.width = window.innerWidth;
+            beeCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBeeCanvas);
+        resizeBeeCanvas();
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
+
+        const bees = [];
+        const beeCount = window.innerWidth < 768 ? 6 : 14;
+
+        for (let i = 0; i < beeCount; i++) {
+            bees.push({
+                x: Math.random() * beeCanvas.width,
+                y: Math.random() * beeCanvas.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                size: 12 + Math.random() * 10,
+                wingAngle: Math.random() * Math.PI,
+                wingSpeed: 0.4 + Math.random() * 0.3,
+                trail: [],
+                angle: 0,
+                targetChangeTimer: 0
+            });
+        }
+
+        function animateBees() {
+            beeCtx.clearRect(0, 0, beeCanvas.width, beeCanvas.height);
+
+            bees.forEach((bee, index) => {
+                bee.targetChangeTimer++;
+                if (bee.targetChangeTimer > 100 + Math.random() * 100) {
+                    bee.vx = (Math.random() - 0.5) * 2.5;
+                    bee.vy = (Math.random() - 0.5) * 2.5;
+                    bee.targetChangeTimer = 0;
+                }
+
+                // Mouse reaction
+                let dx = mouseX - bee.x;
+                let dy = mouseY - bee.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120 && dist > 10) {
+                    bee.vx -= (dx / dist) * 0.15;
+                    bee.vy -= (dy / dist) * 0.15;
+                }
+
+                // Speed limit
+                let speed = Math.sqrt(bee.vx * bee.vx + bee.vy * bee.vy);
+                if (speed > 2.5) {
+                    bee.vx = (bee.vx / speed) * 2.5;
+                    bee.vy = (bee.vy / speed) * 2.5;
+                }
+
+                bee.x += bee.vx;
+                bee.y += bee.vy;
+
+                // Screen boundaries wrap
+                if (bee.x < -20) bee.x = beeCanvas.width + 20;
+                if (bee.x > beeCanvas.width + 20) bee.x = -20;
+                if (bee.y < -20) bee.y = beeCanvas.height + 20;
+                if (bee.y > beeCanvas.height + 20) bee.y = -20;
+
+                // Trail particle
+                bee.trail.push({ x: bee.x, y: bee.y, alpha: 0.6 });
+                if (bee.trail.length > 8) bee.trail.shift();
+
+                bee.wingAngle += bee.wingSpeed;
+
+                // Draw trail
+                bee.trail.forEach((t, ti) => {
+                    t.alpha -= 0.08;
+                    if (t.alpha > 0) {
+                        beeCtx.beginPath();
+                        beeCtx.arc(t.x, t.y, 2, 0, Math.PI * 2);
+                        beeCtx.fillStyle = `rgba(255, 193, 7, ${t.alpha})`;
+                        beeCtx.fill();
+                    }
+                });
+
+                // Draw Bee
+                beeCtx.save();
+                beeCtx.translate(bee.x, bee.y);
+                let heading = Math.atan2(bee.vy, bee.vx);
+                beeCtx.rotate(heading);
+
+                // Body (Amber/Black stripes)
+                beeCtx.beginPath();
+                beeCtx.ellipse(0, 0, bee.size, bee.size * 0.6, 0, 0, Math.PI * 2);
+                beeCtx.fillStyle = '#FFC107';
+                beeCtx.fill();
+                beeCtx.lineWidth = 1.5;
+                beeCtx.strokeStyle = '#111111';
+                beeCtx.stroke();
+
+                // Stripes
+                beeCtx.fillStyle = '#111111';
+                beeCtx.fillRect(-bee.size * 0.2, -bee.size * 0.6, 3, bee.size * 1.2);
+                beeCtx.fillRect(bee.size * 0.2, -bee.size * 0.6, 3, bee.size * 1.2);
+
+                // Head
+                beeCtx.beginPath();
+                beeCtx.arc(bee.size * 0.8, 0, bee.size * 0.35, 0, Math.PI * 2);
+                beeCtx.fillStyle = '#111111';
+                beeCtx.fill();
+
+                // Wings (Flapping)
+                let wingFlap = Math.sin(bee.wingAngle) * 0.6;
+                beeCtx.save();
+                beeCtx.translate(0, -bee.size * 0.4);
+                beeCtx.rotate(wingFlap);
+                beeCtx.beginPath();
+                beeCtx.ellipse(0, -bee.size * 0.5, bee.size * 0.4, bee.size * 0.7, -0.3, 0, Math.PI * 2);
+                beeCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                beeCtx.fill();
+                beeCtx.restore();
+
+                beeCtx.restore();
+            });
+
+            requestAnimationFrame(animateBees);
+        }
+        animateBees();
+
+
+        // --- BROWSER MINI GAME ENGINE (GuGu Bee Flight) ---
+        const gameCanvas = document.getElementById('game-canvas');
+        const gameCtx = gameCanvas.getContext('2d');
+        const gameOverlay = document.getElementById('game-overlay');
+        const gameHud = document.getElementById('game-hud');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const walletInput = document.getElementById('wallet-input');
+        const walletError = document.getElementById('wallet-error');
+        const currentScoreEl = document.getElementById('current-score');
+        const pauseBtn = document.getElementById('pause-btn');
+        const leaderboardBody = document.getElementById('leaderboard-body');
+
+        let gameRunning = false;
+        let gamePaused = false;
+        let score = 0;
+        let playerWallet = '';
+
+        // Mock Leaderboard Data
+        let leaderboardData = [
+            { rank: 1, wallet: 'GuGu9x...3Kv9', score: 1420 },
+            { rank: 2, wallet: 'BzBee8...pL2m', score: 1150 },
+            { rank: 3, wallet: 'SolHoney...7YwQ', score: 980 },
+            { rank: 4, wallet: 'HiveKing...4Nx1', score: 850 },
+            { rank: 5, wallet: 'NectarMaster...2Zp8', score: 720 },
+            { rank: 6, wallet: 'BuzzFeed...9Lm4', score: 640 },
+            { rank: 7, wallet: 'StingerX...1Ko3', score: 530 },
+            { rank: 8, wallet: 'GoldenWing...5Rt2', score: 450 },
+            { rank: 9, wallet: 'PollenQueen...8Wq1', score: 390 },
+            { rank: 10, wallet: 'HoneyMoon...3Vb7', score: 310 }
+        ];
+
+        function renderLeaderboard() {
+            leaderboardBody.innerHTML = '';
+            leaderboardData.forEach((item) => {
+                let row = document.createElement('tr');
+                row.className = 'hover:bg-honey/5 transition';
+                row.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-honey">#${item.rank}</td>
+                    <td class="py-3 px-4 font-mono text-gray-300">${item.wallet}</td>
+                    <td class="py-3 px-4 text-right font-black text-white">${item.score}</td>
+                `;
+                leaderboardBody.appendChild(row);
+            });
+        }
+        renderLeaderboard();
+
+        // Game Entities
+        let beePlayer = { x: 100, y: 150, size: 20, vy: 0, targetY: 150 };
+        let gameItems = [];
+        let obstacles = [];
+        let gameFrame = 0;
+
+        function resizeGameCanvas() {
+            const container = document.getElementById('game-container');
+            gameCanvas.width = container.clientWidth;
+            gameCanvas.height = container.clientHeight;
+        }
+        window.addEventListener('resize', resizeGameCanvas);
+        resizeGameCanvas();
+
+        // Controls
+        let keys = {};
+        window.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            if(['ArrowUp','ArrowDown','w','S'].includes(e.key)) e.preventDefault();
+        });
+        window.addEventListener('keyup', (e) => { keys[e.key] = false; });
+
+        gameCanvas.addEventListener('mousemove', (e) => {
+            if (!gameRunning || gamePaused) return;
+            const rect = gameCanvas.getBoundingClientRect();
+            beePlayer.targetY = e.clientY - rect.top;
+        });
+
+        gameCanvas.addEventListener('touchmove', (e) => {
+            if (!gameRunning || gamePaused) return;
+            const rect = gameCanvas.getBoundingClientRect();
+            beePlayer.targetY = e.touches[0].clientY - rect.top;
+            e.preventDefault();
+        }, { passive: false });
+
+        startGameBtn.addEventListener('click', () => {
+            let address = walletInput.value.trim();
+            // Simple Solana validation (Base58, 32-44 chars roughly)
+            if (address.length < 32 || address.length > 44) {
+                walletError.classList.remove('hidden');
+                return;
+            }
+            walletError.classList.add('hidden');
+            playerWallet = address;
+            gameOverlay.classList.add('hidden');
+            gameHud.classList.remove('hidden');
+            startNewGame();
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            gamePaused = !gamePaused;
+            pauseBtn.innerHTML = gamePaused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+        });
+
+        function startNewGame() {
+            gameRunning = true;
+            gamePaused = false;
+            score = 0;
+            currentScoreEl.innerText = score;
+            beePlayer.y = gameCanvas.height / 2;
+            beePlayer.targetY = gameCanvas.height / 2;
+            gameItems = [];
+            obstacles = [];
+            gameFrame = 0;
+            loopGame();
+        }
+
+        function loopGame() {
+            if (!gameRunning) return;
+
+            if (!gamePaused) {
+                gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+                gameFrame++;
+
+                // Player Movement
+                if (keys['ArrowUp'] || keys['w'] || keys['W']) beePlayer.targetY -= 6;
+                if (keys['ArrowDown'] || keys['s'] || keys['S']) beePlayer.targetY += 6;
+
+                // Clamp targetY
+                beePlayer.targetY = Math.max(20, Math.min(gameCanvas.height - 20, beePlayer.targetY));
+                beePlayer.y += (beePlayer.targetY - beePlayer.y) * 0.15;
+
+                // Spawn Items (Flowers / Honey)
+                if (gameFrame % 80 === 0) {
+                    gameItems.push({
+                        x: gameCanvas.width + 30,
+                        y: Math.random() * (gameCanvas.height - 60) + 30,
+                        size: 16,
+                        type: Math.random() > 0.4 ? 'flower' : 'honey'
+                    });
+                }
+
+                // Spawn Obstacles (Spiders / Birds)
+                if (gameFrame % 110 === 0) {
+                    obstacles.push({
+                        x: gameCanvas.width + 40,
+                        y: Math.random() * (gameCanvas.height - 60) + 30,
+                        size: 22,
+                        speed: 3 + Math.min(score / 200, 4),
+                        type: Math.random() > 0.5 ? 'spider' : 'bird'
+                    });
+                }
+
+                // Update & Draw Items
+                for (let i = gameItems.length - 1; i >= 0; i--) {
+                    let item = gameItems[i];
+                    item.x -= 3.5;
+
+                    gameCtx.beginPath();
+                    gameCtx.arc(item.x, item.y, item.size, 0, Math.PI * 2);
+                    gameCtx.fillStyle = item.type === 'flower' ? '#FF5722' : '#FFC107';
+                    gameCtx.fill();
+                    gameCtx.lineWidth = 2;
+                    gameCtx.strokeStyle = '#FFFFFF';
+                    gameCtx.stroke();
+
+                    // Collision check with player
+                    let dist = Math.hypot(beePlayer.x - item.x, beePlayer.y - item.y);
+                    if (dist < beePlayer.size + item.size) {
+                        score += item.type === 'flower' ? 20 : 50;
+                        currentScoreEl.innerText = score;
+                        gameItems.splice(i, 1);
+                        continue;
+                    }
+
+                    if (item.x < -30) gameItems.splice(i, 1);
+                }
+
+                // Update & Draw Obstacles
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    let obs = obstacles[i];
+                    obs.x -= obs.speed;
+
+                    gameCtx.beginPath();
+                    gameCtx.arc(obs.x, obs.y, obs.size, 0, Math.PI * 2);
+                    gameCtx.fillStyle = obs.type === 'spider' ? '#9C27B0' : '#E91E63';
+                    gameCtx.fill();
+                    gameCtx.lineWidth = 2;
+                    gameCtx.strokeStyle = '#000000';
+                    gameCtx.stroke();
+
+                    // Collision check (Game Over)
+                    let dist = Math.hypot(beePlayer.x - obs.x, beePlayer.y - obs.y);
+                    if (dist < beePlayer.size + obs.size - 5) {
+                        gameOver();
+                        return;
+                    }
+
+                    if (obs.x < -40) obstacles.splice(i, 1);
+                }
+
+                // Draw Player (GuGu)
+                gameCtx.save();
+                gameCtx.translate(beePlayer.x, beePlayer.y);
+                gameCtx.beginPath();
+                gameCtx.ellipse(0, 0, beePlayer.size, beePlayer.size * 0.7, 0, 0, Math.PI * 2);
+                gameCtx.fillStyle = '#FFC107';
+                gameCtx.fill();
+                gameCtx.lineWidth = 2;
+                gameCtx.strokeStyle = '#111111';
+                gameCtx.stroke();
+                gameCtx.restore();
+            }
+
+            requestAnimationFrame(loopGame);
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            gameHud.classList.add('hidden');
+
+            // Update Leaderboard check
+            let shortWallet = playerWallet.slice(0, 4) + '...' + playerWallet.slice(-4);
+            leaderboardData.push({ rank: 0, wallet: shortWallet, score: score });
+            leaderboardData.sort((a, b) => b.score - a.score);
+            leaderboardData = leaderboardData.slice(0, 10);
+            leaderboardData.forEach((item, idx) => item.rank = idx + 1);
+            renderLeaderboard();
+
+            // Reset Overlay
+            gameOverlay.classList.remove('hidden');
+            gameOverlay.querySelector('h3').innerText = "Game Over! Score: " + score;
+            startGameBtn.innerText = "Play Again 🐝";
+        }
     </script>
 </body>
 </html>
