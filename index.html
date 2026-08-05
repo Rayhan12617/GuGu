@@ -34,20 +34,20 @@
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
+                            '50%': { transform: 'translateY(-18px) rotate(4deg)' },
                         },
                         pulseGlow: {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 212, 0, 0.4)' },
-                            '50%': { boxShadow: '0 0 35px rgba(255, 212, 0, 0.7)' },
+                            '0%, 100%': { boxShadow: '0 0 25px rgba(255, 212, 0, 0.4)' },
+                            '50%': { boxShadow: '0 0 45px rgba(255, 212, 0, 0.75)' },
                         },
                         wiggle: {
-                            '0%, 100%': { transform: 'rotate(-3deg)' },
-                            '50%': { transform: 'rotate(3deg)' },
+                            '0%, 100%': { transform: 'rotate(-4deg)' },
+                            '50%': { transform: 'rotate(4deg)' },
                         },
                         drip: {
                             '0%': { transform: 'translateY(-10px)', opacity: '0' },
                             '50%': { opacity: '1' },
-                            '100%': { transform: 'translateY(35px)', opacity: '0' },
+                            '100%': { transform: 'translateY(40px)', opacity: '0' },
                         }
                     }
                 }
@@ -59,6 +59,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- QRCode.js Library for instant dynamic QR code generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <!-- GSAP & AOS Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -86,7 +89,7 @@
                 border: 2px solid #FFD400;
                 border-radius: 50%;
                 transform: translate(-50%, -50%);
-                transition: width 0.2s, height 0.2s, background-color 0.2s;
+                transition: width 0.15s, height 0.15s, background-color 0.15s;
                 z-index: 9999;
                 box-shadow: 0 0 15px rgba(255, 212, 0, 0.5);
             }
@@ -101,16 +104,16 @@
                 z-index: 10000;
             }
         }
-        /* Glassmorphism optimized for mobile battery & performance */
+        /* Glassmorphism optimized for performance */
         .glass-panel {
             background: rgba(28, 28, 30, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 212, 0, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 212, 0, 0.18);
+            box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.4);
         }
         .glass-panel:active {
-            border-color: rgba(255, 212, 0, 0.4);
+            border-color: rgba(255, 212, 0, 0.45);
         }
         /* Honeycomb Pattern Background */
         .honeycomb-bg {
@@ -132,6 +135,11 @@
         /* Mobile menu smooth slide transition */
         #mobile-menu {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 3D Tilt Card Base */
+        .tilt-card {
+            transition: transform 0.2s ease-out;
+            transform-style: preserve-3d;
         }
     </style>
 </head>
@@ -205,7 +213,7 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle Button (Larger touch target) -->
+            <!-- Mobile Menu Toggle Button -->
             <button id="menu-btn" aria-label="Toggle Navigation Menu" class="lg:hidden text-primary p-2 focus:outline-none text-2xl active:scale-95 transition-transform">
                 <i class="fa-solid fa-bars" id="menu-icon"></i>
             </button>
@@ -241,7 +249,7 @@
 
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-20 w-full">
             
-            <!-- Left Column: Content (Appears first on mobile for conversion) -->
+            <!-- Left Column: Content -->
             <div class="lg:col-span-7 text-center lg:text-left order-2 lg:order-1" data-aos="fade-right" data-aos-duration="800">
                 <!-- Badge -->
                 <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-primary/30 mb-4 sm:mb-6 shadow-[0_0_15px_rgba(255,212,0,0.2)]">
@@ -264,7 +272,7 @@
                     Inspired by one of the internet's most viral bumblebee moments, GuGu brings together memes, community, fun, and positive energy. No complicated promises—just good vibes, unforgettable memes, and a buzzing community.
                 </p>
 
-                <!-- CTA Buttons (Stack neatly on mobile) -->
+                <!-- CTA Buttons -->
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-8 w-full">
                     <a href="https://pump.fun/coin/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-honey to-primary text-black font-heading font-extrabold text-sm sm:text-base flex items-center justify-center space-x-3 transition-all active:scale-95 shadow-[0_0_25px_rgba(255,212,0,0.4)]">
                         <i class="fa-solid fa-honey-pot text-lg"></i>
@@ -280,7 +288,7 @@
                     </a>
                 </div>
 
-                <!-- Contract Address Glass Card (Mobile Optimized Text Wrapping) -->
+                <!-- Contract Address Glass Card with QR Code modal trigger -->
                 <div class="glass-panel rounded-2xl p-3.5 sm:p-4 max-w-xl mx-auto lg:mx-0 border border-primary/20">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-[11px] font-mono text-gray-400 uppercase flex items-center space-x-1.5">
@@ -296,6 +304,10 @@
                                 <i id="copy-icon" class="fa-regular fa-copy"></i>
                                 <span id="copy-text">Copy</span>
                             </button>
+                            <button onclick="openQRModal()" title="Show QR Code" class="px-2.5 py-1.5 rounded-lg bg-surface border border-white/10 text-primary hover:border-primary transition-colors text-xs flex items-center space-x-1">
+                                <i class="fa-solid fa-qrcode"></i>
+                                <span class="hidden sm:inline">QR</span>
+                            </button>
                             <a href="https://solscan.io/token/C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump" target="_blank" title="View on Solscan" class="p-2 rounded-lg bg-surface border border-white/10 text-primary hover:border-primary transition-colors text-xs">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
@@ -304,16 +316,13 @@
                 </div>
             </div>
 
-            <!-- Right Column: Mascot Visual (Appears second on mobile) -->
+            <!-- Right Column: Mascot Visual with 3D Tilt -->
             <div class="lg:col-span-5 flex flex-col items-center justify-center relative order-1 lg:order-2 mb-4 lg:mb-0" data-aos="fade-left" data-aos-duration="800">
-                <!-- Glowing Backdrop Circle -->
                 <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-honey/30 to-primary/30 blur-2xl animate-pulse-glow"></div>
                 
-                <!-- Main Mascot Container -->
-                <div class="relative z-10 animate-float">
+                <div class="relative z-10 animate-float tilt-card" id="hero-tilt">
                     <div class="w-64 h-64 sm:w-80 sm:h-80 rounded-3xl glass-panel p-3.5 border-2 border-primary/50 shadow-[0_0_40px_rgba(255,212,0,0.3)] overflow-hidden">
                         <img src="https://i.imgur.com/y68XoNl.jpeg" alt="GuGu the Bumblebee" class="w-full h-full object-cover rounded-2xl">
-                        <!-- Floating Honeycomb Badge overlay -->
                         <div class="absolute bottom-4 left-4 right-4 glass-panel rounded-2xl p-2.5 sm:p-3 flex items-center justify-between border border-primary/40">
                             <div class="flex items-center space-x-2.5">
                                 <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-black font-black text-sm">🐝</div>
@@ -327,7 +336,6 @@
                     </div>
                 </div>
 
-                <!-- Secondary Animated Flying Bee element -->
                 <div class="absolute -top-4 right-2 sm:right-4 animate-wiggle z-20 pointer-events-none">
                     <div class="glass-panel px-3 py-1.5 rounded-full border border-primary/40 flex items-center space-x-1.5 shadow-lg">
                         <span class="text-sm">🐝</span>
@@ -376,25 +384,25 @@
                     <h3 class="font-heading font-bold text-base sm:text-lg mb-1">DexScreener</h3>
                     <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Real-time price action, liquidity pools, and volume analytics.</p>
                     <a href="https://dexscreener.com/solana/5kkzFA8AhcYza7BB8p8xB2j6NMpZJJaXFXsBem6GXE1j" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
-                        <span>View Chart</span>
+                        <span>View DexScreener</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
 
-                <!-- Card 3: Solana Network -->
+                <!-- Card 3: Contract Address -->
                 <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 border border-primary/20 hover:border-primary transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex items-center justify-between mb-3">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-lg">
-                            <i class="fa-solid fa-bolt"></i>
+                            <i class="fa-solid fa-file-contract"></i>
                         </div>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 font-bold">SOLANA</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 font-bold">VERIFIED</span>
                     </div>
-                    <h3 class="font-heading font-bold text-base sm:text-lg mb-1">Lightning Fast</h3>
-                    <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Zero friction, ultra-low fees, and instant settlement on Solana.</p>
-                    <a href="https://solana.com" target="_blank" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
-                        <span>Solana Network</span>
-                        <i class="fa-solid fa-globe"></i>
-                    </a>
+                    <h3 class="font-heading font-bold text-base sm:text-lg mb-1">Contract Address</h3>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mb-5">Secure, verified Solana smart contract with locked LP.</p>
+                    <button onclick="copyCA()" class="w-full py-3 rounded-xl bg-surface border border-primary/30 text-white hover:border-primary font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
+                        <span>Copy Contract</span>
+                        <i class="fa-regular fa-copy text-primary"></i>
+                    </button>
                 </div>
 
                 <!-- Card 4: Official Telegram -->
@@ -456,25 +464,25 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <!-- Feature 1 -->
-                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20 hover:border-primary transition-all duration-300 hover:scale-[1.02]">
                             <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">🐝</div>
                             <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Viral Meme</h4>
                             <p class="text-[11px] sm:text-xs text-gray-400">Rooted in genuine viral culture that resonates across platforms.</p>
                         </div>
                         <!-- Feature 2 -->
-                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20 hover:border-primary transition-all duration-300 hover:scale-[1.02]">
                             <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">🍯</div>
                             <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Sweet Community</h4>
                             <p class="text-[11px] sm:text-xs text-gray-400">A warm, welcoming hive where holders support each other.</p>
                         </div>
                         <!-- Feature 3 -->
-                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20 hover:border-primary transition-all duration-300 hover:scale-[1.02]">
                             <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">🚀</div>
                             <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Fast Growing</h4>
                             <p class="text-[11px] sm:text-xs text-gray-400">Leveraging Solana's high-speed architecture for momentum.</p>
                         </div>
                         <!-- Feature 4 -->
-                        <div class="glass-panel rounded-2xl p-4 border border-primary/20">
+                        <div class="glass-panel rounded-2xl p-4 border border-primary/20 hover:border-primary transition-all duration-300 hover:scale-[1.02]">
                             <div class="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base mb-2.5">💎</div>
                             <h4 class="font-heading font-bold text-sm sm:text-base mb-1">Diamond Hands</h4>
                             <p class="text-[11px] sm:text-xs text-gray-400">Committed swarm members dedicated to building a legacy.</p>
@@ -636,7 +644,7 @@
                 <h2 class="text-2.5xl sm:text-5xl font-heading font-extrabold mt-3 mb-3">Become Part of the Swarm</h2>
                 <p class="text-gray-300 text-xs sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10">Join thousands of holders, meme creators, and believers in the official Telegram channel. Good vibes only.</p>
 
-                <!-- Live Counters Grid (2x2 on mobile for clean spacing) -->
+                <!-- Live Counters Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-6 mb-8 sm:mb-10">
                     <div class="bg-black/40 rounded-2xl p-4 sm:p-6 border border-white/5">
                         <span id="counter-holders" class="text-2xl sm:text-4xl font-heading font-black text-primary block mb-0.5">4,250+</span>
@@ -717,15 +725,26 @@
                 <!-- FAQ Item 4 -->
                 <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
                     <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
-                        <span>Where can I track the live chart?</span>
+                        <span>Where is the community located?</span>
                         <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
-                        <p class="pb-4 sm:pb-6">You can track real-time price action, volume, and holder statistics on DexScreener using our official contract address.</p>
+                        <p class="pb-4 sm:pb-6">Our official community hub is on Telegram at t.me/GuGutheBumblebee, where thousands of swarm members gather daily for raids, memes, and updates.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 5 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>Why is GuGu different?</span>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">GuGu brings Pixar-quality visual standards and genuine internet meme culture together into a wholesome, unstoppable movement on Solana.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
                 <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
                     <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
                         <span>What chain is GuGu on?</span>
@@ -733,6 +752,28 @@
                     </button>
                     <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
                         <p class="pb-4 sm:pb-6">GuGu is proudly built on Solana, taking advantage of lightning-fast transaction speeds and ultra-low fees.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>Where can I track the chart?</span>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">You can track real-time price action, volume, and holder statistics on DexScreener using our official contract address.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="glass-panel rounded-2xl border border-primary/20 overflow-hidden">
+                    <button class="faq-toggle w-full p-4.5 sm:p-6 text-left font-heading font-bold text-sm sm:text-lg flex items-center justify-between focus:outline-none">
+                        <span>How do I copy the contract address?</span>
+                        <i class="fa-solid fa-chevron-down text-primary text-xs sm:text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-4.5 sm:px-6 text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        <p class="pb-4 sm:pb-6">Simply click the "Copy" button next to the contract address anywhere on the website to instantly save it to your clipboard.</p>
                     </div>
                 </div>
             </div>
@@ -801,13 +842,38 @@
         </div>
     </footer>
 
+    <!-- QR CODE MODAL -->
+    <div id="qr-modal" class="fixed inset-0 z-[10001] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-primary/40 text-center relative shadow-2xl">
+            <button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-surface border border-white/10 flex items-center justify-center text-gray-300 hover:text-white">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xl mx-auto mb-4">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-1">Scan Contract QR</h3>
+            <p class="text-xs text-gray-400 mb-6">Scan with any Solana mobile wallet to view or buy $GuGu instantly.</p>
+            
+            <div id="qrcode-container" class="bg-white p-4 rounded-2xl inline-block mb-6 shadow-inner flex justify-center"></div>
+            
+            <div class="bg-black/50 rounded-xl p-2.5 border border-white/5 mb-4">
+                <span class="text-[10px] font-mono text-primary break-all select-all">C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump</span>
+            </div>
+            
+            <button onclick="copyCA()" class="w-full py-3 rounded-xl bg-gradient-to-r from-honey to-primary text-black font-heading font-bold text-xs flex items-center justify-center space-x-2 active:scale-95 shadow-md">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy Contract Address</span>
+            </button>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Initialize AOS with mobile disable option or optimized settings
+        // Initialize AOS
         AOS.init({
-            duration: 700,
+            duration: 800,
             once: true,
-            disable: 'mobile' // Disables heavy scroll animations on smaller screens for instant silky-smooth touch performance
+            disable: 'mobile'
         });
 
         // Preloader Simulation
@@ -847,13 +913,13 @@
             });
         }
 
-        // Dynamic Background Floating Particles Generator (Reduced for mobile efficiency)
+        // Dynamic Background Floating Particles Generator
         const particlesContainer = document.getElementById('particles-container');
-        const particleCount = window.innerWidth < 768 ? 10 : 22;
+        const particleCount = window.innerWidth < 768 ? 12 : 25;
         for (let i = 0; i < particleCount; i++) {
             const p = document.createElement('div');
             p.className = 'absolute rounded-full bg-primary pointer-events-none opacity-20 animate-float';
-            const size = Math.random() * 5 + 2;
+            const size = Math.random() * 6 + 2;
             p.style.width = size + 'px';
             p.style.height = size + 'px';
             p.style.left = Math.random() * 100 + 'vw';
@@ -864,7 +930,6 @@
         }
 
         // Sticky Navbar shrink on scroll
-        const navbar = document.getElementById('navbar');
         const navContainer = document.getElementById('nav-container');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 30) {
@@ -876,7 +941,7 @@
             }
         });
 
-        // Mobile Menu Toggle with Icon Swap Animation
+        // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -898,7 +963,7 @@
             });
         });
 
-        // Copy Contract Address Function with mobile vibration feedback if supported
+        // Copy Contract Address Function
         function copyCA() {
             const caText = "C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump";
             navigator.clipboard.writeText(caText);
@@ -910,13 +975,45 @@
             const copyText = document.getElementById('copy-text');
             const copyIcon = document.getElementById('copy-icon');
             
-            copyText.innerText = "Copied!";
-            copyIcon.className = "fa-solid fa-check";
-            
-            setTimeout(() => {
-                copyText.innerText = "Copy";
-                copyIcon.className = "fa-regular fa-copy";
-            }, 2000);
+            if(copyText) {
+                copyText.innerText = "Copied!";
+                copyIcon.className = "fa-solid fa-check";
+                setTimeout(() => {
+                    copyText.innerText = "Copy";
+                    copyIcon.className = "fa-regular fa-copy";
+                }, 2000);
+            }
+        }
+
+        // QR Code Modal Logic
+        let qrGenerated = false;
+        function openQRModal() {
+            document.getElementById('qr-modal').classList.remove('hidden');
+            if (!qrGenerated) {
+                new QRCode(document.getElementById("qrcode-container"), {
+                    text: "C24yivcsCGooHWRm9GLaU6CHsV54qHopeGVnc2oQpump",
+                    width: 160,
+                    height: 160,
+                    colorDark: "#111111",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                qrGenerated = true;
+            }
+        }
+
+        function closeQRModal() {
+            document.getElementById('qr-modal').classList.add('hidden');
+        }
+
+        // 3D Tilt Effect on Hero Mascot
+        const heroTilt = document.getElementById('hero-tilt');
+        if (heroTilt && window.matchMedia('(pointer: fine)').matches) {
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                heroTilt.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
         }
 
         // FAQ Accordion Toggle Logic
